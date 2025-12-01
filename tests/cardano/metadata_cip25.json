@@ -1,0 +1,96 @@
+{
+  "category": "metadata",
+  "description": "CIP-25 NFT Metadata Tests",
+  "version": "1.0",
+  "testCases": [
+    {
+      "id": "cip25-simple-nft",
+      "category": "metadata",
+      "description": "CIP-25: Simple NFT with name and image",
+      "inputHex": "a163373231a1581caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1464e4654303031a2646e616d656c4d79204669727374204e465465696d6167657835697066733a2f2f516d586e6e797566647a41574c3543715a32526e534e67506276436331414c543733733665705072526e5a315879",
+      "expectedOutput": {
+        "721": {
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa": {
+            "4e4654303031": {
+              "name": "My First NFT",
+              "image": "ipfs://QmXnnyufdzAWL5CqZ2RnSNgPbvCc1ALT73s6epPrRnZ1Xy"
+            }
+          }
+        }
+      },
+      "diagnosticNotation": "{\"721\": {h'AA...': {h'NFT001': {...}}}}",
+      "shouldSucceed": true,
+      "complexity": "complex",
+      "tags": [
+        "cardano",
+        "metadata",
+        "cip-25",
+        "nft"
+      ],
+      "cardanoRelevance": "CIP-25 NFT metadata standard (label 721)",
+      "cip": "CIP-25"
+    },
+    {
+      "id": "cip25-nft-with-description",
+      "category": "metadata",
+      "description": "CIP-25: NFT with name, image, and description",
+      "inputHex": "a163373231a1581cbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbba148546f6b656e303031a3646e616d65725370616365204578706c6f7265722023343265696d61676570697066733a2f2f516d486173683132336b6465736372697074696f6e7641206272617665207370616365206578706c6f726572",
+      "expectedOutput": {
+        "721": {
+          "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb": {
+            "546f6b656e303031": {
+              "name": "Space Explorer #42",
+              "image": "ipfs://QmHash123",
+              "description": "A brave space explorer"
+            }
+          }
+        }
+      },
+      "diagnosticNotation": "{\"721\": {...}}",
+      "shouldSucceed": true,
+      "complexity": "complex",
+      "tags": [
+        "cardano",
+        "metadata",
+        "cip-25",
+        "nft"
+      ],
+      "cip": "CIP-25"
+    },
+    {
+      "id": "cip25-nft-with-files",
+      "category": "metadata",
+      "description": "CIP-25: NFT with files array",
+      "inputHex": "a163373231a1581ccccccccccccccccccccccccccccccccccccccccccccccccccccccccca146417274303031a3646e616d656b4469676974616c2041727465696d6167656e697066733a2f2f516d496d6167656566696c657381a3646e616d65697468756d626e61696c696d656469615479706569696d6167652f706e67637372636e697066733a2f2f516d5468756d62",
+      "expectedOutput": {
+        "721": {
+          "cccccccccccccccccccccccccccccccccccccccccccccccccccccccc": {
+            "417274303031": {
+              "name": "Digital Art",
+              "image": "ipfs://QmImage",
+              "files": [
+                {
+                  "name": "thumbnail",
+                  "mediaType": "image/png",
+                  "src": "ipfs://QmThumb"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "diagnosticNotation": "{\"721\": {...files: [...]}}",
+      "shouldSucceed": true,
+      "complexity": "extreme",
+      "tags": [
+        "cardano",
+        "metadata",
+        "cip-25",
+        "nft",
+        "files"
+      ],
+      "cip": "CIP-25",
+      "cardanoRelevance": "NFT with additional files (thumbnails, etc.)"
+    }
+  ]
+}

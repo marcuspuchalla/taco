@@ -1,0 +1,64 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build outputs
+dist/
+build/
+*.js.map
+*.d.ts.map
+
+# Test reports (large files, can be regenerated)
+reports/*.json
+reports/*.html
+reports/*.csv
+
+# Keep report directory structure and markdown
+!reports/.gitkeep
+!reports/*.md
+
+# Python virtual environment
+external-libs/python/venv/
+external-libs/python/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Coverage
+coverage/
+.nyc_output/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Claude development guidelines (internal use)
+CLAUDE.md

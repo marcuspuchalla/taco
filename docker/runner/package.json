@@ -1,0 +1,12 @@
+{
+  "name": "cbor-test-runner",
+  "version": "1.0.0",
+  "description": "CBOR test suite runner - orchestrates tests across containers",
+  "main": "runner.js",
+  "type": "module",
+  "scripts": {
+    "start": "node runner.js",
+    "test": "node runner.js"
+  },
+  "dependencies": {}
+}

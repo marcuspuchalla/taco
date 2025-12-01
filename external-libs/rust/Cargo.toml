@@ -1,0 +1,10 @@
+[package]
+name = "cbor_bridge"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+ciborium = "0.2"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+hex = "0.4"

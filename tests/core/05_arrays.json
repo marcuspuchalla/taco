@@ -1,0 +1,364 @@
+{
+  "category": "arrays",
+  "description": "RFC 8949 Major Type 4: Array Tests",
+  "version": "1.0",
+  "testCases": [
+    {
+      "id": "array-000",
+      "category": "arrays",
+      "description": "Empty array",
+      "inputHex": "80",
+      "expectedOutput": [],
+      "diagnosticNotation": "[]",
+      "shouldSucceed": true,
+      "complexity": "trivial",
+      "tags": [
+        "empty",
+        "boundary"
+      ],
+      "cardanoRelevance": "Empty witness sets, empty arrays in Plutus Data"
+    },
+    {
+      "id": "array-single",
+      "category": "arrays",
+      "description": "Single element: [1]",
+      "inputHex": "8101",
+      "expectedOutput": [
+        1
+      ],
+      "diagnosticNotation": "[1]",
+      "shouldSucceed": true,
+      "complexity": "trivial",
+      "tags": [
+        "basic"
+      ]
+    },
+    {
+      "id": "array-integers",
+      "category": "arrays",
+      "description": "Simple integers: [1, 2, 3]",
+      "inputHex": "83010203",
+      "expectedOutput": [
+        1,
+        2,
+        3
+      ],
+      "diagnosticNotation": "[1, 2, 3]",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "basic",
+        "homogeneous"
+      ]
+    },
+    {
+      "id": "array-range-1-10",
+      "category": "arrays",
+      "description": "Range: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]",
+      "inputHex": "8a0102030405060708090a",
+      "expectedOutput": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "diagnosticNotation": "[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "homogeneous"
+      ]
+    },
+    {
+      "id": "array-mixed",
+      "category": "arrays",
+      "description": "Mixed types: [1, \"hello\", true]",
+      "inputHex": "83016568656c6c6ff5",
+      "expectedOutput": [
+        1,
+        "hello",
+        true
+      ],
+      "diagnosticNotation": "[1, \"hello\", true]",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "heterogeneous",
+        "mixed"
+      ],
+      "cardanoRelevance": "Plutus Data lists can contain mixed types"
+    },
+    {
+      "id": "array-nested-2d",
+      "category": "arrays",
+      "description": "Nested 2D: [[1, 2], [3, 4]]",
+      "inputHex": "82820102820304",
+      "expectedOutput": [
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "diagnosticNotation": "[[1, 2], [3, 4]]",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "nested",
+        "2d"
+      ]
+    },
+    {
+      "id": "array-nested-3d",
+      "category": "arrays",
+      "description": "Nested 3D: [[[1]]]",
+      "inputHex": "8181818101",
+      "expectedOutput": [
+        [
+          [
+            1
+          ]
+        ]
+      ],
+      "diagnosticNotation": "[[[1]]]",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "nested",
+        "3d"
+      ]
+    },
+    {
+      "id": "array-deeply-nested",
+      "category": "arrays",
+      "description": "Deeply nested: 10 levels",
+      "inputHex": "8181818181818181818101",
+      "expectedOutput": [
+        [
+          [
+            [
+              [
+                [
+                  [
+                    [
+                      [
+                        [
+                          1
+                        ]
+                      ]
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ]
+      ],
+      "diagnosticNotation": "[[[[[[[[[[1]]]]]]]]]]",
+      "shouldSucceed": true,
+      "complexity": "complex",
+      "tags": [
+        "nested",
+        "deep"
+      ],
+      "notes": "Tests stack depth handling"
+    },
+    {
+      "id": "array-tx-input",
+      "category": "arrays",
+      "description": "Transaction input structure: [txId, index]",
+      "inputHex": "825820abababababababababababababababababababababababababababababababab00",
+      "expectedOutput": [
+        "abababababababababababababababababababababababababababababababab",
+        0
+      ],
+      "diagnosticNotation": "[h'ABAB...', 0]",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "transaction",
+        "input"
+      ],
+      "cardanoRelevance": "Transaction input structure"
+    },
+    {
+      "id": "array-plutus-constructor-fields",
+      "category": "arrays",
+      "description": "Plutus constructor fields: [1, 2, 3]",
+      "inputHex": "83010203",
+      "expectedOutput": [
+        1,
+        2,
+        3
+      ],
+      "diagnosticNotation": "[1, 2, 3]",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "plutus",
+        "constructor"
+      ],
+      "cardanoRelevance": "Fields array in Plutus Data constructors"
+    },
+    {
+      "id": "array-indefinite",
+      "category": "arrays",
+      "description": "Indefinite-length: [_ 1, 2, 3]",
+      "inputHex": "9f010203ff",
+      "expectedOutput": [
+        1,
+        2,
+        3
+      ],
+      "diagnosticNotation": "[_ 1, 2, 3]",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "indefinite"
+      ],
+      "notes": "Not allowed in canonical encoding"
+    },
+    {
+      "id": "array-100-elements",
+      "category": "arrays",
+      "description": "100 elements: [0, 1, 2, ..., 99]",
+      "inputHex": "9864000102030405060708090a0b0c0d0e0f101112131415161718181819181a181b181c181d181e181f1820182118221823182418251826182718281829182a182b182c182d182e182f1830183118321833183418351836183718381839183a183b183c183d183e183f1840184118421843184418451846184718481849184a184b184c184d184e184f1850185118521853185418551856185718581859185a185b185c185d185e185f1860186118621863",
+      "expectedOutput": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99
+      ],
+      "diagnosticNotation": "[0, 1, 2, ..., 99]",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "large",
+        "performance"
+      ]
+    },
+    {
+      "id": "array-truncated",
+      "category": "arrays",
+      "description": "Truncated: Length 3 but only 2 elements",
+      "inputHex": "830102",
+      "expectedOutput": null,
+      "diagnosticNotation": "<truncated>",
+      "shouldSucceed": false,
+      "errorType": "truncated",
+      "complexity": "simple",
+      "tags": [
+        "malformed",
+        "negative-test",
+        "truncated"
+      ]
+    }
+  ]
+}

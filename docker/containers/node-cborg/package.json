@@ -1,0 +1,9 @@
+{
+  "name": "cbor-test-node-cborg",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "CBOR test container using cborg library",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "dependencies": { "cborg": "^4.2.18" }
+}

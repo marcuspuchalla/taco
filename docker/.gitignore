@@ -1,0 +1,5 @@
+# Reports directory (generated)
+reports/
+
+# Docker build artifacts
+*.log

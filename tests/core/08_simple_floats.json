@@ -1,0 +1,332 @@
+{
+  "category": "simple-floats",
+  "description": "RFC 8949 Major Type 7: Simple Values and Floats",
+  "version": "1.0",
+  "testCases": [
+    {
+      "id": "simple-false",
+      "category": "simple-floats",
+      "description": "Simple value: false",
+      "inputHex": "f4",
+      "expectedOutput": false,
+      "diagnosticNotation": "false",
+      "shouldSucceed": true,
+      "complexity": "trivial",
+      "tags": [
+        "boolean",
+        "simple"
+      ],
+      "rfcSection": "3.3",
+      "cardanoRelevance": "Boolean values in Plutus Data"
+    },
+    {
+      "id": "simple-true",
+      "category": "simple-floats",
+      "description": "Simple value: true",
+      "inputHex": "f5",
+      "expectedOutput": true,
+      "diagnosticNotation": "true",
+      "shouldSucceed": true,
+      "complexity": "trivial",
+      "tags": [
+        "boolean",
+        "simple"
+      ],
+      "rfcSection": "3.3"
+    },
+    {
+      "id": "simple-null",
+      "category": "simple-floats",
+      "description": "Simple value: null",
+      "inputHex": "f6",
+      "expectedOutput": null,
+      "diagnosticNotation": "null",
+      "shouldSucceed": true,
+      "complexity": "trivial",
+      "tags": [
+        "null",
+        "simple"
+      ],
+      "rfcSection": "3.3"
+    },
+    {
+      "id": "simple-undefined",
+      "category": "simple-floats",
+      "description": "Simple value: undefined",
+      "inputHex": "f7",
+      "diagnosticNotation": "undefined",
+      "shouldSucceed": true,
+      "complexity": "trivial",
+      "tags": [
+        "undefined",
+        "simple"
+      ],
+      "rfcSection": "3.3"
+    },
+    {
+      "id": "float16-zero",
+      "category": "simple-floats",
+      "description": "Float16: 0.0",
+      "inputHex": "f90000",
+      "expectedOutput": 0,
+      "diagnosticNotation": "0.0",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "float16",
+        "float"
+      ],
+      "rfcSection": "3.3"
+    },
+    {
+      "id": "float16-one",
+      "category": "simple-floats",
+      "description": "Float16: 1.0",
+      "inputHex": "f93c00",
+      "expectedOutput": 1,
+      "diagnosticNotation": "1.0",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "float16",
+        "float"
+      ]
+    },
+    {
+      "id": "float16-half",
+      "category": "simple-floats",
+      "description": "Float16: 0.5",
+      "inputHex": "f93800",
+      "expectedOutput": 0.5,
+      "diagnosticNotation": "0.5",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "float16",
+        "float"
+      ]
+    },
+    {
+      "id": "float16-infinity",
+      "category": "simple-floats",
+      "description": "Float16: Infinity",
+      "inputHex": "f97c00",
+      "expectedOutput": "::INFINITY::",
+      "diagnosticNotation": "Infinity",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "float16",
+        "float",
+        "special",
+        "infinity"
+      ]
+    },
+    {
+      "id": "float16-neg-infinity",
+      "category": "simple-floats",
+      "description": "Float16: -Infinity",
+      "inputHex": "f9fc00",
+      "expectedOutput": "::NEG_INFINITY::",
+      "diagnosticNotation": "-Infinity",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "float16",
+        "float",
+        "special",
+        "infinity"
+      ]
+    },
+    {
+      "id": "float16-nan",
+      "category": "simple-floats",
+      "description": "Float16: NaN",
+      "inputHex": "f97e00",
+      "expectedOutput": "::NAN::",
+      "diagnosticNotation": "NaN",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "float16",
+        "float",
+        "special",
+        "nan"
+      ],
+      "notes": "NaN is special - NaN !== NaN in comparisons"
+    },
+    {
+      "id": "float32-pi",
+      "category": "simple-floats",
+      "description": "Float32: π (3.14159265...)",
+      "inputHex": "fa40490fdb",
+      "expectedOutput": 3.1415927410125732,
+      "diagnosticNotation": "3.141592653589793",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "float32",
+        "float"
+      ]
+    },
+    {
+      "id": "float32-infinity",
+      "category": "simple-floats",
+      "description": "Float32: Infinity",
+      "inputHex": "fa7f800000",
+      "expectedOutput": "::INFINITY::",
+      "diagnosticNotation": "Infinity",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "float32",
+        "float",
+        "special",
+        "infinity"
+      ]
+    },
+    {
+      "id": "float32-nan",
+      "category": "simple-floats",
+      "description": "Float32: NaN",
+      "inputHex": "fa7fc00000",
+      "expectedOutput": "::NAN::",
+      "diagnosticNotation": "NaN",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "float32",
+        "float",
+        "special",
+        "nan"
+      ]
+    },
+    {
+      "id": "float64-e",
+      "category": "simple-floats",
+      "description": "Float64: e (2.71828...)",
+      "inputHex": "fb4005bf0a8b145769",
+      "expectedOutput": 2.718281828459045,
+      "diagnosticNotation": "2.718281828459045",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "float64",
+        "float"
+      ]
+    },
+    {
+      "id": "float64-max",
+      "category": "simple-floats",
+      "description": "Float64: Maximum finite value",
+      "inputHex": "fb7fefffffffffffff",
+      "expectedOutput": 1.7976931348623157e+308,
+      "diagnosticNotation": "1.7976931348623157e+308",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "float64",
+        "float",
+        "boundary",
+        "max"
+      ]
+    },
+    {
+      "id": "float64-min-positive",
+      "category": "simple-floats",
+      "description": "Float64: Minimum positive normal value",
+      "inputHex": "fb0010000000000000",
+      "expectedOutput": 2.2250738585072014e-308,
+      "diagnosticNotation": "2.2250738585072014e-308",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "float64",
+        "float",
+        "boundary",
+        "min"
+      ]
+    },
+    {
+      "id": "float64-infinity",
+      "category": "simple-floats",
+      "description": "Float64: Infinity",
+      "inputHex": "fb7ff0000000000000",
+      "expectedOutput": "::INFINITY::",
+      "diagnosticNotation": "Infinity",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "float64",
+        "float",
+        "special",
+        "infinity"
+      ]
+    },
+    {
+      "id": "float64-neg-infinity",
+      "category": "simple-floats",
+      "description": "Float64: -Infinity",
+      "inputHex": "fbfff0000000000000",
+      "expectedOutput": "::NEG_INFINITY::",
+      "diagnosticNotation": "-Infinity",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "float64",
+        "float",
+        "special",
+        "infinity"
+      ]
+    },
+    {
+      "id": "float64-nan",
+      "category": "simple-floats",
+      "description": "Float64: NaN",
+      "inputHex": "fb7ff8000000000000",
+      "expectedOutput": "::NAN::",
+      "diagnosticNotation": "NaN",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "float64",
+        "float",
+        "special",
+        "nan"
+      ]
+    },
+    {
+      "id": "break-code-invalid",
+      "category": "simple-floats",
+      "description": "Invalid: Break code (0xFF) outside indefinite context",
+      "inputHex": "ff",
+      "expectedOutput": null,
+      "diagnosticNotation": "<invalid>",
+      "shouldSucceed": false,
+      "errorType": "break-misuse",
+      "complexity": "simple",
+      "tags": [
+        "malformed",
+        "negative-test",
+        "break"
+      ]
+    },
+    {
+      "id": "simple-reserved",
+      "category": "simple-floats",
+      "description": "Invalid: Reserved simple value 31",
+      "inputHex": "f81f",
+      "expectedOutput": null,
+      "diagnosticNotation": "<invalid>",
+      "shouldSucceed": false,
+      "errorType": "invalid-simple",
+      "complexity": "simple",
+      "tags": [
+        "malformed",
+        "negative-test",
+        "reserved"
+      ],
+      "notes": "Simple values 0-19 in one-byte extension are reserved"
+    }
+  ]
+}

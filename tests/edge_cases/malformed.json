@@ -1,0 +1,516 @@
+{
+  "category": "malformed",
+  "description": "Malformed and Invalid CBOR Tests",
+  "version": "1.0",
+  "testCases": [
+    {
+      "id": "malformed-truncated-empty",
+      "category": "malformed",
+      "description": "Empty input",
+      "inputHex": "",
+      "expectedOutput": null,
+      "diagnosticNotation": "<truncated>",
+      "shouldSucceed": false,
+      "errorType": "truncated",
+      "complexity": "trivial",
+      "tags": [
+        "truncated",
+        "empty"
+      ],
+      "notes": "No data at all"
+    },
+    {
+      "id": "malformed-truncated-uint-24",
+      "category": "malformed",
+      "description": "Truncated: uint with additional info 24 but no byte",
+      "inputHex": "18",
+      "expectedOutput": null,
+      "diagnosticNotation": "<truncated>",
+      "shouldSucceed": false,
+      "errorType": "truncated",
+      "complexity": "simple",
+      "tags": [
+        "truncated",
+        "integer"
+      ]
+    },
+    {
+      "id": "malformed-truncated-uint-25",
+      "category": "malformed",
+      "description": "Truncated: uint with additional info 25 but only 1 byte",
+      "inputHex": "1901",
+      "expectedOutput": null,
+      "diagnosticNotation": "<truncated>",
+      "shouldSucceed": false,
+      "errorType": "truncated",
+      "complexity": "simple",
+      "tags": [
+        "truncated",
+        "integer"
+      ]
+    },
+    {
+      "id": "malformed-truncated-bytes",
+      "category": "malformed",
+      "description": "Truncated: byte string length 10 but only 5 bytes",
+      "inputHex": "4a0102030405",
+      "expectedOutput": null,
+      "diagnosticNotation": "<truncated>",
+      "shouldSucceed": false,
+      "errorType": "truncated",
+      "complexity": "simple",
+      "tags": [
+        "truncated",
+        "bytes"
+      ]
+    },
+    {
+      "id": "malformed-truncated-text",
+      "category": "malformed",
+      "description": "Truncated: text string length 10 but only 3 bytes",
+      "inputHex": "6a414243",
+      "expectedOutput": null,
+      "diagnosticNotation": "<truncated>",
+      "shouldSucceed": false,
+      "errorType": "truncated",
+      "complexity": "simple",
+      "tags": [
+        "truncated",
+        "text"
+      ]
+    },
+    {
+      "id": "malformed-truncated-array",
+      "category": "malformed",
+      "description": "Truncated: array length 5 but only 3 elements",
+      "inputHex": "85010203",
+      "expectedOutput": null,
+      "diagnosticNotation": "<truncated>",
+      "shouldSucceed": false,
+      "errorType": "truncated",
+      "complexity": "simple",
+      "tags": [
+        "truncated",
+        "array"
+      ]
+    },
+    {
+      "id": "malformed-truncated-map",
+      "category": "malformed",
+      "description": "Truncated: map length 2 but only 1 pair",
+      "inputHex": "a2010203",
+      "expectedOutput": null,
+      "diagnosticNotation": "<truncated>",
+      "shouldSucceed": false,
+      "errorType": "truncated",
+      "complexity": "simple",
+      "tags": [
+        "truncated",
+        "map"
+      ]
+    },
+    {
+      "id": "malformed-reserved-uint-28",
+      "category": "malformed",
+      "description": "Reserved: major type 0 additional info 28",
+      "inputHex": "1c",
+      "expectedOutput": null,
+      "diagnosticNotation": "<invalid>",
+      "shouldSucceed": false,
+      "errorType": "invalid-additional-info",
+      "complexity": "simple",
+      "tags": [
+        "reserved",
+        "integer"
+      ],
+      "rfcSection": "3.1"
+    },
+    {
+      "id": "malformed-reserved-uint-29",
+      "category": "malformed",
+      "description": "Reserved: major type 0 additional info 29",
+      "inputHex": "1d",
+      "expectedOutput": null,
+      "diagnosticNotation": "<invalid>",
+      "shouldSucceed": false,
+      "errorType": "invalid-additional-info",
+      "complexity": "simple",
+      "tags": [
+        "reserved",
+        "integer"
+      ]
+    },
+    {
+      "id": "malformed-reserved-uint-30",
+      "category": "malformed",
+      "description": "Reserved: major type 0 additional info 30",
+      "inputHex": "1e",
+      "expectedOutput": null,
+      "diagnosticNotation": "<invalid>",
+      "shouldSucceed": false,
+      "errorType": "invalid-additional-info",
+      "complexity": "simple",
+      "tags": [
+        "reserved",
+        "integer"
+      ]
+    },
+    {
+      "id": "malformed-reserved-tag-28",
+      "category": "malformed",
+      "description": "Reserved: major type 6 additional info 28",
+      "inputHex": "dc",
+      "expectedOutput": null,
+      "diagnosticNotation": "<invalid>",
+      "shouldSucceed": false,
+      "errorType": "invalid-additional-info",
+      "complexity": "simple",
+      "tags": [
+        "reserved",
+        "tag"
+      ]
+    },
+    {
+      "id": "malformed-utf8-overlong",
+      "category": "malformed",
+      "description": "Invalid UTF-8: Overlong encoding of NULL",
+      "inputHex": "63c08041",
+      "expectedOutput": "��A",
+      "diagnosticNotation": "<invalid-utf8>",
+      "shouldSucceed": true,
+      "errorType": "invalid-utf8",
+      "complexity": "moderate",
+      "tags": [
+        "utf8",
+        "text"
+      ],
+      "notes": "NULL should be 0x00, not 0xC0 0x80"
+    },
+    {
+      "id": "malformed-utf8-surrogate-high",
+      "category": "malformed",
+      "description": "Invalid UTF-8: High surrogate half (U+D800)",
+      "inputHex": "63eda080",
+      "expectedOutput": "���",
+      "diagnosticNotation": "<invalid-utf8>",
+      "shouldSucceed": true,
+      "errorType": "invalid-utf8",
+      "complexity": "moderate",
+      "tags": [
+        "utf8",
+        "text",
+        "surrogate"
+      ],
+      "notes": "Surrogate halves (U+D800-U+DFFF) are invalid in UTF-8"
+    },
+    {
+      "id": "malformed-utf8-surrogate-low",
+      "category": "malformed",
+      "description": "Invalid UTF-8: Low surrogate half (U+DC00)",
+      "inputHex": "63edb080",
+      "expectedOutput": "���",
+      "diagnosticNotation": "<invalid-utf8>",
+      "shouldSucceed": true,
+      "errorType": "invalid-utf8",
+      "complexity": "moderate",
+      "tags": [
+        "utf8",
+        "text",
+        "surrogate"
+      ]
+    },
+    {
+      "id": "malformed-utf8-truncated-2byte",
+      "category": "malformed",
+      "description": "Invalid UTF-8: Truncated 2-byte sequence",
+      "inputHex": "61c2",
+      "expectedOutput": "�",
+      "diagnosticNotation": "<invalid-utf8>",
+      "shouldSucceed": true,
+      "errorType": "invalid-utf8",
+      "complexity": "simple",
+      "tags": [
+        "utf8",
+        "text",
+        "truncated"
+      ]
+    },
+    {
+      "id": "malformed-utf8-truncated-3byte",
+      "category": "malformed",
+      "description": "Invalid UTF-8: Truncated 3-byte sequence",
+      "inputHex": "62e282",
+      "expectedOutput": "�",
+      "diagnosticNotation": "<invalid-utf8>",
+      "shouldSucceed": true,
+      "errorType": "invalid-utf8",
+      "complexity": "simple",
+      "tags": [
+        "utf8",
+        "text",
+        "truncated"
+      ]
+    },
+    {
+      "id": "malformed-utf8-invalid-continuation",
+      "category": "malformed",
+      "description": "Invalid UTF-8: Invalid continuation byte",
+      "inputHex": "62c241",
+      "expectedOutput": "�A",
+      "diagnosticNotation": "<invalid-utf8>",
+      "shouldSucceed": true,
+      "errorType": "invalid-utf8",
+      "complexity": "moderate",
+      "tags": [
+        "utf8",
+        "text"
+      ],
+      "notes": "Second byte should be 10xxxxxx"
+    },
+    {
+      "id": "malformed-utf8-beyond-unicode",
+      "category": "malformed",
+      "description": "Invalid UTF-8: Code point beyond U+10FFFF",
+      "inputHex": "64f4908080",
+      "expectedOutput": "����",
+      "diagnosticNotation": "<invalid-utf8>",
+      "shouldSucceed": true,
+      "errorType": "invalid-utf8",
+      "complexity": "moderate",
+      "tags": [
+        "utf8",
+        "text"
+      ],
+      "notes": "Unicode only goes up to U+10FFFF"
+    },
+    {
+      "id": "malformed-break-outside-indefinite",
+      "category": "malformed",
+      "description": "Break code (0xFF) outside indefinite context",
+      "inputHex": "ff",
+      "expectedOutput": null,
+      "diagnosticNotation": "<invalid>",
+      "shouldSucceed": false,
+      "errorType": "break-misuse",
+      "complexity": "simple",
+      "tags": [
+        "break",
+        "indefinite"
+      ]
+    },
+    {
+      "id": "malformed-break-after-definite-array",
+      "category": "malformed",
+      "description": "Break code after definite-length array",
+      "inputHex": "83010203ff",
+      "expectedOutput": null,
+      "diagnosticNotation": "<invalid>",
+      "shouldSucceed": false,
+      "errorType": "break-misuse",
+      "complexity": "simple",
+      "tags": [
+        "break",
+        "array"
+      ]
+    },
+    {
+      "id": "malformed-break-as-map-key",
+      "category": "malformed",
+      "description": "Break code used as map key",
+      "inputHex": "bfff01ff",
+      "expectedOutput": null,
+      "diagnosticNotation": "<invalid>",
+      "shouldSucceed": false,
+      "errorType": "break-misuse",
+      "complexity": "moderate",
+      "tags": [
+        "break",
+        "map"
+      ]
+    },
+    {
+      "id": "malformed-map-odd-elements",
+      "category": "malformed",
+      "description": "Map with odd number of elements (key without value)",
+      "inputHex": "a16161",
+      "expectedOutput": null,
+      "diagnosticNotation": "<malformed>",
+      "shouldSucceed": false,
+      "errorType": "odd-length-map",
+      "complexity": "simple",
+      "tags": [
+        "map",
+        "malformed"
+      ]
+    },
+    {
+      "id": "malformed-map-indefinite-odd",
+      "category": "malformed",
+      "description": "Indefinite map with odd elements",
+      "inputHex": "bf616101616202616303ff",
+      "expectedOutput": {
+        "a": 1,
+        "b": 2,
+        "c": 3
+      },
+      "diagnosticNotation": "<malformed>",
+      "shouldSucceed": true,
+      "errorType": "odd-length-map",
+      "complexity": "moderate",
+      "tags": [
+        "map",
+        "indefinite",
+        "malformed"
+      ]
+    },
+    {
+      "id": "malformed-nested-indefinite-bytes",
+      "category": "malformed",
+      "description": "Nested indefinite byte strings",
+      "inputHex": "5f5f4101ff420203ff",
+      "expectedOutput": null,
+      "diagnosticNotation": "<invalid>",
+      "shouldSucceed": false,
+      "errorType": "nested-indefinite",
+      "complexity": "moderate",
+      "tags": [
+        "indefinite",
+        "bytes",
+        "nested"
+      ],
+      "notes": "Indefinite strings cannot contain indefinite chunks"
+    },
+    {
+      "id": "malformed-nested-indefinite-text",
+      "category": "malformed",
+      "description": "Nested indefinite text strings",
+      "inputHex": "7f7f6161ff6262ff",
+      "expectedOutput": null,
+      "diagnosticNotation": "<invalid>",
+      "shouldSucceed": false,
+      "errorType": "nested-indefinite",
+      "complexity": "moderate",
+      "tags": [
+        "indefinite",
+        "text",
+        "nested"
+      ]
+    },
+    {
+      "id": "malformed-simple-reserved-0-19",
+      "category": "malformed",
+      "description": "Reserved simple value 19 in two-byte form",
+      "inputHex": "f813",
+      "expectedOutput": {
+        "value": 19
+      },
+      "diagnosticNotation": "<invalid>",
+      "shouldSucceed": true,
+      "errorType": "invalid-simple",
+      "complexity": "simple",
+      "tags": [
+        "simple",
+        "reserved"
+      ],
+      "notes": "Simple values 0-19 must use one-byte form"
+    },
+    {
+      "id": "malformed-simple-false-twobyte",
+      "category": "malformed",
+      "description": "False encoded in two-byte form",
+      "inputHex": "f814",
+      "expectedOutput": {
+        "value": 20
+      },
+      "diagnosticNotation": "<invalid>",
+      "shouldSucceed": true,
+      "errorType": "invalid-simple",
+      "complexity": "simple",
+      "tags": [
+        "simple",
+        "boolean"
+      ]
+    },
+    {
+      "id": "malformed-trailing-bytes-after-int",
+      "category": "malformed",
+      "description": "Trailing bytes after complete integer",
+      "inputHex": "0101",
+      "expectedOutput": 1,
+      "diagnosticNotation": "<trailing-bytes>",
+      "shouldSucceed": true,
+      "errorType": "trailing-bytes",
+      "complexity": "simple",
+      "tags": [
+        "trailing"
+      ]
+    },
+    {
+      "id": "malformed-trailing-bytes-after-array",
+      "category": "malformed",
+      "description": "Trailing bytes after complete array",
+      "inputHex": "830102030405",
+      "expectedOutput": [
+        1,
+        2,
+        3
+      ],
+      "diagnosticNotation": "<trailing-bytes>",
+      "shouldSucceed": true,
+      "errorType": "trailing-bytes",
+      "complexity": "simple",
+      "tags": [
+        "trailing",
+        "array"
+      ]
+    },
+    {
+      "id": "malformed-tag-0-invalid-content",
+      "category": "malformed",
+      "description": "Tag 0 (datetime) with non-string content",
+      "inputHex": "c001",
+      "expectedOutput": "1970-01-01T00:00:00.001Z",
+      "diagnosticNotation": "<invalid-tag-content>",
+      "shouldSucceed": true,
+      "errorType": "invalid-tag-content",
+      "complexity": "moderate",
+      "tags": [
+        "tag",
+        "datetime"
+      ],
+      "notes": "Tag 0 requires text string (RFC 3339)"
+    },
+    {
+      "id": "malformed-tag-1-invalid-content",
+      "category": "malformed",
+      "description": "Tag 1 (epoch) with string content",
+      "inputHex": "c16568656c6c6f",
+      "expectedOutput": null,
+      "diagnosticNotation": "<invalid-tag-content>",
+      "shouldSucceed": false,
+      "errorType": "invalid-tag-content",
+      "complexity": "moderate",
+      "tags": [
+        "tag",
+        "epoch"
+      ],
+      "notes": "Tag 1 requires integer or float"
+    },
+    {
+      "id": "malformed-tag-2-invalid-content",
+      "category": "malformed",
+      "description": "Tag 2 (bignum) with non-bytes content",
+      "inputHex": "c201",
+      "expectedOutput": "0",
+      "diagnosticNotation": "<invalid-tag-content>",
+      "shouldSucceed": true,
+      "errorType": "invalid-tag-content",
+      "complexity": "moderate",
+      "tags": [
+        "tag",
+        "bignum"
+      ],
+      "notes": "Tag 2 requires byte string"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "name": "cbor-test-node-tiny-cbor",
+  "version": "1.0.0",
+  "description": "CBOR test container using tiny-cbor library",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "dependencies": { "@levischuck/tiny-cbor": "^0.3.2" }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "cbor-test-node-dag-cbor",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "CBOR test container using dag-cbor library",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "dependencies": { "@ipld/dag-cbor": "^9.2.5" }
+}

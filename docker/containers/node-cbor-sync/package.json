@@ -1,0 +1,8 @@
+{
+  "name": "cbor-test-node-cbor-sync",
+  "version": "1.0.0",
+  "description": "CBOR test container using cbor-sync library",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "dependencies": { "cbor-sync": "^1.0.4" }
+}

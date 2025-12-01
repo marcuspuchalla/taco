@@ -1,0 +1,353 @@
+{
+  "category": "maps",
+  "description": "RFC 8949 Major Type 5: Map Tests",
+  "version": "1.0",
+  "testCases": [
+    {
+      "id": "map-000",
+      "category": "maps",
+      "description": "Empty map",
+      "inputHex": "a0",
+      "expectedOutput": {},
+      "diagnosticNotation": "{}",
+      "shouldSucceed": true,
+      "complexity": "trivial",
+      "tags": [
+        "empty",
+        "boundary"
+      ],
+      "cardanoRelevance": "Empty metadata maps, empty Plutus Data maps"
+    },
+    {
+      "id": "map-single-int-key",
+      "category": "maps",
+      "description": "Single entry with integer key: {1: 2}",
+      "inputHex": "a10102",
+      "expectedOutput": {
+        "1": 2
+      },
+      "diagnosticNotation": "{1: 2}",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "basic",
+        "integer-key"
+      ],
+      "notes": "JSON represents keys as strings"
+    },
+    {
+      "id": "map-simple-text-keys",
+      "category": "maps",
+      "description": "Text keys: {\"a\": 1, \"b\": 2}",
+      "inputHex": "a2616101616202",
+      "expectedOutput": {
+        "a": 1,
+        "b": 2
+      },
+      "diagnosticNotation": "{\"a\": 1, \"b\": 2}",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "basic",
+        "text-key"
+      ]
+    },
+    {
+      "id": "map-integer-keys",
+      "category": "maps",
+      "description": "Multiple integer keys: {0: \"a\", 1: \"b\", 2: \"c\"}",
+      "inputHex": "a3006161016162026163",
+      "expectedOutput": {
+        "0": "a",
+        "1": "b",
+        "2": "c"
+      },
+      "diagnosticNotation": "{0: \"a\", 1: \"b\", 2: \"c\"}",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "integer-key",
+        "text-value"
+      ],
+      "cardanoRelevance": "Transaction body uses integer keys"
+    },
+    {
+      "id": "map-mixed-key-types",
+      "category": "maps",
+      "description": "Mixed key types: {1: \"a\", \"b\": 2}",
+      "inputHex": "a2016161616202",
+      "expectedOutput": {
+        "1": "a",
+        "b": 2
+      },
+      "diagnosticNotation": "{1: \"a\", \"b\": 2}",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "mixed-keys",
+        "heterogeneous"
+      ]
+    },
+    {
+      "id": "map-nested",
+      "category": "maps",
+      "description": "Nested map: {\"a\": {\"b\": 1}}",
+      "inputHex": "a16161a1616201",
+      "expectedOutput": {
+        "a": {
+          "b": 1
+        }
+      },
+      "diagnosticNotation": "{\"a\": {\"b\": 1}}",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "nested"
+      ]
+    },
+    {
+      "id": "map-multi-asset",
+      "category": "maps",
+      "description": "Multi-asset structure (nested maps)",
+      "inputHex": "a1581caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa145546f6b656e1864",
+      "expectedOutput": {
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa": {
+          "546f6b656e": 100
+        }
+      },
+      "diagnosticNotation": "{h'AA...': {h'Token': 100}}",
+      "shouldSucceed": true,
+      "complexity": "complex",
+      "tags": [
+        "cardano",
+        "multi-asset",
+        "nested"
+      ],
+      "cardanoRelevance": "Multi-asset value encoding: policy -> asset -> amount"
+    },
+    {
+      "id": "map-tx-body-minimal",
+      "category": "maps",
+      "description": "Minimal transaction body: {0: inputs, 1: outputs, 2: fee}",
+      "inputHex": "a300800180021a000f4240",
+      "expectedOutput": {
+        "0": [],
+        "1": [],
+        "2": 1000000
+      },
+      "diagnosticNotation": "{0: [], 1: [], 2: 1000000}",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "transaction",
+        "tx-body"
+      ],
+      "cardanoRelevance": "Transaction body structure with integer keys"
+    },
+    {
+      "id": "map-canonical-sorted",
+      "category": "maps",
+      "description": "Canonically sorted keys: {\"aa\": 1, \"b\": 2}",
+      "inputHex": "a26162026261610101",
+      "expectedOutput": {
+        "b": 2,
+        "aa": 1
+      },
+      "diagnosticNotation": "{\"b\": 2, \"aa\": 1}",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "canonical",
+        "sorted"
+      ],
+      "notes": "Keys sorted by length first (1-byte \"b\" before 2-byte \"aa\"), then lexicographic"
+    },
+    {
+      "id": "map-non-canonical-unsorted",
+      "category": "maps",
+      "description": "Non-canonical: Unsorted keys",
+      "inputHex": "a262616101616202",
+      "expectedOutput": {
+        "aa": 1,
+        "b": 2
+      },
+      "diagnosticNotation": "{\"aa\": 1, \"b\": 2}",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "non-canonical",
+        "unsorted",
+        "negative-test"
+      ],
+      "errorType": "unsorted-keys",
+      "notes": "Valid CBOR but not canonical - keys should be sorted"
+    },
+    {
+      "id": "map-duplicate-keys",
+      "category": "maps",
+      "description": "Duplicate keys: {\"a\": 1, \"a\": 2}",
+      "inputHex": "a2616101616102",
+      "expectedOutput": {
+        "a": 2
+      },
+      "diagnosticNotation": "{\"a\": 1, \"a\": 2}",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "duplicate-keys",
+        "negative-test"
+      ],
+      "errorType": "duplicate-keys",
+      "notes": "Last value wins, but not allowed in canonical encoding"
+    },
+    {
+      "id": "map-indefinite",
+      "category": "maps",
+      "description": "Indefinite-length: {_ \"a\": 1, \"b\": 2}",
+      "inputHex": "bf616101616202ff",
+      "expectedOutput": {
+        "a": 1,
+        "b": 2
+      },
+      "diagnosticNotation": "{_ \"a\": 1, \"b\": 2}",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "indefinite"
+      ],
+      "notes": "Not allowed in canonical encoding"
+    },
+    {
+      "id": "map-truncated-odd-elements",
+      "category": "maps",
+      "description": "Malformed: Odd number of elements (key without value)",
+      "inputHex": "a16161",
+      "expectedOutput": null,
+      "diagnosticNotation": "<malformed>",
+      "shouldSucceed": false,
+      "errorType": "odd-length-map",
+      "complexity": "simple",
+      "tags": [
+        "malformed",
+        "negative-test",
+        "truncated"
+      ]
+    },
+    {
+      "id": "map-100-entries",
+      "category": "maps",
+      "description": "100 entries: {0: 0, 1: 1, ..., 99: 99}",
+      "inputHex": "b86400000101020203030404050506060707080809090a0a0b0b0c0c0d0d0e0e0f0f101011111212131314141515161617171818181818191819181a181a181b181b181c181c181d181d181e181e181f181f18201820182118211822182218231823182418241825182518261826182718271828182818291829182a182a182b182b182c182c182d182d182e182e182f182f18301830183118311832183218331833183418341835183518361836183718371838183818391839183a183a183b183b183c183c183d183d183e183e183f183f18401840184118411842184218431843184418441845184518461846184718471848184818491849184a184a184b184b184c184c184d184d184e184e184f184f18501850185118511852185218531853185418541855185518561856185718571858185818591859185a185a185b185b185c185c185d185d185e185e185f185f18601860186118611862186218631863",
+      "expectedOutput": {
+        "0": 0,
+        "1": 1,
+        "2": 2,
+        "3": 3,
+        "4": 4,
+        "5": 5,
+        "6": 6,
+        "7": 7,
+        "8": 8,
+        "9": 9,
+        "10": 10,
+        "11": 11,
+        "12": 12,
+        "13": 13,
+        "14": 14,
+        "15": 15,
+        "16": 16,
+        "17": 17,
+        "18": 18,
+        "19": 19,
+        "20": 20,
+        "21": 21,
+        "22": 22,
+        "23": 23,
+        "24": 24,
+        "25": 25,
+        "26": 26,
+        "27": 27,
+        "28": 28,
+        "29": 29,
+        "30": 30,
+        "31": 31,
+        "32": 32,
+        "33": 33,
+        "34": 34,
+        "35": 35,
+        "36": 36,
+        "37": 37,
+        "38": 38,
+        "39": 39,
+        "40": 40,
+        "41": 41,
+        "42": 42,
+        "43": 43,
+        "44": 44,
+        "45": 45,
+        "46": 46,
+        "47": 47,
+        "48": 48,
+        "49": 49,
+        "50": 50,
+        "51": 51,
+        "52": 52,
+        "53": 53,
+        "54": 54,
+        "55": 55,
+        "56": 56,
+        "57": 57,
+        "58": 58,
+        "59": 59,
+        "60": 60,
+        "61": 61,
+        "62": 62,
+        "63": 63,
+        "64": 64,
+        "65": 65,
+        "66": 66,
+        "67": 67,
+        "68": 68,
+        "69": 69,
+        "70": 70,
+        "71": 71,
+        "72": 72,
+        "73": 73,
+        "74": 74,
+        "75": 75,
+        "76": 76,
+        "77": 77,
+        "78": 78,
+        "79": 79,
+        "80": 80,
+        "81": 81,
+        "82": 82,
+        "83": 83,
+        "84": 84,
+        "85": 85,
+        "86": 86,
+        "87": 87,
+        "88": 88,
+        "89": 89,
+        "90": 90,
+        "91": 91,
+        "92": 92,
+        "93": 93,
+        "94": 94,
+        "95": 95,
+        "96": 96,
+        "97": 97,
+        "98": 98,
+        "99": 99
+      },
+      "diagnosticNotation": "{0: 0, 1: 1, ..., 99: 99}",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "large",
+        "performance"
+      ]
+    }
+  ]
+}

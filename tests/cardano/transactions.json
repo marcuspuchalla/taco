@@ -1,0 +1,525 @@
+{
+  "category": "transactions",
+  "description": "Cardano Transaction Component Tests",
+  "version": "1.0",
+  "testCases": [
+    {
+      "id": "tx-input-simple",
+      "category": "transactions",
+      "description": "Transaction input: [txHash, index]",
+      "inputHex": "825820aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa00",
+      "expectedOutput": [
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        0
+      ],
+      "diagnosticNotation": "[h'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', 0]",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "transaction",
+        "input"
+      ],
+      "cardanoRelevance": "Transaction input structure (UTxO reference)"
+    },
+    {
+      "id": "tx-input-set",
+      "category": "transactions",
+      "description": "Transaction inputs as set (tag 258)",
+      "inputHex": "d9010282825820aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa00825820bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb01",
+      "expectedOutput": [
+        [
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          0
+        ],
+        [
+          "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          1
+        ]
+      ],
+      "diagnosticNotation": "258([[h'AA...', 0], [h'BB...', 1]])",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "transaction",
+        "input",
+        "set",
+        "tag-258"
+      ],
+      "cardanoRelevance": "Transaction body field 0: inputs (set)"
+    },
+    {
+      "id": "multi-asset-ada-only",
+      "category": "transactions",
+      "description": "Value: ADA only (2 ADA)",
+      "inputHex": "1a001e8480",
+      "expectedOutput": 2000000,
+      "diagnosticNotation": "2000000",
+      "shouldSucceed": true,
+      "complexity": "trivial",
+      "tags": [
+        "cardano",
+        "value",
+        "ada"
+      ],
+      "cardanoRelevance": "Pure ADA value (no native assets)"
+    },
+    {
+      "id": "multi-asset-single-token",
+      "category": "transactions",
+      "description": "Value: ADA + single native token",
+      "inputHex": "821a001e8480a1581ccccccccccccccccccccccccccccccccccccccccccccccccccccccccca145546f6b656e1864",
+      "expectedOutput": [
+        2000000,
+        {
+          "cccccccccccccccccccccccccccccccccccccccccccccccccccccccc": {
+            "546f6b656e": 100
+          }
+        }
+      ],
+      "diagnosticNotation": "[2000000, {h'CC...': {h'Token': 100}}]",
+      "shouldSucceed": true,
+      "complexity": "complex",
+      "tags": [
+        "cardano",
+        "value",
+        "multi-asset",
+        "native-token"
+      ],
+      "cardanoRelevance": "Multi-asset value: coin + policy -> asset -> amount"
+    },
+    {
+      "id": "multi-asset-multiple-tokens",
+      "category": "transactions",
+      "description": "Value: ADA + multiple tokens from same policy",
+      "inputHex": "821a000f4240a1581cdddddddddddddddddddddddddddddddddddddddddddddddddddddddda246546f6b656e41183246546f6b656e42184b",
+      "expectedOutput": [
+        1000000,
+        {
+          "dddddddddddddddddddddddddddddddddddddddddddddddddddddddd": {
+            "546f6b656e41": 50,
+            "546f6b656e42": 75
+          }
+        }
+      ],
+      "diagnosticNotation": "[1000000, {h'DD...': {h'TokenA': 50, h'TokenB': 75}}]",
+      "shouldSucceed": true,
+      "complexity": "complex",
+      "tags": [
+        "cardano",
+        "value",
+        "multi-asset",
+        "multiple-tokens"
+      ],
+      "cardanoRelevance": "Multiple assets from same policy ID"
+    },
+    {
+      "id": "multi-asset-multiple-policies",
+      "category": "transactions",
+      "description": "Value: Multiple policies with tokens",
+      "inputHex": "821a004c4b40a2581ceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeea1444e46543101581cffffffffffffffffffffffffffffffffffffffffffffffffffffffffa1434654311903e8",
+      "expectedOutput": [
+        5000000,
+        {
+          "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee": {
+            "4e465431": 1
+          },
+          "ffffffffffffffffffffffffffffffffffffffffffffffffffffffff": {
+            "465431": 1000
+          }
+        }
+      ],
+      "diagnosticNotation": "[5000000, {h'EE...': {h'NFT1': 1}, h'FF...': {h'FT1': 1000}}]",
+      "shouldSucceed": true,
+      "complexity": "extreme",
+      "tags": [
+        "cardano",
+        "value",
+        "multi-asset",
+        "multiple-policies"
+      ],
+      "cardanoRelevance": "Value with multiple policy IDs and assets"
+    },
+    {
+      "id": "tx-output-shelley-ada-only",
+      "category": "transactions",
+      "description": "Shelley transaction output: [address, coin]",
+      "inputHex": "82581d0179df6c1244e0d5e1b1ccdd63f9e1c6b8f8c4e6d0c2a8f6e4d2c0b8ff1a001e8480",
+      "expectedOutput": [
+        "0179df6c1244e0d5e1b1ccdd63f9e1c6b8f8c4e6d0c2a8f6e4d2c0b8ff",
+        2000000
+      ],
+      "diagnosticNotation": "[h'0179DF6C1244E0D5E1B1CCDD63F9E1C6B8F8C4E6D0C2A8F6E4D2C0B8', 2000000]",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "transaction",
+        "output",
+        "shelley",
+        "ada-only"
+      ],
+      "cardanoRelevance": "Standard Shelley-era transaction output with ADA only",
+      "rfcSection": "Array (major type 4)",
+      "notes": "Pre-Mary format: [address, coin]. Address starts with 0x01 (base address mainnet)"
+    },
+    {
+      "id": "tx-output-shelley-multi-asset",
+      "category": "transactions",
+      "description": "Shelley output with native tokens: [address, [coin, multiasset]]",
+      "inputHex": "82581d0179df6c1244e0d5e1b1ccdd63f9e1c6b8f8c4e6d0c2a8f6e4d2c0b8ff821a001e8480a1581ccccccccccccccccccccccccccccccccccccccccccccccccccccccccca145546f6b656e1864",
+      "expectedOutput": [
+        "0179df6c1244e0d5e1b1ccdd63f9e1c6b8f8c4e6d0c2a8f6e4d2c0b8ff",
+        [
+          2000000,
+          {
+            "cccccccccccccccccccccccccccccccccccccccccccccccccccccccc": {
+              "546f6b656e": 100
+            }
+          }
+        ]
+      ],
+      "diagnosticNotation": "[h'0179DF...', [2000000, {h'CC...': {h'Token': 100}}]]",
+      "shouldSucceed": true,
+      "complexity": "complex",
+      "tags": [
+        "cardano",
+        "transaction",
+        "output",
+        "shelley",
+        "multi-asset",
+        "native-tokens"
+      ],
+      "cardanoRelevance": "Mary-era output with native tokens (NFTs, fungible tokens)",
+      "notes": "Post-Mary format: [address, value] where value=[coin, multiasset_map]"
+    },
+    {
+      "id": "tx-output-babbage-inline-datum",
+      "category": "transactions",
+      "description": "Babbage output with inline datum: [address, value, [1, data]]",
+      "inputHex": "83581d0179df6c1244e0d5e1b1ccdd63f9e1c6b8f8c4e6d0c2a8f6e4d2c0b8ff1a001e8480820118c8",
+      "expectedOutput": [
+        "0179df6c1244e0d5e1b1ccdd63f9e1c6b8f8c4e6d0c2a8f6e4d2c0b8ff",
+        2000000,
+        [
+          1,
+          200
+        ]
+      ],
+      "diagnosticNotation": "[h'0179DF...', 2000000, [1, 200]]",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "transaction",
+        "output",
+        "babbage",
+        "inline-datum",
+        "plutus"
+      ],
+      "cardanoRelevance": "Babbage-era output with inline datum (alternative 1)",
+      "notes": "Inline datum option: [1, data] - datum embedded directly in output"
+    },
+    {
+      "id": "tx-output-babbage-datum-hash",
+      "category": "transactions",
+      "description": "Babbage output with datum hash: [address, value, [0, hash32]]",
+      "inputHex": "83581d0179df6c1244e0d5e1b1ccdd63f9e1c6b8f8c4e6d0c2a8f6e4d2c0b8ff1a001e8480820058209999999999999999999999999999999999999999999999999999999999999999",
+      "expectedOutput": [
+        "0179df6c1244e0d5e1b1ccdd63f9e1c6b8f8c4e6d0c2a8f6e4d2c0b8ff",
+        2000000,
+        [
+          0,
+          "9999999999999999999999999999999999999999999999999999999999999999"
+        ]
+      ],
+      "diagnosticNotation": "[h'0179DF...', 2000000, [0, h'9999...']]",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "transaction",
+        "output",
+        "babbage",
+        "datum-hash",
+        "plutus"
+      ],
+      "cardanoRelevance": "Babbage-era output with datum hash (alternative 0)",
+      "notes": "Datum hash option: [0, hash32] - references datum in witness set"
+    },
+    {
+      "id": "tx-output-babbage-script-ref",
+      "category": "transactions",
+      "description": "Babbage output with script reference",
+      "inputHex": "84581d0179df6c1244e0d5e1b1ccdd63f9e1c6b8f8c4e6d0c2a8f6e4d2c0b8ff1a001e84808200582099999999999999999999999999999999999999999999999999999999999999998201484d01000022200101",
+      "expectedOutput": [
+        "0179df6c1244e0d5e1b1ccdd63f9e1c6b8f8c4e6d0c2a8f6e4d2c0b8ff",
+        2000000,
+        [
+          0,
+          "9999999999999999999999999999999999999999999999999999999999999999"
+        ],
+        [
+          1,
+          "4d01000022200101"
+        ]
+      ],
+      "diagnosticNotation": "[h'0179DF...', 2000000, [0, h'9999...'], [1, h'4D01...']]",
+      "shouldSucceed": true,
+      "complexity": "complex",
+      "tags": [
+        "cardano",
+        "transaction",
+        "output",
+        "babbage",
+        "script-reference",
+        "plutus"
+      ],
+      "cardanoRelevance": "Babbage-era output with reference script attached",
+      "notes": "Script reference: [tag, script_bytes] - allows script reuse"
+    },
+    {
+      "id": "tx-output-babbage-no-datum",
+      "category": "transactions",
+      "description": "Babbage output without datum (backward compatible)",
+      "inputHex": "82581d0179df6c1244e0d5e1b1ccdd63f9e1c6b8f8c4e6d0c2a8f6e4d2c0b8ff1a004c4b40",
+      "expectedOutput": [
+        "0179df6c1244e0d5e1b1ccdd63f9e1c6b8f8c4e6d0c2a8f6e4d2c0b8ff",
+        5000000
+      ],
+      "diagnosticNotation": "[h'0179DF...', 5000000]",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "transaction",
+        "output",
+        "babbage",
+        "backward-compatible"
+      ],
+      "cardanoRelevance": "Babbage accepts Shelley format (no datum/script)",
+      "notes": "Backward compatible: Babbage can use [address, value] format"
+    },
+    {
+      "id": "tx-output-byron-address",
+      "category": "transactions",
+      "description": "Output to Byron-era address",
+      "inputHex": "82584c82d818584283581c9e1c71de652ec8b85fec296f0685ca3988781c94a2e1a5d89d92f45fa0001a0d0c25611a004c4b40001a1443fd00a166636172646966",
+      "expectedOutput": [
+        "82d818584283581c9e1c71de652ec8b85fec296f0685ca3988781c94a2e1a5d89d92f45fa0001a0d0c25611a004c4b40",
+        5000000
+      ],
+      "diagnosticNotation": "[h'82D81858...', 5000000]",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "transaction",
+        "output",
+        "byron",
+        "legacy-address"
+      ],
+      "cardanoRelevance": "Byron-era address format (still valid in current era)",
+      "notes": "Byron addresses are CBOR-in-CBOR (tag 24), much longer"
+    },
+    {
+      "id": "tx-output-min-lovelace",
+      "category": "transactions",
+      "description": "Output with minimum ADA (1 lovelace)",
+      "inputHex": "82581d0179df6c1244e0d5e1b1ccdd63f9e1c6b8f8c4e6d0c2a8f6e4d2c0b8ff01",
+      "expectedOutput": [
+        "0179df6c1244e0d5e1b1ccdd63f9e1c6b8f8c4e6d0c2a8f6e4d2c0b8ff",
+        1
+      ],
+      "diagnosticNotation": "[h'0179DF...', 1]",
+      "shouldSucceed": true,
+      "complexity": "trivial",
+      "tags": [
+        "cardano",
+        "transaction",
+        "output",
+        "min-utxo"
+      ],
+      "cardanoRelevance": "Minimum UTxO value boundary test",
+      "notes": "Protocol requires minimum ADA per UTxO (varies by era/content)"
+    },
+    {
+      "id": "tx-output-max-lovelace",
+      "category": "transactions",
+      "description": "Output with maximum ADA (45 billion)",
+      "inputHex": "82581d0179df6c1244e0d5e1b1ccdd63f9e1c6b8f8c4e6d0c2a8f6e4d2c0b8fffb4363fbe85edc9000",
+      "expectedOutput": [
+        "0179df6c1244e0d5e1b1ccdd63f9e1c6b8f8c4e6d0c2a8f6e4d2c0b8ff",
+        45000000000000000
+      ],
+      "diagnosticNotation": "[h'0179DF...', 45000000000000000]",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "transaction",
+        "output",
+        "max-supply",
+        "boundary"
+      ],
+      "cardanoRelevance": "Maximum possible ADA supply boundary test",
+      "notes": "Total ADA supply is ~45 billion (45e15 lovelace)"
+    },
+    {
+      "id": "tx-output-enterprise-address",
+      "category": "transactions",
+      "description": "Output to enterprise address (no staking)",
+      "inputHex": "82581c6161e1c6b8f8c4e6d0c2a8f6e4d2c0b879df6c1244e0d5e1b1ccddff1a00989680",
+      "expectedOutput": [
+        "6161e1c6b8f8c4e6d0c2a8f6e4d2c0b879df6c1244e0d5e1b1ccddff",
+        10000000
+      ],
+      "diagnosticNotation": "[h'61E1C6...', 10000000]",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "transaction",
+        "output",
+        "enterprise-address"
+      ],
+      "cardanoRelevance": "Enterprise address (payment credential only, no stake)",
+      "notes": "Enterprise addresses start with 0x61 (addr_vkh...) don't participate in staking"
+    },
+    {
+      "id": "tx-output-reward-address",
+      "category": "transactions",
+      "description": "Output to reward account address",
+      "inputHex": "82581be1e1c6b8f8c4e6d0c2a8f6e4d2c0b879df6c1244e0d5e1b1ccddff1a000f4240",
+      "expectedOutput": [
+        "e1e1c6b8f8c4e6d0c2a8f6e4d2c0b879df6c1244e0d5e1b1ccddff",
+        1000000
+      ],
+      "diagnosticNotation": "[h'E1E1C6...', 1000000]",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "transaction",
+        "output",
+        "reward-address",
+        "staking"
+      ],
+      "cardanoRelevance": "Reward account address (stake_...) for staking rewards",
+      "notes": "Reward addresses start with 0xE1 (stake_...) receive staking rewards"
+    },
+    {
+      "id": "tx-output-multi-asset-multiple-policies",
+      "category": "transactions",
+      "description": "Output with multiple native asset policies",
+      "inputHex": "82581d0179df6c1244e0d5e1b1ccdd63f9e1c6b8f8c4e6d0c2a8f6e4d2c0b8ff821a004c4b40a2581ceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeea1444e46543101581cffffffffffffffffffffffffffffffffffffffffffffffffffffffffa1434654311903e8",
+      "expectedOutput": [
+        "0179df6c1244e0d5e1b1ccdd63f9e1c6b8f8c4e6d0c2a8f6e4d2c0b8ff",
+        [
+          5000000,
+          {
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee": {
+              "4e465431": 1
+            },
+            "ffffffffffffffffffffffffffffffffffffffffffffffffffffffff": {
+              "465431": 1000
+            }
+          }
+        ]
+      ],
+      "diagnosticNotation": "[h'0179DF...', [5000000, {h'EE...': {h'NFT1': 1}, h'FF...': {h'FT1': 1000}}]]",
+      "shouldSucceed": true,
+      "complexity": "extreme",
+      "tags": [
+        "cardano",
+        "transaction",
+        "output",
+        "multi-asset",
+        "multiple-policies",
+        "nft"
+      ],
+      "cardanoRelevance": "Output with NFT and fungible tokens from different policies",
+      "notes": "Common pattern: ADA + NFT (qty 1) + fungible tokens"
+    },
+    {
+      "id": "tx-body-minimal",
+      "category": "transactions",
+      "description": "Minimal transaction body: {0: [], 1: [], 2: fee}",
+      "inputHex": "a300d90102800180021a00029810",
+      "expectedOutput": {
+        "0": [],
+        "1": [],
+        "2": 170000
+      },
+      "diagnosticNotation": "{0: 258([]), 1: [], 2: 170000}",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "transaction",
+        "tx-body"
+      ],
+      "cardanoRelevance": "Minimum viable transaction body structure",
+      "notes": "Invalid transaction (no inputs/outputs) but valid CBOR"
+    },
+    {
+      "id": "redeemer-spend",
+      "category": "transactions",
+      "description": "Redeemer: [tag, index, data, ex_units]",
+      "inputHex": "840000d87981182a821a000f42401a1dcd6500",
+      "expectedOutput": [
+        0,
+        0,
+        {
+          "constructor": 0,
+          "fields": [
+            42
+          ]
+        },
+        [
+          1000000,
+          500000000
+        ]
+      ],
+      "diagnosticNotation": "[0, 0, 121([42]), [1000000, 500000000]]",
+      "shouldSucceed": true,
+      "complexity": "complex",
+      "tags": [
+        "cardano",
+        "redeemer",
+        "plutus",
+        "ex-units"
+      ],
+      "cardanoRelevance": "Redeemer structure with execution units"
+    },
+    {
+      "id": "redeemer-mint",
+      "category": "transactions",
+      "description": "Redeemer for minting",
+      "inputHex": "840100d87980821a0007a1201a0ee6b280",
+      "expectedOutput": [
+        1,
+        0,
+        {
+          "constructor": 0,
+          "fields": []
+        },
+        [
+          500000,
+          250000000
+        ]
+      ],
+      "diagnosticNotation": "[1, 0, 121([]), [500000, 250000000]]",
+      "shouldSucceed": true,
+      "complexity": "complex",
+      "tags": [
+        "cardano",
+        "redeemer",
+        "mint",
+        "plutus"
+      ],
+      "cardanoRelevance": "Minting redeemer with execution units"
+    }
+  ]
+}

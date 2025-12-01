@@ -1,0 +1,557 @@
+{
+  "category": "unsigned-integers",
+  "description": "RFC 8949 Major Type 0: Unsigned Integer Tests",
+  "version": "1.0",
+  "testCases": [
+    {
+      "id": "uint-000",
+      "category": "unsigned-integers",
+      "description": "Minimum value: 0",
+      "inputHex": "00",
+      "expectedOutput": 0,
+      "diagnosticNotation": "0",
+      "shouldSucceed": true,
+      "complexity": "trivial",
+      "tags": [
+        "boundary",
+        "minimum"
+      ],
+      "rfcSection": "3.1"
+    },
+    {
+      "id": "uint-001",
+      "category": "unsigned-integers",
+      "description": "Single digit: 1",
+      "inputHex": "01",
+      "expectedOutput": 1,
+      "diagnosticNotation": "1",
+      "shouldSucceed": true,
+      "complexity": "trivial",
+      "tags": [
+        "basic"
+      ]
+    },
+    {
+      "id": "uint-010",
+      "category": "unsigned-integers",
+      "description": "Single digit: 10",
+      "inputHex": "0a",
+      "expectedOutput": 10,
+      "diagnosticNotation": "10",
+      "shouldSucceed": true,
+      "complexity": "trivial",
+      "tags": [
+        "basic"
+      ]
+    },
+    {
+      "id": "uint-023",
+      "category": "unsigned-integers",
+      "description": "Maximum single-byte encoding: 23",
+      "inputHex": "17",
+      "expectedOutput": 23,
+      "diagnosticNotation": "23",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "boundary",
+        "single-byte"
+      ],
+      "rfcSection": "3.1"
+    },
+    {
+      "id": "uint-024",
+      "category": "unsigned-integers",
+      "description": "Minimum two-byte encoding: 24",
+      "inputHex": "1818",
+      "expectedOutput": 24,
+      "diagnosticNotation": "24",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "boundary",
+        "two-byte"
+      ],
+      "rfcSection": "3.1",
+      "cardanoRelevance": "Threshold for compact encoding optimization"
+    },
+    {
+      "id": "uint-025",
+      "category": "unsigned-integers",
+      "description": "Value: 25",
+      "inputHex": "1819",
+      "expectedOutput": 25,
+      "diagnosticNotation": "25",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "two-byte"
+      ]
+    },
+    {
+      "id": "uint-100",
+      "category": "unsigned-integers",
+      "description": "Value: 100",
+      "inputHex": "1864",
+      "expectedOutput": 100,
+      "diagnosticNotation": "100",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "two-byte",
+        "round-number"
+      ],
+      "cardanoRelevance": "Common for asset quantities"
+    },
+    {
+      "id": "uint-255",
+      "category": "unsigned-integers",
+      "description": "Maximum uint8: 255",
+      "inputHex": "18ff",
+      "expectedOutput": 255,
+      "diagnosticNotation": "255",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "boundary",
+        "uint8-max"
+      ],
+      "rfcSection": "3.1"
+    },
+    {
+      "id": "uint-256",
+      "category": "unsigned-integers",
+      "description": "Minimum three-byte encoding: 256",
+      "inputHex": "190100",
+      "expectedOutput": 256,
+      "diagnosticNotation": "256",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "boundary",
+        "uint16",
+        "three-byte"
+      ],
+      "rfcSection": "3.1"
+    },
+    {
+      "id": "uint-1000",
+      "category": "unsigned-integers",
+      "description": "Value: 1000",
+      "inputHex": "1903e8",
+      "expectedOutput": 1000,
+      "diagnosticNotation": "1000",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "uint16",
+        "round-number"
+      ],
+      "cardanoRelevance": "Common for ADA amounts"
+    },
+    {
+      "id": "uint-65535",
+      "category": "unsigned-integers",
+      "description": "Maximum uint16: 65535",
+      "inputHex": "19ffff",
+      "expectedOutput": 65535,
+      "diagnosticNotation": "65535",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "boundary",
+        "uint16-max"
+      ],
+      "rfcSection": "3.1"
+    },
+    {
+      "id": "uint-65536",
+      "category": "unsigned-integers",
+      "description": "Minimum five-byte encoding: 65536",
+      "inputHex": "1a00010000",
+      "expectedOutput": 65536,
+      "diagnosticNotation": "65536",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "boundary",
+        "uint32",
+        "five-byte"
+      ],
+      "rfcSection": "3.1"
+    },
+    {
+      "id": "uint-1000000",
+      "category": "unsigned-integers",
+      "description": "One million: 1000000",
+      "inputHex": "1a000f4240",
+      "expectedOutput": 1000000,
+      "diagnosticNotation": "1000000",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "uint32",
+        "round-number"
+      ],
+      "cardanoRelevance": "1 ADA in lovelace"
+    },
+    {
+      "id": "uint-1000000000",
+      "category": "unsigned-integers",
+      "description": "One billion: 1000000000",
+      "inputHex": "1a3b9aca00",
+      "expectedOutput": 1000000000,
+      "diagnosticNotation": "1000000000",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "uint32",
+        "round-number"
+      ],
+      "cardanoRelevance": "1000 ADA in lovelace"
+    },
+    {
+      "id": "uint-4294967295",
+      "category": "unsigned-integers",
+      "description": "Maximum uint32: 4294967295",
+      "inputHex": "1affffffff",
+      "expectedOutput": 4294967295,
+      "diagnosticNotation": "4294967295",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "boundary",
+        "uint32-max"
+      ],
+      "rfcSection": "3.1",
+      "cardanoRelevance": "JavaScript 32-bit limit"
+    },
+    {
+      "id": "uint-4294967296",
+      "category": "unsigned-integers",
+      "description": "Minimum nine-byte encoding: 4294967296",
+      "inputHex": "1b0000000100000000",
+      "expectedOutput": 4294967296,
+      "diagnosticNotation": "4294967296",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "boundary",
+        "uint64",
+        "nine-byte"
+      ],
+      "rfcSection": "3.1"
+    },
+    {
+      "id": "uint-45000000000000",
+      "category": "unsigned-integers",
+      "description": "Large value: 45000000000000 (45 billion ADA max supply)",
+      "inputHex": "1b000028ed6103d000",
+      "expectedOutput": 45000000000000,
+      "diagnosticNotation": "45000000000000",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "uint64"
+      ],
+      "cardanoRelevance": "Approximate Cardano max supply in ADA"
+    },
+    {
+      "id": "uint-45000000000000000000",
+      "category": "unsigned-integers",
+      "description": "Cardano max supply in lovelace: 45000000000000000000 (requires bignum)",
+      "inputHex": "c2490270801d946c940000",
+      "expectedOutput": "45000000000000000000",
+      "diagnosticNotation": "2(h'0270801D946C940000')",
+      "shouldSucceed": true,
+      "complexity": "complex",
+      "tags": [
+        "bignum",
+        "tag-2",
+        "cardano-specific"
+      ],
+      "cardanoRelevance": "Maximum possible ADA supply (45 billion ADA) - exceeds uint64",
+      "notes": "Value exceeds uint64 max (18446744073709551615), requires tag 2 (positive bignum)"
+    },
+    {
+      "id": "uint-9007199254740991",
+      "category": "unsigned-integers",
+      "description": "JavaScript MAX_SAFE_INTEGER: 9007199254740991",
+      "inputHex": "1b001fffffffffffff",
+      "expectedOutput": 9007199254740991,
+      "diagnosticNotation": "9007199254740991",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "boundary",
+        "javascript-limit"
+      ],
+      "notes": "Maximum safe integer in JavaScript (2^53 - 1)"
+    },
+    {
+      "id": "uint-9007199254740992",
+      "category": "unsigned-integers",
+      "description": "Beyond JavaScript safe integer: 9007199254740992",
+      "inputHex": "1b0020000000000000",
+      "expectedOutput": "9007199254740992",
+      "diagnosticNotation": "9007199254740992",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "boundary",
+        "javascript-limit",
+        "bigint"
+      ],
+      "notes": "Requires BigInt in JavaScript"
+    },
+    {
+      "id": "uint-18446744073709551615",
+      "category": "unsigned-integers",
+      "description": "Maximum uint64: 18446744073709551615",
+      "inputHex": "1bffffffffffffffff",
+      "expectedOutput": "18446744073709551615",
+      "diagnosticNotation": "18446744073709551615",
+      "shouldSucceed": true,
+      "complexity": "complex",
+      "tags": [
+        "boundary",
+        "uint64-max",
+        "bigint"
+      ],
+      "rfcSection": "3.1",
+      "notes": "2^64 - 1, requires BigInt"
+    },
+    {
+      "id": "uint-power-of-2-8",
+      "category": "unsigned-integers",
+      "description": "Power of 2: 256 (2^8)",
+      "inputHex": "190100",
+      "expectedOutput": 256,
+      "diagnosticNotation": "256",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "power-of-2"
+      ]
+    },
+    {
+      "id": "uint-power-of-2-16",
+      "category": "unsigned-integers",
+      "description": "Power of 2: 65536 (2^16)",
+      "inputHex": "1a00010000",
+      "expectedOutput": 65536,
+      "diagnosticNotation": "65536",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "power-of-2"
+      ]
+    },
+    {
+      "id": "uint-power-of-2-32",
+      "category": "unsigned-integers",
+      "description": "Power of 2: 4294967296 (2^32)",
+      "inputHex": "1b0000000100000000",
+      "expectedOutput": 4294967296,
+      "diagnosticNotation": "4294967296",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "power-of-2"
+      ]
+    },
+    {
+      "id": "uint-non-canonical-24-as-0",
+      "category": "unsigned-integers",
+      "description": "Non-canonical: 0 encoded with 1 extra byte",
+      "inputHex": "1800",
+      "expectedOutput": 0,
+      "diagnosticNotation": "0",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "non-canonical",
+        "negative-test"
+      ],
+      "errorType": "non-canonical",
+      "notes": "Valid CBOR but not canonical - should reject in strict mode"
+    },
+    {
+      "id": "uint-non-canonical-24-as-23",
+      "category": "unsigned-integers",
+      "description": "Non-canonical: 23 encoded with 1 extra byte",
+      "inputHex": "1817",
+      "expectedOutput": 23,
+      "diagnosticNotation": "23",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "non-canonical",
+        "negative-test"
+      ],
+      "errorType": "non-canonical",
+      "notes": "Should be encoded as 0x17, not 0x1817"
+    },
+    {
+      "id": "uint-non-canonical-25-as-255",
+      "category": "unsigned-integers",
+      "description": "Non-canonical: 255 encoded with 2 extra bytes",
+      "inputHex": "1900ff",
+      "expectedOutput": 255,
+      "diagnosticNotation": "255",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "non-canonical",
+        "negative-test"
+      ],
+      "errorType": "non-canonical",
+      "notes": "Should be encoded as 0x18ff, not 0x1900ff"
+    },
+    {
+      "id": "uint-non-canonical-26-as-65535",
+      "category": "unsigned-integers",
+      "description": "Non-canonical: 65535 encoded with 4 extra bytes",
+      "inputHex": "1a0000ffff",
+      "expectedOutput": 65535,
+      "diagnosticNotation": "65535",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "non-canonical",
+        "negative-test"
+      ],
+      "errorType": "non-canonical",
+      "notes": "Should be encoded as 0x19ffff"
+    },
+    {
+      "id": "uint-non-canonical-27-as-4294967295",
+      "category": "unsigned-integers",
+      "description": "Non-canonical: 4294967295 encoded with 8 extra bytes",
+      "inputHex": "1b00000000ffffffff",
+      "expectedOutput": 4294967295,
+      "diagnosticNotation": "4294967295",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "non-canonical",
+        "negative-test"
+      ],
+      "errorType": "non-canonical",
+      "notes": "Should be encoded as 0x1affffffff"
+    },
+    {
+      "id": "uint-reserved-info-28",
+      "category": "unsigned-integers",
+      "description": "Invalid: Reserved additional info 28",
+      "inputHex": "1c",
+      "expectedOutput": null,
+      "diagnosticNotation": "<invalid>",
+      "shouldSucceed": false,
+      "errorType": "invalid-additional-info",
+      "complexity": "simple",
+      "tags": [
+        "malformed",
+        "negative-test"
+      ],
+      "rfcSection": "3.1",
+      "notes": "Additional info 28 is reserved"
+    },
+    {
+      "id": "uint-reserved-info-29",
+      "category": "unsigned-integers",
+      "description": "Invalid: Reserved additional info 29",
+      "inputHex": "1d",
+      "expectedOutput": null,
+      "diagnosticNotation": "<invalid>",
+      "shouldSucceed": false,
+      "errorType": "invalid-additional-info",
+      "complexity": "simple",
+      "tags": [
+        "malformed",
+        "negative-test"
+      ],
+      "rfcSection": "3.1"
+    },
+    {
+      "id": "uint-reserved-info-30",
+      "category": "unsigned-integers",
+      "description": "Invalid: Reserved additional info 30",
+      "inputHex": "1e",
+      "expectedOutput": null,
+      "diagnosticNotation": "<invalid>",
+      "shouldSucceed": false,
+      "errorType": "invalid-additional-info",
+      "complexity": "simple",
+      "tags": [
+        "malformed",
+        "negative-test"
+      ],
+      "rfcSection": "3.1"
+    },
+    {
+      "id": "uint-truncated-24",
+      "category": "unsigned-integers",
+      "description": "Truncated: Additional info 24 without following byte",
+      "inputHex": "18",
+      "expectedOutput": null,
+      "diagnosticNotation": "<truncated>",
+      "shouldSucceed": false,
+      "errorType": "truncated",
+      "complexity": "simple",
+      "tags": [
+        "malformed",
+        "negative-test",
+        "truncated"
+      ]
+    },
+    {
+      "id": "uint-truncated-25",
+      "category": "unsigned-integers",
+      "description": "Truncated: Additional info 25 with only 1 byte",
+      "inputHex": "1901",
+      "expectedOutput": null,
+      "diagnosticNotation": "<truncated>",
+      "shouldSucceed": false,
+      "errorType": "truncated",
+      "complexity": "simple",
+      "tags": [
+        "malformed",
+        "negative-test",
+        "truncated"
+      ]
+    },
+    {
+      "id": "uint-truncated-26",
+      "category": "unsigned-integers",
+      "description": "Truncated: Additional info 26 with only 2 bytes",
+      "inputHex": "1a0001",
+      "expectedOutput": null,
+      "diagnosticNotation": "<truncated>",
+      "shouldSucceed": false,
+      "errorType": "truncated",
+      "complexity": "simple",
+      "tags": [
+        "malformed",
+        "negative-test",
+        "truncated"
+      ]
+    },
+    {
+      "id": "uint-truncated-27",
+      "category": "unsigned-integers",
+      "description": "Truncated: Additional info 27 with only 4 bytes",
+      "inputHex": "1b00000001",
+      "expectedOutput": null,
+      "diagnosticNotation": "<truncated>",
+      "shouldSucceed": false,
+      "errorType": "truncated",
+      "complexity": "simple",
+      "tags": [
+        "malformed",
+        "negative-test",
+        "truncated"
+      ]
+    }
+  ]
+}

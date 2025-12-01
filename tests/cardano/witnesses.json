@@ -1,0 +1,677 @@
+{
+  "category": "witnesses",
+  "description": "Cardano Transaction Witness Tests",
+  "version": "1.0",
+  "testCases": [
+    {
+      "id": "witness-vkey-simple",
+      "category": "witnesses",
+      "description": "VKey witness: [vkey, signature]",
+      "inputHex": "82582000112233445566778899aabbccddeeff00112233445566778899aabbccddeeff5840000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
+      "expectedOutput": [
+        "00112233445566778899aabbccddeeff00112233445566778899aabbccddeeff",
+        "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
+      ],
+      "diagnosticNotation": "[h'001122...', h'000102...']",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "witness",
+        "vkey",
+        "signature"
+      ],
+      "cardanoRelevance": "VKey witness structure (public key + Ed25519 signature)",
+      "notes": "Most common witness type - proves transaction authorization"
+    },
+    {
+      "id": "witness-vkey-set",
+      "category": "witnesses",
+      "description": "VKey witness set (multiple signatures)",
+      "inputHex": "d9010282825820aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa5840000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f825820bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb5840404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f",
+      "expectedOutput": [
+        [
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
+        ],
+        [
+          "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f"
+        ]
+      ],
+      "diagnosticNotation": "258([[h'AA...', h'00...'], [h'BB...', h'40...']])",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "witness",
+        "vkey",
+        "multisig",
+        "set"
+      ],
+      "cardanoRelevance": "Transaction witness set field 0 (VKey witnesses)",
+      "notes": "Multiple VKey witnesses for multi-input transactions"
+    },
+    {
+      "id": "witness-native-script-pubkey",
+      "category": "witnesses",
+      "description": "Native script: require signature (type 0)",
+      "inputHex": "82008200581caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "expectedOutput": [
+        0,
+        [
+          0,
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        ]
+      ],
+      "diagnosticNotation": "[0, [0, h'AAAA...']]",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "witness",
+        "native-script",
+        "pubkey"
+      ],
+      "cardanoRelevance": "Native script: require single signature",
+      "notes": "ScriptPubkey - requires signature from specific key hash"
+    },
+    {
+      "id": "witness-native-script-all",
+      "category": "witnesses",
+      "description": "Native script: require all signatures (type 1)",
+      "inputHex": "820182820058201111111111111111111111111111111111111111111111111111111111111111820058202222222222222222222222222222222222222222222222222222222222222222",
+      "expectedOutput": [
+        1,
+        [
+          [
+            0,
+            "1111111111111111111111111111111111111111111111111111111111111111"
+          ],
+          [
+            0,
+            "2222222222222222222222222222222222222222222222222222222222222222"
+          ]
+        ]
+      ],
+      "diagnosticNotation": "[1, [[0, h'1111...'], [0, h'2222...']]]",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "witness",
+        "native-script",
+        "multisig",
+        "all"
+      ],
+      "cardanoRelevance": "Native script: require all of N signatures",
+      "notes": "ScriptAll - all sub-scripts must be satisfied (AND logic)"
+    },
+    {
+      "id": "witness-native-script-any",
+      "category": "witnesses",
+      "description": "Native script: require any signature (type 2)",
+      "inputHex": "820282820058203333333333333333333333333333333333333333333333333333333333333333820058204444444444444444444444444444444444444444444444444444444444444444",
+      "expectedOutput": [
+        2,
+        [
+          [
+            0,
+            "3333333333333333333333333333333333333333333333333333333333333333"
+          ],
+          [
+            0,
+            "4444444444444444444444444444444444444444444444444444444444444444"
+          ]
+        ]
+      ],
+      "diagnosticNotation": "[2, [[0, h'3333...'], [0, h'4444...']]]",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "witness",
+        "native-script",
+        "multisig",
+        "any"
+      ],
+      "cardanoRelevance": "Native script: require any of N signatures",
+      "notes": "ScriptAny - at least one sub-script must be satisfied (OR logic)"
+    },
+    {
+      "id": "witness-native-script-n-of-k",
+      "category": "witnesses",
+      "description": "Native script: require N of K signatures (type 3)",
+      "inputHex": "8203820283820058205555555555555555555555555555555555555555555555555555555555555555820058206666666666666666666666666666666666666666666666666666666666666666820058207777777777777777777777777777777777777777777777777777777777777777",
+      "expectedOutput": [
+        3,
+        [
+          2,
+          [
+            [
+              0,
+              "5555555555555555555555555555555555555555555555555555555555555555"
+            ],
+            [
+              0,
+              "6666666666666666666666666666666666666666666666666666666666666666"
+            ],
+            [
+              0,
+              "7777777777777777777777777777777777777777777777777777777777777777"
+            ]
+          ]
+        ]
+      ],
+      "diagnosticNotation": "[3, [2, [[0, h'5555...'], [0, h'6666...'], [0, h'7777...']]]]",
+      "shouldSucceed": true,
+      "complexity": "complex",
+      "tags": [
+        "cardano",
+        "witness",
+        "native-script",
+        "multisig",
+        "n-of-k"
+      ],
+      "cardanoRelevance": "Native script: require M of N signatures (threshold)",
+      "notes": "ScriptNofK - M of N sub-scripts must be satisfied (2-of-3 multisig)"
+    },
+    {
+      "id": "witness-native-script-timelock-before",
+      "category": "witnesses",
+      "description": "Native script: invalid before slot (type 4)",
+      "inputHex": "82041a05f5e100",
+      "expectedOutput": [
+        4,
+        100000000
+      ],
+      "diagnosticNotation": "[4, 100000000]",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "witness",
+        "native-script",
+        "timelock"
+      ],
+      "cardanoRelevance": "Native script: timelock - valid after slot X",
+      "notes": "InvalidBefore - transaction invalid before this slot"
+    },
+    {
+      "id": "witness-native-script-timelock-after",
+      "category": "witnesses",
+      "description": "Native script: invalid after slot (type 5)",
+      "inputHex": "82051a0bebc200",
+      "expectedOutput": [
+        5,
+        200000000
+      ],
+      "diagnosticNotation": "[5, 200000000]",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "witness",
+        "native-script",
+        "timelock"
+      ],
+      "cardanoRelevance": "Native script: timelock - valid until slot X",
+      "notes": "InvalidHereafter - transaction invalid after this slot"
+    },
+    {
+      "id": "witness-native-script-nested",
+      "category": "witnesses",
+      "description": "Native script: nested all + any + timelock",
+      "inputHex": "82018382005820888888888888888888888888888888888888888888888888888888888888888882028282005820999999999999999999999999999999999999999999999999999999999999999982015820000000000000000000000000000000000000000000000000000000000000000082041a05f5e100",
+      "expectedOutput": [
+        1,
+        [
+          [
+            0,
+            "8888888888888888888888888888888888888888888888888888888888888888"
+          ],
+          [
+            2,
+            [
+              [
+                0,
+                "9999999999999999999999999999999999999999999999999999999999999999"
+              ],
+              [
+                1,
+                "0000000000000000000000000000000000000000000000000000000000000000"
+              ]
+            ]
+          ],
+          [
+            4,
+            100000000
+          ]
+        ]
+      ],
+      "diagnosticNotation": "[1, [[0, h'8888...'], [2, [[0, h'9999...'], [1, [[0, h'0000...']]]]], [4, 100000000]]]",
+      "shouldSucceed": true,
+      "complexity": "extreme",
+      "tags": [
+        "cardano",
+        "witness",
+        "native-script",
+        "nested",
+        "complex"
+      ],
+      "cardanoRelevance": "Complex native script combining multisig and timelocks",
+      "notes": "Real-world pattern: (sig1 AND (sig2 OR sig3) AND after_slot)"
+    },
+    {
+      "id": "witness-plutus-v1-script",
+      "category": "witnesses",
+      "description": "Plutus V1 script witness",
+      "inputHex": "4701000022200101",
+      "expectedOutput": "01000022200101",
+      "diagnosticNotation": "h'01000022200101'",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "witness",
+        "plutus",
+        "v1",
+        "script"
+      ],
+      "cardanoRelevance": "Plutus V1 script bytecode",
+      "notes": "Simplified Plutus V1 script (real scripts are much larger)"
+    },
+    {
+      "id": "witness-plutus-v2-script",
+      "category": "witnesses",
+      "description": "Plutus V2 script witness",
+      "inputHex": "46020000222000",
+      "expectedOutput": "020000222000",
+      "diagnosticNotation": "h'02000033300202'",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "witness",
+        "plutus",
+        "v2",
+        "script"
+      ],
+      "cardanoRelevance": "Plutus V2 script bytecode (Babbage era)",
+      "notes": "Plutus V2 adds reference inputs and inline datums"
+    },
+    {
+      "id": "witness-plutus-v3-script",
+      "category": "witnesses",
+      "description": "Plutus V3 script witness",
+      "inputHex": "46030000222000",
+      "expectedOutput": "030000222000",
+      "diagnosticNotation": "h'03000044400303'",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "witness",
+        "plutus",
+        "v3",
+        "script"
+      ],
+      "cardanoRelevance": "Plutus V3 script bytecode (Conway era)",
+      "notes": "Plutus V3 adds governance support"
+    },
+    {
+      "id": "witness-redeemer-spend",
+      "category": "witnesses",
+      "description": "Redeemer for spending script UTxO",
+      "inputHex": "840000d879811903e8821a000493e01a77359400",
+      "expectedOutput": [
+        0,
+        0,
+        {
+          "constructor": 0,
+          "fields": [
+            1000
+          ]
+        },
+        [
+          300000,
+          2000000000
+        ]
+      ],
+      "diagnosticNotation": "[0, 0, 121([]), [1000000, 500000000]]",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "witness",
+        "redeemer",
+        "spend",
+        "plutus"
+      ],
+      "cardanoRelevance": "Redeemer for spending from Plutus script",
+      "notes": "Format: [tag, index, data, ex_units]. Tag 0 = spend"
+    },
+    {
+      "id": "witness-redeemer-mint",
+      "category": "witnesses",
+      "description": "Redeemer for minting tokens",
+      "inputHex": "840100d879811907d0821a00061a801ab2d05e00",
+      "expectedOutput": [
+        1,
+        0,
+        {
+          "constructor": 0,
+          "fields": [
+            2000
+          ]
+        },
+        [
+          400000,
+          3000000000
+        ]
+      ],
+      "diagnosticNotation": "[1, 0, 121([42]), [500000, 250000000]]",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "witness",
+        "redeemer",
+        "mint",
+        "plutus"
+      ],
+      "cardanoRelevance": "Redeemer for minting/burning tokens",
+      "notes": "Tag 1 = mint. Data includes minting amount/logic"
+    },
+    {
+      "id": "witness-redeemer-cert",
+      "category": "witnesses",
+      "description": "Redeemer for certificate",
+      "inputHex": "840201d87981190bb8821a0007a1201aee6b2800",
+      "expectedOutput": [
+        2,
+        1,
+        {
+          "constructor": 0,
+          "fields": [
+            3000
+          ]
+        },
+        [
+          500000,
+          4000000000
+        ]
+      ],
+      "diagnosticNotation": "[2, 0, 121([200]), [100000, 1000000000]]",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "witness",
+        "redeemer",
+        "cert",
+        "plutus"
+      ],
+      "cardanoRelevance": "Redeemer for certificate (stake registration/delegation)",
+      "notes": "Tag 2 = cert. Used for stake operations"
+    },
+    {
+      "id": "witness-redeemer-reward",
+      "category": "witnesses",
+      "description": "Redeemer for reward withdrawal",
+      "inputHex": "840300d879811903e8821a000493e01a77359400",
+      "expectedOutput": [
+        3,
+        0,
+        {
+          "constructor": 0,
+          "fields": [
+            1000
+          ]
+        },
+        [
+          300000,
+          2000000000
+        ]
+      ],
+      "diagnosticNotation": "[3, 0, 121([1000]), [300000, 2000000000]]",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "witness",
+        "redeemer",
+        "reward",
+        "plutus"
+      ],
+      "cardanoRelevance": "Redeemer for withdrawing staking rewards",
+      "notes": "Tag 3 = reward. For script-based stake accounts"
+    },
+    {
+      "id": "witness-redeemer-vote",
+      "category": "witnesses",
+      "description": "Redeemer for voting (Conway)",
+      "inputHex": "840400d87981191388821a000927c01b000000012a05f200",
+      "expectedOutput": [
+        4,
+        0,
+        {
+          "constructor": 0,
+          "fields": [
+            5000
+          ]
+        },
+        [
+          600000,
+          5000000000
+        ]
+      ],
+      "diagnosticNotation": "[4, 0, 121([10000]), [0, 0]]",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "witness",
+        "redeemer",
+        "vote",
+        "conway",
+        "governance"
+      ],
+      "cardanoRelevance": "Redeemer for governance voting (Conway era)",
+      "notes": "Tag 4 = vote. Conway governance feature"
+    },
+    {
+      "id": "witness-redeemer-propose",
+      "category": "witnesses",
+      "description": "Redeemer for governance proposal (Conway)",
+      "inputHex": "840500d87981191770821a000aae601b0000000165a0bc00",
+      "expectedOutput": [
+        5,
+        0,
+        {
+          "constructor": 0,
+          "fields": [
+            6000
+          ]
+        },
+        [
+          700000,
+          6000000000
+        ]
+      ],
+      "diagnosticNotation": "[5, 0, 121([5000, 24000]), [0, 0]]",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "witness",
+        "redeemer",
+        "propose",
+        "conway",
+        "governance"
+      ],
+      "cardanoRelevance": "Redeemer for submitting governance proposal",
+      "notes": "Tag 5 = propose. Conway governance feature"
+    },
+    {
+      "id": "witness-datum-inline",
+      "category": "witnesses",
+      "description": "Inline datum in witness set",
+      "inputHex": "d87981182a",
+      "expectedOutput": {
+        "constructor": 0,
+        "fields": [
+          42
+        ]
+      },
+      "diagnosticNotation": "121([1, 100])",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "witness",
+        "datum",
+        "plutus"
+      ],
+      "cardanoRelevance": "Plutus Data datum in witness set",
+      "notes": "Datums can be in witness set or inline in outputs"
+    },
+    {
+      "id": "witness-datum-complex",
+      "category": "witnesses",
+      "description": "Complex nested Plutus Data datum",
+      "inputHex": "d8798283010203a1436b65794576616c7565",
+      "expectedOutput": {
+        "constructor": 0,
+        "fields": [
+          [
+            1,
+            2,
+            3
+          ],
+          {
+            "6b6579": "76616c7565"
+          }
+        ]
+      },
+      "diagnosticNotation": "121([121([]), h'616263', 121([1, 121([1, 2])])])",
+      "shouldSucceed": true,
+      "complexity": "extreme",
+      "tags": [
+        "cardano",
+        "witness",
+        "datum",
+        "plutus",
+        "nested"
+      ],
+      "cardanoRelevance": "Complex Plutus Data structure with nested constructors",
+      "notes": "Real smart contracts use deeply nested datums"
+    },
+    {
+      "id": "witness-set-complete",
+      "category": "witnesses",
+      "description": "Complete witness set with all fields",
+      "inputHex": "a30081825820aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa583f0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f01818200581cbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb0581840000d879811864821927101a000f4240",
+      "expectedOutput": {
+        "0": [
+          [
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
+          ]
+        ],
+        "1": [
+          [
+            0,
+            "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          ]
+        ],
+        "5": [
+          [
+            0,
+            0,
+            {
+              "constructor": 0,
+              "fields": [
+                100
+              ]
+            },
+            [
+              10000,
+              1000000
+            ]
+          ]
+        ]
+      },
+      "diagnosticNotation": "{0: [[h'0011...', h'0001...']], 1: [h'0100...'], 3: [[0, 0, 121([]), [...]]], 4: 258([])}",
+      "shouldSucceed": true,
+      "complexity": "extreme",
+      "tags": [
+        "cardano",
+        "witness",
+        "witness-set",
+        "complete"
+      ],
+      "cardanoRelevance": "Complete transaction witness set structure",
+      "notes": "Fields: 0=vkeys, 1=scripts, 3=redeemers, 4=datums"
+    },
+    {
+      "id": "witness-bootstrap-byron",
+      "category": "witnesses",
+      "description": "Byron bootstrap witness",
+      "inputHex": "84582000112233445566778899aabbccddeeff00112233445566778899aabbccddeeff5840000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f5820aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa410a",
+      "expectedOutput": [
+        "00112233445566778899aabbccddeeff00112233445566778899aabbccddeeff",
+        "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "0a"
+      ],
+      "diagnosticNotation": "[h'0011...', h'0001...', h'AAAA...', h'0A']",
+      "shouldSucceed": true,
+      "complexity": "complex",
+      "tags": [
+        "cardano",
+        "witness",
+        "byron",
+        "bootstrap"
+      ],
+      "cardanoRelevance": "Byron-era bootstrap witness (legacy)",
+      "notes": "Format: [pubkey, signature, chain_code, attributes]"
+    },
+    {
+      "id": "witness-script-hash",
+      "category": "witnesses",
+      "description": "Script hash for native script",
+      "inputHex": "581ccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "expectedOutput": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "diagnosticNotation": "h'9999999999999999999999999999999999999999999999999999999999'",
+      "shouldSucceed": true,
+      "complexity": "trivial",
+      "tags": [
+        "cardano",
+        "witness",
+        "script-hash",
+        "native"
+      ],
+      "cardanoRelevance": "28-byte hash of native script",
+      "notes": "Blake2b-224 hash of native script CBOR"
+    },
+    {
+      "id": "witness-plutus-script-hash",
+      "category": "witnesses",
+      "description": "Script hash for Plutus script",
+      "inputHex": "581cdddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "expectedOutput": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "diagnosticNotation": "h'8888888888888888888888888888888888888888888888888888888888'",
+      "shouldSucceed": true,
+      "complexity": "trivial",
+      "tags": [
+        "cardano",
+        "witness",
+        "script-hash",
+        "plutus"
+      ],
+      "cardanoRelevance": "28-byte hash of Plutus script",
+      "notes": "Blake2b-224 hash of Plutus script bytecode"
+    }
+  ]
+}

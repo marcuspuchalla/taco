@@ -1,0 +1,332 @@
+services:
+  # ===========================================
+  # Node.js CBOR Library Containers
+  # ===========================================
+
+  node-borc:
+    build:
+      context: ./containers/node-borc
+    networks:
+      - cbor-test-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:8080/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  node-cbor-x:
+    build:
+      context: ./containers/node-cbor-x
+    networks:
+      - cbor-test-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:8080/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  node-cbor:
+    build:
+      context: ./containers/node-cbor
+    networks:
+      - cbor-test-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:8080/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  node-cbor-js:
+    build:
+      context: ./containers/node-cbor-js
+    networks:
+      - cbor-test-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:8080/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  node-cbor-redux:
+    build:
+      context: ./containers/node-cbor-redux
+    networks:
+      - cbor-test-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:8080/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  node-tiny-cbor:
+    build:
+      context: ./containers/node-tiny-cbor
+    networks:
+      - cbor-test-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:8080/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  node-cbor-sync:
+    build:
+      context: ./containers/node-cbor-sync
+    networks:
+      - cbor-test-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:8080/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  node-cborg:
+    build:
+      context: ./containers/node-cborg
+    networks:
+      - cbor-test-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:8080/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  node-dag-cbor:
+    build:
+      context: ./containers/node-dag-cbor
+    networks:
+      - cbor-test-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:8080/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  # node-cbor-decoder is commented out because it requires a local volume mount
+  # to the unpublished cbor_decoder library. To test your own library locally,
+  # uncomment this and update the volume path to point to your library.
+  # node-cbor-decoder:
+  #   build:
+  #     context: ./containers/node-cbor-decoder
+  #   volumes:
+  #     - /path/to/your/cbor_decoder/lib:/cbor_decoder:ro
+  #   networks:
+  #     - cbor-test-network
+  #   healthcheck:
+  #     test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:8080/health"]
+  #     interval: 5s
+  #     timeout: 3s
+  #     retries: 10
+  #     start_period: 10s
+
+  # ===========================================
+  # Python CBOR Library Containers
+  # ===========================================
+
+  python-cbor2:
+    build:
+      context: ./containers/python-cbor2
+    networks:
+      - cbor-test-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:8080/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  # ===========================================
+  # Rust CBOR Library Containers
+  # ===========================================
+
+  rust-ciborium:
+    build:
+      context: ./containers/rust-ciborium
+    networks:
+      - cbor-test-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:8080/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  # ===========================================
+  # Go CBOR Library Containers
+  # ===========================================
+
+  go-cbor:
+    build:
+      context: ./containers/go-cbor
+    networks:
+      - cbor-test-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:8080/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  # ===========================================
+  # C CBOR Library Containers
+  # ===========================================
+
+  c-libcbor:
+    build:
+      context: ./containers/c-libcbor
+    networks:
+      - cbor-test-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:8080/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  # ===========================================
+  # Java CBOR Library Containers
+  # ===========================================
+
+  java-cbor:
+    build:
+      context: ./containers/java-cbor
+    networks:
+      - cbor-test-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:8080/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+      start_period: 30s
+
+  # ===========================================
+  # C# CBOR Library Containers
+  # ===========================================
+
+  csharp-cbor:
+    build:
+      context: ./containers/csharp-cbor
+    networks:
+      - cbor-test-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:8080/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+      start_period: 30s
+
+  # ===========================================
+  # PHP CBOR Library Containers
+  # ===========================================
+
+  php-cbor:
+    build:
+      context: ./containers/php-cbor
+    networks:
+      - cbor-test-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:8080/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  # ===========================================
+  # Ruby CBOR Library Containers
+  # ===========================================
+
+  ruby-cbor:
+    build:
+      context: ./containers/ruby-cbor
+    networks:
+      - cbor-test-network
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/health"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  # ===========================================
+  # Perl CBOR Library Containers
+  # ===========================================
+
+  perl-cbor:
+    build:
+      context: ./containers/perl-cbor
+    networks:
+      - cbor-test-network
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/health"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  # ===========================================
+  # Test Runner
+  # ===========================================
+
+  test-runner:
+    build:
+      context: ./runner
+    depends_on:
+      node-borc:
+        condition: service_healthy
+      node-cbor-x:
+        condition: service_healthy
+      node-cbor:
+        condition: service_healthy
+      node-cbor-js:
+        condition: service_healthy
+      node-cbor-redux:
+        condition: service_healthy
+      node-tiny-cbor:
+        condition: service_healthy
+      node-cbor-sync:
+        condition: service_healthy
+      node-cborg:
+        condition: service_healthy
+      node-dag-cbor:
+        condition: service_healthy
+      python-cbor2:
+        condition: service_healthy
+      rust-ciborium:
+        condition: service_healthy
+      go-cbor:
+        condition: service_healthy
+      c-libcbor:
+        condition: service_healthy
+      java-cbor:
+        condition: service_healthy
+      csharp-cbor:
+        condition: service_healthy
+      php-cbor:
+        condition: service_healthy
+      ruby-cbor:
+        condition: service_healthy
+      perl-cbor:
+        condition: service_healthy
+    environment:
+      - CONTAINERS=node-borc:8080,node-cbor-x:8080,node-cbor:8080,node-cbor-js:8080,node-cbor-redux:8080,node-tiny-cbor:8080,node-cbor-sync:8080,node-cborg:8080,node-dag-cbor:8080,python-cbor2:8080,rust-ciborium:8080,go-cbor:8080,c-libcbor:8080,java-cbor:8080,csharp-cbor:8080,php-cbor:8080,ruby-cbor:8080,perl-cbor:8080
+      - TEST_DIR=/tests
+      - REPORT_DIR=/reports
+      - TIMEOUT_MS=5000
+    volumes:
+      - ../tests:/tests:ro
+      - ./reports:/reports
+    networks:
+      - cbor-test-network
+
+networks:
+  cbor-test-network:
+    driver: bridge

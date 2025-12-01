@@ -1,0 +1,8 @@
+{
+    "name": "cbor-test/php-cbor",
+    "description": "CBOR test container using spomky-labs/cbor-php",
+    "require": {
+        "php": ">=8.1",
+        "spomky-labs/cbor-php": "^3.1"
+    }
+}

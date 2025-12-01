@@ -1,0 +1,426 @@
+{
+  "category": "negative-integers",
+  "description": "RFC 8949 Major Type 1: Negative Integer Tests",
+  "version": "1.0",
+  "testCases": [
+    {
+      "id": "nint-001",
+      "category": "negative-integers",
+      "description": "Maximum value: -1",
+      "inputHex": "20",
+      "expectedOutput": -1,
+      "diagnosticNotation": "-1",
+      "shouldSucceed": true,
+      "complexity": "trivial",
+      "tags": [
+        "boundary",
+        "maximum"
+      ],
+      "rfcSection": "3.1",
+      "notes": "Encoded as major type 1, value 0 (-1 - 0 = -1)"
+    },
+    {
+      "id": "nint-002",
+      "category": "negative-integers",
+      "description": "Value: -2",
+      "inputHex": "21",
+      "expectedOutput": -2,
+      "diagnosticNotation": "-2",
+      "shouldSucceed": true,
+      "complexity": "trivial",
+      "tags": [
+        "basic"
+      ]
+    },
+    {
+      "id": "nint-010",
+      "category": "negative-integers",
+      "description": "Value: -10",
+      "inputHex": "29",
+      "expectedOutput": -10,
+      "diagnosticNotation": "-10",
+      "shouldSucceed": true,
+      "complexity": "trivial",
+      "tags": [
+        "basic"
+      ],
+      "cardanoRelevance": "Possible in Plutus integer arithmetic"
+    },
+    {
+      "id": "nint-024",
+      "category": "negative-integers",
+      "description": "Minimum single-byte encoding: -24",
+      "inputHex": "37",
+      "expectedOutput": -24,
+      "diagnosticNotation": "-24",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "boundary",
+        "single-byte"
+      ],
+      "rfcSection": "3.1"
+    },
+    {
+      "id": "nint-025",
+      "category": "negative-integers",
+      "description": "Maximum two-byte encoding start: -25",
+      "inputHex": "3818",
+      "expectedOutput": -25,
+      "diagnosticNotation": "-25",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "boundary",
+        "two-byte"
+      ],
+      "rfcSection": "3.1"
+    },
+    {
+      "id": "nint-100",
+      "category": "negative-integers",
+      "description": "Value: -100",
+      "inputHex": "3863",
+      "expectedOutput": -100,
+      "diagnosticNotation": "-100",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "two-byte"
+      ]
+    },
+    {
+      "id": "nint-256",
+      "category": "negative-integers",
+      "description": "Maximum uint8 negative: -256",
+      "inputHex": "38ff",
+      "expectedOutput": -256,
+      "diagnosticNotation": "-256",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "boundary",
+        "uint8-max"
+      ],
+      "rfcSection": "3.1"
+    },
+    {
+      "id": "nint-257",
+      "category": "negative-integers",
+      "description": "Minimum three-byte encoding: -257",
+      "inputHex": "390100",
+      "expectedOutput": -257,
+      "diagnosticNotation": "-257",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "boundary",
+        "three-byte"
+      ],
+      "rfcSection": "3.1"
+    },
+    {
+      "id": "nint-1000",
+      "category": "negative-integers",
+      "description": "Value: -1000",
+      "inputHex": "3903e7",
+      "expectedOutput": -1000,
+      "diagnosticNotation": "-1000",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "uint16"
+      ]
+    },
+    {
+      "id": "nint-65536",
+      "category": "negative-integers",
+      "description": "Maximum uint16 negative: -65536",
+      "inputHex": "39ffff",
+      "expectedOutput": -65536,
+      "diagnosticNotation": "-65536",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "boundary",
+        "uint16-max"
+      ],
+      "rfcSection": "3.1"
+    },
+    {
+      "id": "nint-65537",
+      "category": "negative-integers",
+      "description": "Minimum five-byte encoding: -65537",
+      "inputHex": "3a00010000",
+      "expectedOutput": -65537,
+      "diagnosticNotation": "-65537",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "boundary",
+        "five-byte"
+      ],
+      "rfcSection": "3.1"
+    },
+    {
+      "id": "nint-1000000",
+      "category": "negative-integers",
+      "description": "Negative one million: -1000000",
+      "inputHex": "3a000f423f",
+      "expectedOutput": -1000000,
+      "diagnosticNotation": "-1000000",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "uint32"
+      ]
+    },
+    {
+      "id": "nint-4294967296",
+      "category": "negative-integers",
+      "description": "Maximum uint32 negative: -4294967296",
+      "inputHex": "3affffffff",
+      "expectedOutput": -4294967296,
+      "diagnosticNotation": "-4294967296",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "boundary",
+        "uint32-max"
+      ],
+      "rfcSection": "3.1"
+    },
+    {
+      "id": "nint-4294967297",
+      "category": "negative-integers",
+      "description": "Minimum nine-byte encoding: -4294967297",
+      "inputHex": "3b0000000100000000",
+      "expectedOutput": -4294967297,
+      "diagnosticNotation": "-4294967297",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "boundary",
+        "nine-byte",
+        "bigint"
+      ],
+      "rfcSection": "3.1",
+      "notes": "Beyond 32-bit, may require BigInt"
+    },
+    {
+      "id": "nint-9007199254740992",
+      "category": "negative-integers",
+      "description": "Beyond JavaScript safe integer: -9007199254740992",
+      "inputHex": "3b001fffffffffffff",
+      "expectedOutput": -9007199254740992,
+      "diagnosticNotation": "-9007199254740992",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "boundary",
+        "javascript-limit",
+        "bigint"
+      ],
+      "notes": "Requires BigInt in JavaScript"
+    },
+    {
+      "id": "nint-18446744073709551616",
+      "category": "negative-integers",
+      "description": "Maximum int64: -18446744073709551616",
+      "inputHex": "3bffffffffffffffff",
+      "expectedOutput": "-18446744073709551616",
+      "diagnosticNotation": "-18446744073709551616",
+      "shouldSucceed": true,
+      "complexity": "complex",
+      "tags": [
+        "boundary",
+        "int64-min",
+        "bigint"
+      ],
+      "rfcSection": "3.1",
+      "notes": "-2^64, requires BigInt"
+    },
+    {
+      "id": "nint-power-of-2-8",
+      "category": "negative-integers",
+      "description": "Negative power of 2: -256",
+      "inputHex": "38ff",
+      "expectedOutput": -256,
+      "diagnosticNotation": "-256",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "power-of-2"
+      ]
+    },
+    {
+      "id": "nint-power-of-2-16",
+      "category": "negative-integers",
+      "description": "Negative power of 2: -65536",
+      "inputHex": "39ffff",
+      "expectedOutput": -65536,
+      "diagnosticNotation": "-65536",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "power-of-2"
+      ]
+    },
+    {
+      "id": "nint-non-canonical-24-as-1",
+      "category": "negative-integers",
+      "description": "Non-canonical: -1 encoded with 1 extra byte",
+      "inputHex": "3800",
+      "expectedOutput": -1,
+      "diagnosticNotation": "-1",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "non-canonical",
+        "negative-test"
+      ],
+      "errorType": "non-canonical",
+      "notes": "Should be encoded as 0x20"
+    },
+    {
+      "id": "nint-non-canonical-24-as-24",
+      "category": "negative-integers",
+      "description": "Non-canonical: -24 encoded with 1 extra byte",
+      "inputHex": "3817",
+      "expectedOutput": -24,
+      "diagnosticNotation": "-24",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "non-canonical",
+        "negative-test"
+      ],
+      "errorType": "non-canonical",
+      "notes": "Should be encoded as 0x37"
+    },
+    {
+      "id": "nint-non-canonical-25-as-256",
+      "category": "negative-integers",
+      "description": "Non-canonical: -256 encoded with 2 extra bytes",
+      "inputHex": "3900ff",
+      "expectedOutput": -256,
+      "diagnosticNotation": "-256",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "non-canonical",
+        "negative-test"
+      ],
+      "errorType": "non-canonical"
+    },
+    {
+      "id": "nint-reserved-info-28",
+      "category": "negative-integers",
+      "description": "Invalid: Reserved additional info 28",
+      "inputHex": "3c",
+      "expectedOutput": null,
+      "diagnosticNotation": "<invalid>",
+      "shouldSucceed": false,
+      "errorType": "invalid-additional-info",
+      "complexity": "simple",
+      "tags": [
+        "malformed",
+        "negative-test"
+      ]
+    },
+    {
+      "id": "nint-reserved-info-29",
+      "category": "negative-integers",
+      "description": "Invalid: Reserved additional info 29",
+      "inputHex": "3d",
+      "expectedOutput": null,
+      "diagnosticNotation": "<invalid>",
+      "shouldSucceed": false,
+      "errorType": "invalid-additional-info",
+      "complexity": "simple",
+      "tags": [
+        "malformed",
+        "negative-test"
+      ]
+    },
+    {
+      "id": "nint-reserved-info-30",
+      "category": "negative-integers",
+      "description": "Invalid: Reserved additional info 30",
+      "inputHex": "3e",
+      "expectedOutput": null,
+      "diagnosticNotation": "<invalid>",
+      "shouldSucceed": false,
+      "errorType": "invalid-additional-info",
+      "complexity": "simple",
+      "tags": [
+        "malformed",
+        "negative-test"
+      ]
+    },
+    {
+      "id": "nint-truncated-24",
+      "category": "negative-integers",
+      "description": "Truncated: Additional info 24 without following byte",
+      "inputHex": "38",
+      "expectedOutput": null,
+      "diagnosticNotation": "<truncated>",
+      "shouldSucceed": false,
+      "errorType": "truncated",
+      "complexity": "simple",
+      "tags": [
+        "malformed",
+        "negative-test",
+        "truncated"
+      ]
+    },
+    {
+      "id": "nint-truncated-25",
+      "category": "negative-integers",
+      "description": "Truncated: Additional info 25 with only 1 byte",
+      "inputHex": "3901",
+      "expectedOutput": null,
+      "diagnosticNotation": "<truncated>",
+      "shouldSucceed": false,
+      "errorType": "truncated",
+      "complexity": "simple",
+      "tags": [
+        "malformed",
+        "negative-test",
+        "truncated"
+      ]
+    },
+    {
+      "id": "nint-truncated-26",
+      "category": "negative-integers",
+      "description": "Truncated: Additional info 26 with only 2 bytes",
+      "inputHex": "3a0001",
+      "expectedOutput": null,
+      "diagnosticNotation": "<truncated>",
+      "shouldSucceed": false,
+      "errorType": "truncated",
+      "complexity": "simple",
+      "tags": [
+        "malformed",
+        "negative-test",
+        "truncated"
+      ]
+    },
+    {
+      "id": "nint-truncated-27",
+      "category": "negative-integers",
+      "description": "Truncated: Additional info 27 with only 4 bytes",
+      "inputHex": "3b00000001",
+      "expectedOutput": null,
+      "diagnosticNotation": "<truncated>",
+      "shouldSucceed": false,
+      "errorType": "truncated",
+      "complexity": "simple",
+      "tags": [
+        "malformed",
+        "negative-test",
+        "truncated"
+      ]
+    }
+  ]
+}

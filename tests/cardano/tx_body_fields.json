@@ -1,0 +1,479 @@
+{
+  "category": "tx-body-fields",
+  "description": "Cardano Transaction Body Field Tests",
+  "version": "1.0",
+  "testCases": [
+    {
+      "id": "tx-body-field-ttl",
+      "category": "tx-body-fields",
+      "description": "Transaction body with TTL (time to live)",
+      "inputHex": "a4008001800200031a05f5e100",
+      "expectedOutput": {
+        "0": [],
+        "1": [],
+        "2": 0,
+        "3": 100000000
+      },
+      "diagnosticNotation": "{0: [], 1: [], 2: 0, 3: 100000000}",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "tx-body",
+        "ttl",
+        "expiry"
+      ],
+      "cardanoRelevance": "Field 3: TTL (invalid_hereafter) - slot after which tx is invalid",
+      "notes": "TTL prevents transaction replay after specified slot"
+    },
+    {
+      "id": "tx-body-field-certs",
+      "category": "tx-body-fields",
+      "description": "Transaction body with certificates",
+      "inputHex": "a4008001800200048182008200581c11111111111111111111111111111111111111111111111111111111",
+      "expectedOutput": {
+        "0": [],
+        "1": [],
+        "2": 0,
+        "4": [
+          [
+            0,
+            [
+              0,
+              "11111111111111111111111111111111111111111111111111111111"
+            ]
+          ]
+        ]
+      },
+      "diagnosticNotation": "{0: [], 1: [], 2: 0, 4: [[0, [0, h'E1C6...']]]}",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "tx-body",
+        "certificates",
+        "staking"
+      ],
+      "cardanoRelevance": "Field 4: Certificates for stake operations",
+      "notes": "Stake registration certificate"
+    },
+    {
+      "id": "tx-body-field-withdrawals",
+      "category": "tx-body-fields",
+      "description": "Transaction body with reward withdrawals",
+      "inputHex": "a400800180020005a1581de1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1a000f4240",
+      "expectedOutput": {
+        "0": [],
+        "1": [],
+        "2": 0,
+        "5": {
+          "e1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa": 1000000
+        }
+      },
+      "diagnosticNotation": "{0: [], 1: [], 2: 0, 5: {h'E1E1...': 1000000}}",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "tx-body",
+        "withdrawals",
+        "rewards"
+      ],
+      "cardanoRelevance": "Field 5: Withdrawals of staking rewards",
+      "notes": "Map of reward account -> amount to withdraw"
+    },
+    {
+      "id": "tx-body-field-update",
+      "category": "tx-body-fields",
+      "description": "Transaction body with protocol parameter update",
+      "inputHex": "a40080018002000682a0a0",
+      "expectedOutput": {
+        "0": [],
+        "1": [],
+        "2": 0,
+        "6": [
+          {},
+          {}
+        ]
+      },
+      "diagnosticNotation": "{0: [], 1: [], 2: 0, 6: 258({0: {}})}",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "tx-body",
+        "update",
+        "protocol-params"
+      ],
+      "cardanoRelevance": "Field 6: Protocol parameter update proposal",
+      "notes": "Used by genesis delegates to propose updates"
+    },
+    {
+      "id": "tx-body-field-auxiliary-hash",
+      "category": "tx-body-fields",
+      "description": "Transaction body with auxiliary data hash",
+      "inputHex": "a4008001800200075820aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "expectedOutput": {
+        "0": [],
+        "1": [],
+        "2": 0,
+        "7": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "diagnosticNotation": "{0: [], 1: [], 2: 0, 7: h'7777...'}",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "tx-body",
+        "auxiliary-data",
+        "metadata"
+      ],
+      "cardanoRelevance": "Field 7: Hash of auxiliary data (metadata)",
+      "notes": "32-byte Blake2b-256 hash of auxiliary data"
+    },
+    {
+      "id": "tx-body-field-validity-start",
+      "category": "tx-body-fields",
+      "description": "Transaction body with validity interval start (Allegra)",
+      "inputHex": "a4008001800200081a02faf080",
+      "expectedOutput": {
+        "0": [],
+        "1": [],
+        "2": 0,
+        "8": 50000000
+      },
+      "diagnosticNotation": "{0: [], 1: [], 2: 0, 8: 60000000}",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "tx-body",
+        "validity-start",
+        "allegra"
+      ],
+      "cardanoRelevance": "Field 8: Validity interval start (invalid_before) - Allegra era",
+      "notes": "Tx invalid before this slot - enables time ranges"
+    },
+    {
+      "id": "tx-body-field-mint",
+      "category": "tx-body-fields",
+      "description": "Transaction body with token minting",
+      "inputHex": "a400800180020009a1581ccccccccccccccccccccccccccccccccccccccccccccccccccccccccca145546f6b656e1903e8",
+      "expectedOutput": {
+        "0": [],
+        "1": [],
+        "2": 0,
+        "9": {
+          "cccccccccccccccccccccccccccccccccccccccccccccccccccccccc": {
+            "546f6b656e": 1000
+          }
+        }
+      },
+      "diagnosticNotation": "{0: [], 1: [], 2: 0, 9: {h'DD...': {h'Token': 1}}}",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "tx-body",
+        "mint",
+        "native-assets",
+        "mary"
+      ],
+      "cardanoRelevance": "Field 9: Minting/burning native tokens - Mary era",
+      "notes": "Positive values = mint, negative = burn"
+    },
+    {
+      "id": "tx-body-field-script-data-hash",
+      "category": "tx-body-fields",
+      "description": "Transaction body with script data hash (Alonzo)",
+      "inputHex": "a40080018002000b5820dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "expectedOutput": {
+        "0": [],
+        "1": [],
+        "2": 0,
+        "11": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      },
+      "diagnosticNotation": "{0: [], 1: [], 2: 0, 11: h'6666...'}",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "tx-body",
+        "script-data-hash",
+        "alonzo",
+        "plutus"
+      ],
+      "cardanoRelevance": "Field 11: Script data hash (redeemers + datums) - Alonzo era",
+      "notes": "Hash ensures integrity of Plutus script data"
+    },
+    {
+      "id": "tx-body-field-collateral-inputs",
+      "category": "tx-body-fields",
+      "description": "Transaction body with collateral inputs (Alonzo)",
+      "inputHex": "a40080018002000d81825820eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee00",
+      "expectedOutput": {
+        "0": [],
+        "1": [],
+        "2": 0,
+        "13": [
+          [
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            0
+          ]
+        ]
+      },
+      "diagnosticNotation": "{0: [], 1: [], 2: 0, 13: 258([[h'CC...', 1]])}",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "tx-body",
+        "collateral",
+        "alonzo",
+        "plutus"
+      ],
+      "cardanoRelevance": "Field 13: Collateral inputs for failed Plutus scripts - Alonzo era",
+      "notes": "Collateral paid if script fails validation"
+    },
+    {
+      "id": "tx-body-field-required-signers",
+      "category": "tx-body-fields",
+      "description": "Transaction body with required signers (Alonzo)",
+      "inputHex": "a40080018002000e82581c11111111111111111111111111111111111111111111111111111111581c22222222222222222222222222222222222222222222222222222222",
+      "expectedOutput": {
+        "0": [],
+        "1": [],
+        "2": 0,
+        "14": [
+          "11111111111111111111111111111111111111111111111111111111",
+          "22222222222222222222222222222222222222222222222222222222"
+        ]
+      },
+      "diagnosticNotation": "{0: [], 1: [], 2: 0, 14: 258([h'1111...', h'2222...'])}",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "tx-body",
+        "required-signers",
+        "alonzo",
+        "plutus"
+      ],
+      "cardanoRelevance": "Field 14: Required signers for Plutus scripts - Alonzo era",
+      "notes": "Key hashes that must sign (visible to Plutus scripts)"
+    },
+    {
+      "id": "tx-body-field-network-id",
+      "category": "tx-body-fields",
+      "description": "Transaction body with network ID (Alonzo)",
+      "inputHex": "a40080018002000f01",
+      "expectedOutput": {
+        "0": [],
+        "1": [],
+        "2": 0,
+        "15": 1
+      },
+      "diagnosticNotation": "{0: [], 1: [], 2: 0, 15: 1}",
+      "shouldSucceed": true,
+      "complexity": "trivial",
+      "tags": [
+        "cardano",
+        "tx-body",
+        "network-id",
+        "alonzo"
+      ],
+      "cardanoRelevance": "Field 15: Network ID (0=testnet, 1=mainnet) - Alonzo era",
+      "notes": "Prevents transaction replay across networks"
+    },
+    {
+      "id": "tx-body-field-collateral-return",
+      "category": "tx-body-fields",
+      "description": "Transaction body with collateral return output (Babbage)",
+      "inputHex": "a40080018002001082581d61aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1a004c4b40",
+      "expectedOutput": {
+        "0": [],
+        "1": [],
+        "2": 0,
+        "16": [
+          "61aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          5000000
+        ]
+      },
+      "diagnosticNotation": "{0: [], 1: [], 2: 0, 16: [h'0179...', 10000000]}",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "tx-body",
+        "collateral-return",
+        "babbage",
+        "plutus"
+      ],
+      "cardanoRelevance": "Field 16: Collateral return output - Babbage era",
+      "notes": "Change from collateral inputs (if script succeeds)"
+    },
+    {
+      "id": "tx-body-field-total-collateral",
+      "category": "tx-body-fields",
+      "description": "Transaction body with total collateral amount (Babbage)",
+      "inputHex": "a4008001800200111a004c4b40",
+      "expectedOutput": {
+        "0": [],
+        "1": [],
+        "2": 0,
+        "17": 5000000
+      },
+      "diagnosticNotation": "{0: [], 1: [], 2: 0, 17: 5000000}",
+      "shouldSucceed": true,
+      "complexity": "trivial",
+      "tags": [
+        "cardano",
+        "tx-body",
+        "total-collateral",
+        "babbage",
+        "plutus"
+      ],
+      "cardanoRelevance": "Field 17: Total collateral amount - Babbage era",
+      "notes": "Exact collateral taken if script fails"
+    },
+    {
+      "id": "tx-body-field-reference-inputs",
+      "category": "tx-body-fields",
+      "description": "Transaction body with reference inputs (Babbage)",
+      "inputHex": "a400800180020012d9010281825820ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff01",
+      "expectedOutput": {
+        "0": [],
+        "1": [],
+        "2": 0,
+        "18": [
+          [
+            "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+            1
+          ]
+        ]
+      },
+      "diagnosticNotation": "{0: [], 1: [], 2: 0, 18: [[h'EE...', 2]]}",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "tx-body",
+        "reference-inputs",
+        "babbage",
+        "plutus"
+      ],
+      "cardanoRelevance": "Field 18: Reference inputs (read-only) - Babbage era",
+      "notes": "Inputs read for datums/scripts without spending"
+    },
+    {
+      "id": "tx-body-field-voting-procedures",
+      "category": "tx-body-fields",
+      "description": "Transaction body with voting procedures (Conway)",
+      "inputHex": "a400800180020013a18200581cbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbba15820aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa00",
+      "expectedOutput": {
+        "0": [],
+        "1": [],
+        "2": 0,
+        "19": {
+          "0,bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb": {
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa": 0
+          }
+        }
+      },
+      "diagnosticNotation": "{0: [], 1: [], 2: 0, 19: {1000000: {}}}",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "tx-body",
+        "voting",
+        "conway",
+        "governance"
+      ],
+      "cardanoRelevance": "Field 19: Voting procedures - Conway era governance",
+      "notes": "Map of voter -> vote on governance actions"
+    },
+    {
+      "id": "tx-body-field-proposal-procedures",
+      "category": "tx-body-fields",
+      "description": "Transaction body with governance proposals (Conway)",
+      "inputHex": "a40080018002001480",
+      "expectedOutput": {
+        "0": [],
+        "1": [],
+        "2": 0,
+        "20": []
+      },
+      "diagnosticNotation": "{0: [], 1: [], 2: 0, 20: []}",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "tx-body",
+        "proposals",
+        "conway",
+        "governance"
+      ],
+      "cardanoRelevance": "Field 20: Proposal procedures - Conway era governance",
+      "notes": "List of governance proposals"
+    },
+    {
+      "id": "tx-body-field-treasury-donation",
+      "category": "tx-body-fields",
+      "description": "Transaction body with treasury donation (Conway)",
+      "inputHex": "a4008001800200151a000f4240",
+      "expectedOutput": {
+        "0": [],
+        "1": [],
+        "2": 0,
+        "21": 1000000
+      },
+      "diagnosticNotation": "{0: [], 1: [], 2: 0, 21: 100000}",
+      "shouldSucceed": true,
+      "complexity": "trivial",
+      "tags": [
+        "cardano",
+        "tx-body",
+        "treasury",
+        "conway",
+        "governance"
+      ],
+      "cardanoRelevance": "Field 21: Treasury donation - Conway era",
+      "notes": "Positive ADA amount donated to protocol treasury"
+    },
+    {
+      "id": "tx-body-complete-all-fields",
+      "category": "tx-body-fields",
+      "description": "Transaction body with all 22 fields",
+      "inputHex": "a500d9010281825820aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa00018182581e61bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1a00989680021a00029810031a000186a00819c350",
+      "expectedOutput": {
+        "0": [
+          [
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            0
+          ]
+        ],
+        "1": [
+          [
+            "61bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            10000000
+          ]
+        ],
+        "2": 170000,
+        "3": 100000,
+        "8": 50000
+      },
+      "diagnosticNotation": "{0: [], 1: [], 2: 0, 3: 100000000, 4: [], 5: {h'E1': 1000000}, 7: h'77', ...}",
+      "shouldSucceed": true,
+      "complexity": "extreme",
+      "tags": [
+        "cardano",
+        "tx-body",
+        "complete",
+        "all-fields"
+      ],
+      "cardanoRelevance": "Complete transaction body with all 22 possible fields",
+      "notes": "Demonstrates full transaction body structure across all eras"
+    }
+  ]
+}

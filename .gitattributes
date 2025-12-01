@@ -1,0 +1,10 @@
+# Mark vendored/external libraries as such (excluded from language stats)
+external-libs/** linguist-vendored
+
+# Mark generated reports as generated
+docker/reports/** linguist-generated
+
+# Ensure proper language detection
+*.ts linguist-language=TypeScript
+*.js linguist-language=JavaScript
+*.json linguist-language=JSON

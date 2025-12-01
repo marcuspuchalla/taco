@@ -1,0 +1,98 @@
+{
+  "name": "cbor-cardano-test-suite",
+  "version": "1.0.0",
+  "description": "Comprehensive CBOR testing framework for Cardano ecosystem",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "generate-tests": "ts-node src/generators/generate-all-tests.ts",
+    "test": "npx ts-node examples/run-all-tests.ts",
+    "test:all": "npx ts-node examples/run-all-tests.ts",
+    "test:cbor-x": "npx ts-node examples/run-cbor-x-tests.ts",
+    "test:cbor": "npx ts-node examples/run-cbor-tests.ts",
+    "test:borc": "npx ts-node examples/run-borc-tests.ts",
+    "test:cbor-decoder": "npx ts-node examples/run-cbor-decoder-tests.ts",
+    "test:adapter:cbor-x": "npx ts-node examples/cbor-x-adapter.ts",
+    "test:adapter:cbor": "npx ts-node examples/cbor-adapter.ts",
+    "test:adapter:borc": "npx ts-node examples/borc-adapter.ts",
+    "test:adapter:cbor-decoder": "npx ts-node examples/cbor-decoder-adapter.ts",
+    "test:harmoniclabs-cbor": "npx ts-node examples/run-harmoniclabs-tests.ts",
+    "test:cbor-sync": "npx ts-node examples/run-cbor-sync-tests.ts",
+    "test:adapter:harmoniclabs-cbor": "npx ts-node examples/harmoniclabs-cbor-adapter.ts",
+    "test:adapter:cbor-sync": "npx ts-node examples/cbor-sync-adapter.ts",
+    "test:adapter:cbor-js": "npx ts-node examples/cbor-js-adapter.ts",
+    "test:adapter:cbor-redux": "npx ts-node examples/cbor-redux-adapter.ts",
+    "test:adapter:tiny-cbor": "npx ts-node examples/tiny-cbor-adapter.ts",
+    "test:adapter:python-cbor2": "npx ts-node examples/python-cbor2-adapter.ts",
+    "test:adapter:python-dag-cbor": "npx ts-node examples/python-dag-cbor-adapter.ts",
+    "test:adapter:cborg-esm": "node examples/cborg-esm-adapter.mjs",
+    "test:adapter:dag-cbor-esm": "node examples/dag-cbor-esm-adapter.mjs",
+    "test:new-adapters": "npm run test:adapter:cbor-js && npm run test:adapter:cbor-redux && npm run test:adapter:tiny-cbor && npm run test:adapter:python-cbor2 && npm run test:adapter:python-dag-cbor && npm run test:adapter:cborg-esm && npm run test:adapter:dag-cbor-esm",
+    "report:comparison": "open reports/comparison.html",
+    "report:html": "open reports/cbor-x-results.html",
+    "report:json": "cat reports/cbor-x-results.json | jq '.summary'",
+    "report:md": "cat reports/cbor-x-results.md",
+    "clean": "rm -rf reports/*.json reports/*.html reports/*.md reports/*.csv",
+    "lint": "eslint src/**/*.ts",
+    "format": "prettier --write \"src/**/*.ts\""
+  },
+  "keywords": [
+    "cbor",
+    "cardano",
+    "testing",
+    "blockchain",
+    "serialization",
+    "plutus",
+    "rfc8949"
+  ],
+  "author": "CORE Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-org/cbor-cardano-test-suite.git"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.23",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/cbor-cardano-test-suite/issues"
+  },
+  "homepage": "https://github.com/your-org/cbor-cardano-test-suite#readme",
+  "dependencies": {
+    "@cdot/cbor": "^1.0.5",
+    "@dcspark/cardano-multiplatform-lib-nodejs": "^6.2.0",
+    "@digitalcredentials/cborld": "^4.3.4",
+    "@emurgo/cardano-serialization-lib-nodejs": "^15.0.1",
+    "@harmoniclabs/cbor": "^1.6.6",
+    "@ipld/dag-cbor": "^9.2.5",
+    "@levischuck/tiny-cbor": "^0.3.2",
+    "@oslojs/cbor": "^1.0.0",
+    "@stablelib/cbor": "^2.0.1",
+    "@stricahq/cbors": "^1.0.3",
+    "borc": "^3.0.0",
+    "cbor": "^10.0.11",
+    "cbor-js": "^0.1.0",
+    "cbor-redux": "^1.0.0",
+    "cbor-sync": "^1.0.4",
+    "cbor-x": "^1.6.0",
+    "cbor2": "^2.0.1",
+    "cborg": "^4.2.18",
+    "cose-js": "^0.9.0",
+    "microcbor": "^1.2.0",
+    "simple-cbor": "^0.4.1"
+  }
+}

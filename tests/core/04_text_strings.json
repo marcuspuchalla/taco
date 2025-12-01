@@ -1,0 +1,257 @@
+{
+  "category": "text-strings",
+  "description": "RFC 8949 Major Type 3: Text String Tests",
+  "version": "1.0",
+  "testCases": [
+    {
+      "id": "text-000",
+      "category": "text-strings",
+      "description": "Empty text string",
+      "inputHex": "60",
+      "expectedOutput": "",
+      "diagnosticNotation": "\"\"",
+      "shouldSucceed": true,
+      "complexity": "trivial",
+      "tags": [
+        "empty",
+        "boundary"
+      ]
+    },
+    {
+      "id": "text-ascii-hello",
+      "category": "text-strings",
+      "description": "ASCII: \"Hello\"",
+      "inputHex": "6548656c6c6f",
+      "expectedOutput": "Hello",
+      "diagnosticNotation": "\"Hello\"",
+      "shouldSucceed": true,
+      "complexity": "trivial",
+      "tags": [
+        "ascii",
+        "basic"
+      ]
+    },
+    {
+      "id": "text-ascii-alphabet",
+      "category": "text-strings",
+      "description": "ASCII: Full lowercase alphabet",
+      "inputHex": "781a6162636465666768696a6b6c6d6e6f707172737475767778797a",
+      "expectedOutput": "abcdefghijklmnopqrstuvwxyz",
+      "diagnosticNotation": "\"abcdefghijklmnopqrstuvwxyz\"",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "ascii"
+      ]
+    },
+    {
+      "id": "text-utf8-euro",
+      "category": "text-strings",
+      "description": "UTF-8: Euro sign (€)",
+      "inputHex": "63e282ac",
+      "expectedOutput": "€",
+      "diagnosticNotation": "\"\\u20AC\"",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "utf8",
+        "multi-byte"
+      ],
+      "notes": "3-byte UTF-8 sequence"
+    },
+    {
+      "id": "text-utf8-emoji-rocket",
+      "category": "text-strings",
+      "description": "UTF-8: Rocket emoji (🚀)",
+      "inputHex": "64f09f9a80",
+      "expectedOutput": "🚀",
+      "diagnosticNotation": "\"\\u{1F680}\"",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "utf8",
+        "emoji",
+        "multi-byte"
+      ],
+      "notes": "4-byte UTF-8 sequence",
+      "cardanoRelevance": "NFT metadata may contain emojis"
+    },
+    {
+      "id": "text-utf8-emoji-alien",
+      "category": "text-strings",
+      "description": "UTF-8: Alien emoji (👾)",
+      "inputHex": "64f09f91be",
+      "expectedOutput": "👾",
+      "diagnosticNotation": "\"\\u{1F47E}\"",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "utf8",
+        "emoji",
+        "multi-byte"
+      ]
+    },
+    {
+      "id": "text-utf8-chinese",
+      "category": "text-strings",
+      "description": "UTF-8: Chinese characters (中文)",
+      "inputHex": "66e4b8ade69687",
+      "expectedOutput": "中文",
+      "diagnosticNotation": "\"中文\"",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "utf8",
+        "cjk",
+        "multi-byte"
+      ],
+      "cardanoRelevance": "International NFT metadata"
+    },
+    {
+      "id": "text-utf8-mixed",
+      "category": "text-strings",
+      "description": "UTF-8: Mixed ASCII and multi-byte",
+      "inputHex": "7148656c6c6f20e4b896e7958c20f09f8c8d",
+      "expectedOutput": "Hello 世界 🌍",
+      "diagnosticNotation": "\"Hello 世界 🌍\"",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "utf8",
+        "mixed",
+        "multi-byte"
+      ]
+    },
+    {
+      "id": "text-asset-name",
+      "category": "text-strings",
+      "description": "Asset name: \"TokenName\"",
+      "inputHex": "69546f6b656e4e616d65",
+      "expectedOutput": "TokenName",
+      "diagnosticNotation": "\"TokenName\"",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "asset-name"
+      ],
+      "cardanoRelevance": "Text-based asset names"
+    },
+    {
+      "id": "text-nft-name",
+      "category": "text-strings",
+      "description": "NFT name from CIP-25",
+      "inputHex": "744d7920417765736f6d65204e4654202331323334",
+      "expectedOutput": "My Awesome NFT #1234",
+      "diagnosticNotation": "\"My Awesome NFT #1234\"",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "nft",
+        "cip-25"
+      ],
+      "cardanoRelevance": "CIP-25 NFT metadata name field",
+      "cip": "CIP-25"
+    },
+    {
+      "id": "text-ipfs-uri",
+      "category": "text-strings",
+      "description": "IPFS URI",
+      "inputHex": "7835697066733a2f2f516d586e6e797566647a41574c3543715a32526e534e67506276436331414c543733733665705072526e5a315879",
+      "expectedOutput": "ipfs://QmXnnyufdzAWL5CqZ2RnSNgPbvCc1ALT73s6epPrRnZ1Xy",
+      "diagnosticNotation": "\"ipfs://Qm...\"",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "ipfs",
+        "uri",
+        "nft"
+      ],
+      "cardanoRelevance": "NFT image references in CIP-25"
+    },
+    {
+      "id": "text-indefinite",
+      "category": "text-strings",
+      "description": "Indefinite-length: \"Hello\" + \" \" + \"World\"",
+      "inputHex": "7f6548656c6c6f612065576f726c64ff",
+      "expectedOutput": "Hello World",
+      "diagnosticNotation": "(_ \"Hello\", \" \", \"World\")",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "indefinite",
+        "chunked"
+      ],
+      "notes": "Not allowed in canonical encoding"
+    },
+    {
+      "id": "text-invalid-utf8-overlong",
+      "category": "text-strings",
+      "description": "Invalid UTF-8: Overlong encoding",
+      "inputHex": "63c08041",
+      "expectedOutput": "��A",
+      "diagnosticNotation": "<invalid-utf8>",
+      "shouldSucceed": true,
+      "errorType": "invalid-utf8",
+      "complexity": "moderate",
+      "tags": [
+        "malformed",
+        "negative-test",
+        "utf8"
+      ],
+      "notes": "Overlong encoding of NULL character"
+    },
+    {
+      "id": "text-invalid-utf8-surrogate",
+      "category": "text-strings",
+      "description": "Invalid UTF-8: Surrogate half",
+      "inputHex": "63eda080",
+      "expectedOutput": "���",
+      "diagnosticNotation": "<invalid-utf8>",
+      "shouldSucceed": true,
+      "errorType": "invalid-utf8",
+      "complexity": "moderate",
+      "tags": [
+        "malformed",
+        "negative-test",
+        "utf8"
+      ],
+      "notes": "Surrogate halves (U+D800-U+DFFF) are invalid in UTF-8"
+    },
+    {
+      "id": "text-invalid-utf8-truncated",
+      "category": "text-strings",
+      "description": "Invalid UTF-8: Truncated multi-byte sequence",
+      "inputHex": "62e282",
+      "expectedOutput": "�",
+      "diagnosticNotation": "<invalid-utf8>",
+      "shouldSucceed": true,
+      "errorType": "invalid-utf8",
+      "complexity": "simple",
+      "tags": [
+        "malformed",
+        "negative-test",
+        "utf8"
+      ],
+      "notes": "Incomplete 3-byte UTF-8 sequence"
+    },
+    {
+      "id": "text-truncated",
+      "category": "text-strings",
+      "description": "Truncated: Length 5 but only 3 bytes",
+      "inputHex": "65486568",
+      "expectedOutput": null,
+      "diagnosticNotation": "<truncated>",
+      "shouldSucceed": false,
+      "errorType": "truncated",
+      "complexity": "simple",
+      "tags": [
+        "malformed",
+        "negative-test",
+        "truncated"
+      ]
+    }
+  ]
+}

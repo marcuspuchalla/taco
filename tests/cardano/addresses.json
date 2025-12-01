@@ -1,0 +1,302 @@
+{
+  "category": "addresses",
+  "description": "Cardano Address Format Tests",
+  "version": "1.0",
+  "testCases": [
+    {
+      "id": "addr-shelley-base-keyhash-keyhash",
+      "category": "addresses",
+      "description": "Shelley base address: payment keyhash + stake keyhash (mainnet)",
+      "inputHex": "583901aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "expectedOutput": "01aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "diagnosticNotation": "h'0179DF6C1244E0D5E1B1CCDD63F9E1C6B8F8C4E6D0C2A8F6E4D2C0B8E1C6B8F8C4E6D0C2A8F6E4D2C0B879DF6C1244E0D5E1B1CCDD'",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "address",
+        "shelley",
+        "base-address",
+        "mainnet"
+      ],
+      "cardanoRelevance": "Most common Shelley address type - payment + staking",
+      "notes": "Header 0x01: base address, payment keyhash, stake keyhash, mainnet. 57 bytes total (1 + 28 + 28)"
+    },
+    {
+      "id": "addr-shelley-base-keyhash-scripthash",
+      "category": "addresses",
+      "description": "Shelley base address: payment keyhash + stake scripthash",
+      "inputHex": "583903aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "expectedOutput": "03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "diagnosticNotation": "h'0379DF6C...'",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "address",
+        "shelley",
+        "base-address",
+        "script-stake"
+      ],
+      "cardanoRelevance": "Base address with script-based staking",
+      "notes": "Header 0x03: payment keyhash, stake scripthash, mainnet"
+    },
+    {
+      "id": "addr-shelley-base-scripthash-keyhash",
+      "category": "addresses",
+      "description": "Shelley base address: payment scripthash + stake keyhash",
+      "inputHex": "583902aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "expectedOutput": "02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "diagnosticNotation": "h'0279DF6C...'",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "address",
+        "shelley",
+        "base-address",
+        "script-payment"
+      ],
+      "cardanoRelevance": "Plutus script address with regular staking",
+      "notes": "Header 0x02: payment scripthash, stake keyhash, mainnet"
+    },
+    {
+      "id": "addr-shelley-base-scripthash-scripthash",
+      "category": "addresses",
+      "description": "Shelley base address: payment scripthash + stake scripthash",
+      "inputHex": "583904aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "expectedOutput": "04aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "diagnosticNotation": "h'0479DF6C...'",
+      "shouldSucceed": true,
+      "complexity": "complex",
+      "tags": [
+        "cardano",
+        "address",
+        "shelley",
+        "base-address",
+        "script-payment",
+        "script-stake"
+      ],
+      "cardanoRelevance": "Fully script-based address (rare)",
+      "notes": "Header 0x04: payment scripthash, stake scripthash, mainnet"
+    },
+    {
+      "id": "addr-shelley-base-testnet",
+      "category": "addresses",
+      "description": "Shelley base address on testnet",
+      "inputHex": "583900aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "expectedOutput": "00aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "diagnosticNotation": "h'0079DF6C...'",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "address",
+        "shelley",
+        "base-address",
+        "testnet"
+      ],
+      "cardanoRelevance": "Testnet base address (addr_test...)",
+      "notes": "Header 0x00: base address, payment keyhash, stake keyhash, testnet"
+    },
+    {
+      "id": "addr-enterprise-keyhash-mainnet",
+      "category": "addresses",
+      "description": "Enterprise address with payment keyhash (mainnet)",
+      "inputHex": "581d61aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "expectedOutput": "61aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "diagnosticNotation": "h'6179DF6C1244E0D5E1B1CCDD63F9E1C6B8F8C4E6D0C2A8F6E4D2C0B8'",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "address",
+        "enterprise",
+        "mainnet",
+        "no-staking"
+      ],
+      "cardanoRelevance": "Enterprise address - no staking rewards",
+      "notes": "Header 0x61: enterprise, payment keyhash, mainnet. 29 bytes total (1 + 28)"
+    },
+    {
+      "id": "addr-enterprise-scripthash-mainnet",
+      "category": "addresses",
+      "description": "Enterprise address with payment scripthash",
+      "inputHex": "581d62aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "expectedOutput": "62aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "diagnosticNotation": "h'6279DF6C...'",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "address",
+        "enterprise",
+        "script",
+        "plutus"
+      ],
+      "cardanoRelevance": "Script-based enterprise address",
+      "notes": "Header 0x62: enterprise, payment scripthash, mainnet"
+    },
+    {
+      "id": "addr-enterprise-testnet",
+      "category": "addresses",
+      "description": "Enterprise address on testnet",
+      "inputHex": "581d60aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "expectedOutput": "60aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "diagnosticNotation": "h'6079DF6C...'",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "address",
+        "enterprise",
+        "testnet"
+      ],
+      "cardanoRelevance": "Testnet enterprise address",
+      "notes": "Header 0x60: enterprise, payment keyhash, testnet"
+    },
+    {
+      "id": "addr-reward-keyhash-mainnet",
+      "category": "addresses",
+      "description": "Reward address with stake keyhash (mainnet)",
+      "inputHex": "581de1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "expectedOutput": "e1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "diagnosticNotation": "h'E179DF6C1244E0D5E1B1CCDD63F9E1C6B8F8C4E6D0C2A8F6E4D2C0B8'",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "address",
+        "reward",
+        "staking",
+        "mainnet"
+      ],
+      "cardanoRelevance": "Stake address for receiving rewards (stake1...)",
+      "notes": "Header 0xe1: reward, stake keyhash, mainnet. 29 bytes total (1 + 28)"
+    },
+    {
+      "id": "addr-reward-scripthash-mainnet",
+      "category": "addresses",
+      "description": "Reward address with stake scripthash",
+      "inputHex": "581de2aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "expectedOutput": "e2aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "diagnosticNotation": "h'E279DF6C...'",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "address",
+        "reward",
+        "script",
+        "staking"
+      ],
+      "cardanoRelevance": "Script-based reward address",
+      "notes": "Header 0xe2: reward, stake scripthash, mainnet"
+    },
+    {
+      "id": "addr-reward-testnet",
+      "category": "addresses",
+      "description": "Reward address on testnet",
+      "inputHex": "581de0aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "expectedOutput": "e0aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "diagnosticNotation": "h'E079DF6C...'",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "address",
+        "reward",
+        "testnet"
+      ],
+      "cardanoRelevance": "Testnet reward address (stake_test...)",
+      "notes": "Header 0xe0: reward, stake keyhash, testnet"
+    },
+    {
+      "id": "addr-pointer-simple",
+      "category": "addresses",
+      "description": "Pointer address: payment keyhash + slot/tx/cert pointer",
+      "inputHex": "582045aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa828301",
+      "expectedOutput": "45aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa828301",
+      "diagnosticNotation": "h'45179DF6C...828301'",
+      "shouldSucceed": true,
+      "complexity": "complex",
+      "tags": [
+        "cardano",
+        "address",
+        "pointer",
+        "mainnet"
+      ],
+      "cardanoRelevance": "Pointer address references stake registration on-chain",
+      "notes": "Header 0x45: pointer, payment keyhash, mainnet. Pointer: slot=131, tx=3, cert=1"
+    },
+    {
+      "id": "addr-byron-mainnet",
+      "category": "addresses",
+      "description": "Byron mainnet address (CBOR-in-CBOR with tag 24)",
+      "inputHex": "830081d818582b83581c9e1c71de652ec8b85fec296f0685ca3988781c94a2e1a5d89d92f45fa0001a0d0c25611a004c4b40a0",
+      "expectedOutput": [
+        0,
+        [
+          "83581c9e1c71de652ec8b85fec296f0685ca3988781c94a2e1a5d89d92f45fa0001a0d0c25611a004c4b40"
+        ],
+        {}
+      ],
+      "diagnosticNotation": "h'82D81858...4C4B40'",
+      "shouldSucceed": true,
+      "complexity": "extreme",
+      "tags": [
+        "cardano",
+        "address",
+        "byron",
+        "legacy",
+        "mainnet"
+      ],
+      "cardanoRelevance": "Byron-era address format (still valid)",
+      "notes": "Byron addresses use tag 24 (CBOR-in-CBOR), much longer and more complex"
+    },
+    {
+      "id": "addr-byron-testnet",
+      "category": "addresses",
+      "description": "Byron testnet address",
+      "inputHex": "830081d818582a83581cbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbba0001a45fe7ac51a0098968a0",
+      "expectedOutput": [
+        0,
+        [
+          "83581cbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbba0001a45fe7ac51a0098968"
+        ],
+        {}
+      ],
+      "diagnosticNotation": "h'82D81858...989680'",
+      "shouldSucceed": true,
+      "complexity": "extreme",
+      "tags": [
+        "cardano",
+        "address",
+        "byron",
+        "legacy",
+        "testnet"
+      ],
+      "cardanoRelevance": "Byron-era testnet address",
+      "notes": "Byron testnet addresses (Daedalus/Yoroi legacy)"
+    },
+    {
+      "id": "addr-script-native",
+      "category": "addresses",
+      "description": "Native script address (multisig, timelock)",
+      "inputHex": "581d71aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "expectedOutput": "71aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "diagnosticNotation": "h'7179DF6C...'",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "address",
+        "script",
+        "native-script",
+        "multisig"
+      ],
+      "cardanoRelevance": "Native script address for multisig/timelock",
+      "notes": "Header 0x71: script hash derived from native script (pre-Plutus)"
+    }
+  ]
+}

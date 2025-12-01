@@ -1,0 +1,314 @@
+{
+  "category": "canonical",
+  "description": "Canonical Encoding Violation Tests",
+  "version": "1.0",
+  "testCases": [
+    {
+      "id": "canonical-uint-0-as-uint8",
+      "category": "canonical",
+      "description": "Non-canonical: 0 encoded with 1 extra byte",
+      "inputHex": "1800",
+      "expectedOutput": 0,
+      "diagnosticNotation": "0",
+      "shouldSucceed": true,
+      "errorType": "non-canonical",
+      "complexity": "simple",
+      "tags": [
+        "non-canonical",
+        "integer"
+      ],
+      "notes": "Should be 0x00, not 0x1800"
+    },
+    {
+      "id": "canonical-uint-23-as-uint8",
+      "category": "canonical",
+      "description": "Non-canonical: 23 encoded with 1 extra byte",
+      "inputHex": "1817",
+      "expectedOutput": 23,
+      "diagnosticNotation": "23",
+      "shouldSucceed": true,
+      "errorType": "non-canonical",
+      "complexity": "simple",
+      "tags": [
+        "non-canonical",
+        "integer"
+      ],
+      "notes": "Should be 0x17, not 0x1817"
+    },
+    {
+      "id": "canonical-uint-24-as-uint16",
+      "category": "canonical",
+      "description": "Non-canonical: 24 encoded with 2 extra bytes",
+      "inputHex": "190018",
+      "expectedOutput": 24,
+      "diagnosticNotation": "24",
+      "shouldSucceed": true,
+      "errorType": "non-canonical",
+      "complexity": "simple",
+      "tags": [
+        "non-canonical",
+        "integer"
+      ]
+    },
+    {
+      "id": "canonical-uint-255-as-uint16",
+      "category": "canonical",
+      "description": "Non-canonical: 255 encoded with 2 extra bytes",
+      "inputHex": "1900ff",
+      "expectedOutput": 255,
+      "diagnosticNotation": "255",
+      "shouldSucceed": true,
+      "errorType": "non-canonical",
+      "complexity": "simple",
+      "tags": [
+        "non-canonical",
+        "integer"
+      ]
+    },
+    {
+      "id": "canonical-uint-256-as-uint32",
+      "category": "canonical",
+      "description": "Non-canonical: 256 encoded with 4 extra bytes",
+      "inputHex": "1a00000100",
+      "expectedOutput": 256,
+      "diagnosticNotation": "256",
+      "shouldSucceed": true,
+      "errorType": "non-canonical",
+      "complexity": "simple",
+      "tags": [
+        "non-canonical",
+        "integer"
+      ]
+    },
+    {
+      "id": "canonical-nint-minus1-as-int8",
+      "category": "canonical",
+      "description": "Non-canonical: -1 encoded with 1 extra byte",
+      "inputHex": "3800",
+      "expectedOutput": -1,
+      "diagnosticNotation": "-1",
+      "shouldSucceed": true,
+      "errorType": "non-canonical",
+      "complexity": "simple",
+      "tags": [
+        "non-canonical",
+        "integer",
+        "negative"
+      ]
+    },
+    {
+      "id": "canonical-indefinite-bytes",
+      "category": "canonical",
+      "description": "Non-canonical: Indefinite-length byte string",
+      "inputHex": "5f42010243030405ff",
+      "expectedOutput": "0102030405",
+      "diagnosticNotation": "(_ h'0102', h'030405')",
+      "shouldSucceed": true,
+      "errorType": "non-canonical",
+      "complexity": "moderate",
+      "tags": [
+        "non-canonical",
+        "indefinite",
+        "bytes"
+      ],
+      "cardanoRelevance": "Cardano requires definite-length encoding"
+    },
+    {
+      "id": "canonical-indefinite-text",
+      "category": "canonical",
+      "description": "Non-canonical: Indefinite-length text string",
+      "inputHex": "7f6548656c6c6f61206566576f726c64ff",
+      "expectedOutput": "Hello World",
+      "diagnosticNotation": "(_ \"Hello\", \" \", \"World\")",
+      "shouldSucceed": true,
+      "errorType": "non-canonical",
+      "complexity": "moderate",
+      "tags": [
+        "non-canonical",
+        "indefinite",
+        "text"
+      ]
+    },
+    {
+      "id": "canonical-indefinite-array",
+      "category": "canonical",
+      "description": "Non-canonical: Indefinite-length array",
+      "inputHex": "9f010203ff",
+      "expectedOutput": [
+        1,
+        2,
+        3
+      ],
+      "diagnosticNotation": "[_ 1, 2, 3]",
+      "shouldSucceed": true,
+      "errorType": "non-canonical",
+      "complexity": "moderate",
+      "tags": [
+        "non-canonical",
+        "indefinite",
+        "array"
+      ]
+    },
+    {
+      "id": "canonical-indefinite-map",
+      "category": "canonical",
+      "description": "Non-canonical: Indefinite-length map",
+      "inputHex": "bf616101616202ff",
+      "expectedOutput": {
+        "a": 1,
+        "b": 2
+      },
+      "diagnosticNotation": "{_ \"a\": 1, \"b\": 2}",
+      "shouldSucceed": true,
+      "errorType": "non-canonical",
+      "complexity": "moderate",
+      "tags": [
+        "non-canonical",
+        "indefinite",
+        "map"
+      ]
+    },
+    {
+      "id": "canonical-map-unsorted-text",
+      "category": "canonical",
+      "description": "Non-canonical: Map with unsorted text keys",
+      "inputHex": "a262626201616102",
+      "expectedOutput": {
+        "bb": 1,
+        "a": 2
+      },
+      "diagnosticNotation": "{\"bb\": 1, \"a\": 2}",
+      "shouldSucceed": true,
+      "errorType": "unsorted-keys",
+      "complexity": "moderate",
+      "tags": [
+        "non-canonical",
+        "map",
+        "unsorted"
+      ],
+      "notes": "Keys should be sorted by length first (a < bb)"
+    },
+    {
+      "id": "canonical-map-unsorted-length",
+      "category": "canonical",
+      "description": "Non-canonical: Map keys not sorted by length",
+      "inputHex": "a26361616102676161616161616101",
+      "expectedOutput": {
+        "aaa": 2,
+        "aaaaaaa": 1
+      },
+      "diagnosticNotation": "{\"aaa\": 2, \"aaaaaaa\": 1}",
+      "shouldSucceed": true,
+      "errorType": "unsorted-keys",
+      "complexity": "moderate",
+      "tags": [
+        "non-canonical",
+        "map",
+        "unsorted"
+      ],
+      "notes": "Shorter keys must come first"
+    },
+    {
+      "id": "canonical-map-unsorted-lexicographic",
+      "category": "canonical",
+      "description": "Non-canonical: Same-length keys not in lexicographic order",
+      "inputHex": "a2616201616102",
+      "expectedOutput": {
+        "b": 1,
+        "a": 2
+      },
+      "diagnosticNotation": "{\"b\": 1, \"a\": 2}",
+      "shouldSucceed": true,
+      "errorType": "unsorted-keys",
+      "complexity": "moderate",
+      "tags": [
+        "non-canonical",
+        "map",
+        "unsorted"
+      ],
+      "notes": "Same-length keys must be lexicographically sorted"
+    },
+    {
+      "id": "canonical-map-duplicate-text-keys",
+      "category": "canonical",
+      "description": "Non-canonical: Map with duplicate keys",
+      "inputHex": "a3616101616102616103",
+      "expectedOutput": {
+        "a": 3
+      },
+      "diagnosticNotation": "{\"a\": 1, \"a\": 2, \"a\": 3}",
+      "shouldSucceed": true,
+      "errorType": "duplicate-keys",
+      "complexity": "moderate",
+      "tags": [
+        "non-canonical",
+        "map",
+        "duplicate"
+      ],
+      "notes": "Last value wins, but duplicates not allowed in canonical"
+    },
+    {
+      "id": "canonical-map-duplicate-int-keys",
+      "category": "canonical",
+      "description": "Non-canonical: Map with duplicate integer keys",
+      "inputHex": "a40001010201020302",
+      "expectedOutput": {
+        "0": 1,
+        "1": 2,
+        "3": 2
+      },
+      "diagnosticNotation": "{0: 1, 1: 2, 1: 2}",
+      "shouldSucceed": true,
+      "errorType": "duplicate-keys",
+      "complexity": "moderate",
+      "tags": [
+        "non-canonical",
+        "map",
+        "duplicate",
+        "integer-key"
+      ]
+    },
+    {
+      "id": "canonical-map-correct-sorting",
+      "category": "canonical",
+      "description": "Canonical: Correctly sorted map keys",
+      "inputHex": "a3616101626262026363636303",
+      "expectedOutput": {
+        "a": 1,
+        "bb": 2,
+        "ccc": 3
+      },
+      "diagnosticNotation": "{\"a\": 1, \"bb\": 2, \"ccc\": 3}",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "canonical",
+        "map",
+        "sorted"
+      ],
+      "notes": "Keys sorted by length, then lexicographic - this is correct"
+    },
+    {
+      "id": "canonical-map-int-keys-sorted",
+      "category": "canonical",
+      "description": "Canonical: Integer keys in ascending order",
+      "inputHex": "a5000101020203040305",
+      "expectedOutput": {
+        "0": 0,
+        "1": 1,
+        "2": 2,
+        "3": 3,
+        "4": 4
+      },
+      "diagnosticNotation": "{0: 0, 1: 1, 2: 2, 3: 3, 4: 4}",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "canonical",
+        "map",
+        "integer-key"
+      ],
+      "notes": "Integer keys sorted numerically"
+    }
+  ]
+}

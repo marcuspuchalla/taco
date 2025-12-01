@@ -1,0 +1,248 @@
+{
+  "category": "tags",
+  "description": "RFC 8949 Major Type 6: Tag Tests",
+  "version": "1.0",
+  "testCases": [
+    {
+      "id": "tag-000-datetime",
+      "category": "tags",
+      "description": "Tag 0: RFC 3339 date-time string",
+      "inputHex": "c074323032342d31302d32365431323a30303a30305a",
+      "expectedOutput": "2024-10-26T12:00:00.000Z",
+      "diagnosticNotation": "0(\"2024-10-26T12:00:00Z\")",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "datetime",
+        "rfc3339"
+      ],
+      "rfcSection": "3.4.1"
+    },
+    {
+      "id": "tag-001-epoch",
+      "category": "tags",
+      "description": "Tag 1: Unix epoch timestamp",
+      "inputHex": "c11a653afd80",
+      "expectedOutput": "2023-10-27T00:00:00.000Z",
+      "diagnosticNotation": "1(1698364800)",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "timestamp",
+        "epoch"
+      ],
+      "rfcSection": "3.4.2",
+      "cardanoRelevance": "Slot times in metadata"
+    },
+    {
+      "id": "tag-002-positive-bignum",
+      "category": "tags",
+      "description": "Tag 2: Positive bignum (2^64)",
+      "inputHex": "c249010000000000000000",
+      "expectedOutput": "18446744073709551616",
+      "diagnosticNotation": "2(h'010000000000000000')",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "bignum",
+        "large-integer"
+      ],
+      "rfcSection": "3.4.3",
+      "cardanoRelevance": "Large ADA amounts, Plutus Data integers"
+    },
+    {
+      "id": "tag-003-negative-bignum",
+      "category": "tags",
+      "description": "Tag 3: Negative bignum (-2^64 - 1)",
+      "inputHex": "c349010000000000000000",
+      "expectedOutput": "-18446744073709551617",
+      "diagnosticNotation": "3(h'010000000000000000')",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "bignum",
+        "large-integer",
+        "negative"
+      ],
+      "rfcSection": "3.4.3"
+    },
+    {
+      "id": "tag-55799-self-describe",
+      "category": "tags",
+      "description": "Tag 55799: Self-describe CBOR magic",
+      "inputHex": "d9d9f7820102",
+      "expectedOutput": [
+        1,
+        2
+      ],
+      "diagnosticNotation": "55799([1, 2])",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "self-describe",
+        "magic"
+      ],
+      "rfcSection": "3.4.6",
+      "notes": "Used to identify CBOR data unambiguously"
+    },
+    {
+      "id": "tag-121-constructor-0",
+      "category": "tags",
+      "description": "Tag 121: Plutus Data constructor 0",
+      "inputHex": "d879820102",
+      "expectedOutput": {
+        "constructor": 0,
+        "fields": [
+          1,
+          2
+        ]
+      },
+      "diagnosticNotation": "121([1, 2])",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "plutus",
+        "constructor"
+      ],
+      "cardanoRelevance": "Plutus Data constructor alternative 0"
+    },
+    {
+      "id": "tag-122-constructor-1",
+      "category": "tags",
+      "description": "Tag 122: Plutus Data constructor 1",
+      "inputHex": "d87a820304",
+      "expectedOutput": {
+        "constructor": 1,
+        "fields": [
+          3,
+          4
+        ]
+      },
+      "diagnosticNotation": "122([3, 4])",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "plutus",
+        "constructor"
+      ],
+      "cardanoRelevance": "Plutus Data constructor alternative 1"
+    },
+    {
+      "id": "tag-102-general-constructor",
+      "category": "tags",
+      "description": "Tag 102: Plutus Data general constructor",
+      "inputHex": "d866820783010203",
+      "expectedOutput": {
+        "constructor": 7,
+        "fields": [
+          1,
+          2,
+          3
+        ]
+      },
+      "diagnosticNotation": "102([7, [1, 2, 3]])",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "plutus",
+        "constructor"
+      ],
+      "cardanoRelevance": "Plutus Data constructor for alternatives >= 7"
+    },
+    {
+      "id": "tag-258-set",
+      "category": "tags",
+      "description": "Tag 258: Set {1, 2, 3}",
+      "inputHex": "d9010283010203",
+      "expectedOutput": [
+        1,
+        2,
+        3
+      ],
+      "diagnosticNotation": "258([1, 2, 3])",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "set",
+        "ordered"
+      ],
+      "cardanoRelevance": "Transaction input sets, required signers",
+      "notes": "Elements must be unique and sorted"
+    },
+    {
+      "id": "tag-024-cbor-in-cbor",
+      "category": "tags",
+      "description": "Tag 24: CBOR-in-CBOR (embedded)",
+      "inputHex": "d8184483010203",
+      "expectedOutput": "83010203",
+      "diagnosticNotation": "24(h'83010203')",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "embedded",
+        "cbor-in-cbor"
+      ],
+      "rfcSection": "3.4.5.1",
+      "cardanoRelevance": "Datum and redeemer encoding in transactions"
+    },
+    {
+      "id": "tag-nested",
+      "category": "tags",
+      "description": "Nested tags: 258(121([1]))",
+      "inputHex": "d9010281d8798101",
+      "expectedOutput": [
+        {
+          "constructor": 0,
+          "fields": [
+            1
+          ]
+        }
+      ],
+      "diagnosticNotation": "258([121([1])])",
+      "shouldSucceed": true,
+      "complexity": "complex",
+      "tags": [
+        "cardano",
+        "nested",
+        "plutus",
+        "set"
+      ],
+      "cardanoRelevance": "Set of Plutus Data constructors"
+    },
+    {
+      "id": "tag-unknown",
+      "category": "tags",
+      "description": "Unknown tag: 9999",
+      "inputHex": "d9270f182a",
+      "expectedOutput": 42,
+      "diagnosticNotation": "9999(42)",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "unknown"
+      ],
+      "notes": "Decoders should accept unknown tags and process content"
+    },
+    {
+      "id": "tag-001-invalid-content",
+      "category": "tags",
+      "description": "Tag 1 with invalid content (expects integer, got string)",
+      "inputHex": "c16c6e6f742061206e756d626572",
+      "expectedOutput": null,
+      "diagnosticNotation": "1(\"not a number\")",
+      "shouldSucceed": true,
+      "errorType": "invalid-tag-content",
+      "complexity": "moderate",
+      "tags": [
+        "malformed",
+        "negative-test"
+      ],
+      "notes": "Tag 1 requires integer or float"
+    }
+  ]
+}

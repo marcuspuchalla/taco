@@ -1,0 +1,578 @@
+{
+  "category": "certificates",
+  "description": "Cardano Certificate Tests (Staking Operations)",
+  "version": "1.0",
+  "testCases": [
+    {
+      "id": "cert-stake-registration-keyhash",
+      "category": "certificates",
+      "description": "Stake registration certificate with key hash",
+      "inputHex": "82008200581c11111111111111111111111111111111111111111111111111111111",
+      "expectedOutput": [
+        0,
+        [
+          0,
+          "11111111111111111111111111111111111111111111111111111111"
+        ]
+      ],
+      "diagnosticNotation": "[0, [0, h'E1C6...']]",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "certificate",
+        "stake-registration",
+        "staking"
+      ],
+      "cardanoRelevance": "Stake key registration certificate",
+      "notes": "Type 0: Register stake credential. First step in staking"
+    },
+    {
+      "id": "cert-stake-registration-scripthash",
+      "category": "certificates",
+      "description": "Stake registration certificate with script hash",
+      "inputHex": "82008201581c22222222222222222222222222222222222222222222222222222222",
+      "expectedOutput": [
+        0,
+        [
+          1,
+          "22222222222222222222222222222222222222222222222222222222"
+        ]
+      ],
+      "diagnosticNotation": "[0, [1, h'9999...']]",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "certificate",
+        "stake-registration",
+        "script",
+        "plutus"
+      ],
+      "cardanoRelevance": "Script-based stake registration",
+      "notes": "Register script-based stake credential"
+    },
+    {
+      "id": "cert-stake-deregistration-keyhash",
+      "category": "certificates",
+      "description": "Stake deregistration certificate with key hash",
+      "inputHex": "82018200581c33333333333333333333333333333333333333333333333333333333",
+      "expectedOutput": [
+        1,
+        [
+          0,
+          "33333333333333333333333333333333333333333333333333333333"
+        ]
+      ],
+      "diagnosticNotation": "[1, [0, h'E1C6...']]",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "certificate",
+        "stake-deregistration",
+        "staking"
+      ],
+      "cardanoRelevance": "Stake key deregistration certificate",
+      "notes": "Type 1: Deregister stake credential. Reclaim deposit"
+    },
+    {
+      "id": "cert-stake-delegation",
+      "category": "certificates",
+      "description": "Stake delegation certificate",
+      "inputHex": "83028200581c44444444444444444444444444444444444444444444444444444444581caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "expectedOutput": [
+        2,
+        [
+          0,
+          "44444444444444444444444444444444444444444444444444444444"
+        ],
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      ],
+      "diagnosticNotation": "[2, [0, h'E1C6...'], h'AAAA...']",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "certificate",
+        "stake-delegation",
+        "staking",
+        "pool"
+      ],
+      "cardanoRelevance": "Delegate stake to pool",
+      "notes": "Type 2: Delegate stake credential to pool (most common staking operation)"
+    },
+    {
+      "id": "cert-pool-registration-simple",
+      "category": "certificates",
+      "description": "Pool registration certificate (simplified)",
+      "inputHex": "8a03581caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa5820bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1a3b9aca001a1443fd0082011864581ee1cccccccccccccccccccccccccccccccccccccccccccccccccccccccccc81581cdddddddddddddddddddddddddddddddddddddddddddddddddddddddd80f6",
+      "expectedOutput": [
+        3,
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        1000000000,
+        340000000,
+        [
+          1,
+          100
+        ],
+        "e1cccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        [
+          "dddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+        ],
+        [],
+        null
+      ],
+      "diagnosticNotation": "[3, h'AA...', h'BB...', [1, 100], h'E1E1...', 1000000000, 1000000000000, [], [], [], null]",
+      "shouldSucceed": true,
+      "complexity": "extreme",
+      "tags": [
+        "cardano",
+        "certificate",
+        "pool-registration",
+        "operator"
+      ],
+      "cardanoRelevance": "Stake pool registration certificate",
+      "notes": "Type 3: Register stake pool. Includes pool params, margin, cost, rewards account"
+    },
+    {
+      "id": "cert-pool-retirement",
+      "category": "certificates",
+      "description": "Pool retirement certificate",
+      "inputHex": "8304581caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1901f4",
+      "expectedOutput": [
+        4,
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        500
+      ],
+      "diagnosticNotation": "[4, h'AA...', 100000000]",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "certificate",
+        "pool-retirement",
+        "operator"
+      ],
+      "cardanoRelevance": "Stake pool retirement certificate",
+      "notes": "Type 4: Retire pool at specific epoch"
+    },
+    {
+      "id": "cert-genesis-key-delegation",
+      "category": "certificates",
+      "description": "Genesis key delegation certificate",
+      "inputHex": "8405581c11111111111111111111111111111111111111111111111111111111581c2222222222222222222222222222222222222222222222222222222258203333333333333333333333333333333333333333333333333333333333333333",
+      "expectedOutput": [
+        5,
+        "11111111111111111111111111111111111111111111111111111111",
+        "22222222222222222222222222222222222222222222222222222222",
+        "3333333333333333333333333333333333333333333333333333333333333333"
+      ],
+      "diagnosticNotation": "[5, h'CC...', h'DD...', h'EE...']",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "certificate",
+        "genesis",
+        "delegation"
+      ],
+      "cardanoRelevance": "Genesis key delegation (deprecated but valid)",
+      "notes": "Type 5: Genesis delegate (used in early Shelley)"
+    },
+    {
+      "id": "cert-mir-to-stake-creds",
+      "category": "certificates",
+      "description": "MIR certificate to stake credentials",
+      "inputHex": "830600a1581de1111111111111111111111111111111111111111111111111111111111a000f4240",
+      "expectedOutput": [
+        6,
+        0,
+        {
+          "e111111111111111111111111111111111111111111111111111111111": 1000000
+        }
+      ],
+      "diagnosticNotation": "[6, [0, {h'E1E1...': 1000000}]]",
+      "shouldSucceed": true,
+      "complexity": "complex",
+      "tags": [
+        "cardano",
+        "certificate",
+        "mir",
+        "treasury"
+      ],
+      "cardanoRelevance": "Move instantaneous rewards (MIR) certificate",
+      "notes": "Type 6: Transfer from treasury/reserves to stake credentials"
+    },
+    {
+      "id": "cert-stake-reg-deposit-conway",
+      "category": "certificates",
+      "description": "Stake registration with deposit (Conway)",
+      "inputHex": "83078200581c555555555555555555555555555555555555555555555555555555551a001e8480",
+      "expectedOutput": [
+        7,
+        [
+          0,
+          "55555555555555555555555555555555555555555555555555555555"
+        ],
+        2000000
+      ],
+      "diagnosticNotation": "[7, [0, h'E1C6...'], 2000000]",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "certificate",
+        "stake-registration",
+        "conway",
+        "deposit"
+      ],
+      "cardanoRelevance": "Conway-era stake registration with explicit deposit",
+      "notes": "Type 7: Register with deposit amount (Conway governance update)"
+    },
+    {
+      "id": "cert-stake-dereg-deposit-conway",
+      "category": "certificates",
+      "description": "Stake deregistration with deposit refund (Conway)",
+      "inputHex": "83088200581c666666666666666666666666666666666666666666666666666666661a001e8480",
+      "expectedOutput": [
+        8,
+        [
+          0,
+          "66666666666666666666666666666666666666666666666666666666"
+        ],
+        2000000
+      ],
+      "diagnosticNotation": "[8, [0, h'E1C6...'], 2000000]",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "certificate",
+        "stake-deregistration",
+        "conway",
+        "deposit"
+      ],
+      "cardanoRelevance": "Conway-era stake deregistration with deposit refund",
+      "notes": "Type 8: Deregister with deposit refund (Conway)"
+    },
+    {
+      "id": "cert-vote-delegation",
+      "category": "certificates",
+      "description": "Vote delegation certificate (Conway)",
+      "inputHex": "83098200581c777777777777777777777777777777777777777777777777777777778200581c88888888888888888888888888888888888888888888888888888888",
+      "expectedOutput": [
+        9,
+        [
+          0,
+          "77777777777777777777777777777777777777777777777777777777"
+        ],
+        [
+          0,
+          "88888888888888888888888888888888888888888888888888888888"
+        ]
+      ],
+      "diagnosticNotation": "[9, [0, h'E1C6...'], [0, h'1111...']]",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "certificate",
+        "vote-delegation",
+        "conway",
+        "governance"
+      ],
+      "cardanoRelevance": "Delegate voting power to DRep (Conway governance)",
+      "notes": "Type 9: Vote delegation (Conway era)"
+    },
+    {
+      "id": "cert-stake-vote-delegation",
+      "category": "certificates",
+      "description": "Combined stake and vote delegation (Conway)",
+      "inputHex": "840a8200581c99999999999999999999999999999999999999999999999999999999581caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa8200581cbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "expectedOutput": [
+        10,
+        [
+          0,
+          "99999999999999999999999999999999999999999999999999999999"
+        ],
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        [
+          0,
+          "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        ]
+      ],
+      "diagnosticNotation": "[10, [0, h'E1C6...'], h'AA...', [0, h'2222...']]",
+      "shouldSucceed": true,
+      "complexity": "complex",
+      "tags": [
+        "cardano",
+        "certificate",
+        "stake-delegation",
+        "vote-delegation",
+        "conway"
+      ],
+      "cardanoRelevance": "Combined stake pool and DRep delegation (Conway)",
+      "notes": "Type 10: Delegate both staking and voting (Conway efficiency)"
+    },
+    {
+      "id": "cert-drep-registration",
+      "category": "certificates",
+      "description": "DRep registration certificate (Conway)",
+      "inputHex": "840b8200581ccccccccccccccccccccccccccccccccccccccccccccccccccccccccc1a1dcd6500f6",
+      "expectedOutput": [
+        11,
+        [
+          0,
+          "cccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        ],
+        500000000,
+        null
+      ],
+      "diagnosticNotation": "[11, [0, h'3333...'], h'6161...']",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "certificate",
+        "drep-registration",
+        "conway",
+        "governance"
+      ],
+      "cardanoRelevance": "Register as Delegated Representative (DRep) - Conway",
+      "notes": "Type 11: DRep registration (Conway governance)"
+    },
+    {
+      "id": "cert-drep-deregistration",
+      "category": "certificates",
+      "description": "DRep deregistration certificate (Conway)",
+      "inputHex": "830c8200581cdddddddddddddddddddddddddddddddddddddddddddddddddddddddd1a1dcd6500",
+      "expectedOutput": [
+        12,
+        [
+          0,
+          "dddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+        ],
+        500000000
+      ],
+      "diagnosticNotation": "[12, [0, h'3333...'], 2000000]",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "certificate",
+        "drep-deregistration",
+        "conway",
+        "governance"
+      ],
+      "cardanoRelevance": "Deregister DRep and reclaim deposit",
+      "notes": "Type 12: DRep deregistration (Conway)"
+    },
+    {
+      "id": "cert-drep-update",
+      "category": "certificates",
+      "description": "DRep update certificate (Conway)",
+      "inputHex": "830d8200581cffffffffffffffffffffffffffffffffffffffffffffffffffffffff82782668747470733a2f2f647265702e6578616d706c652e636f6d2f6d657461646174612e6a736f6e5820eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "expectedOutput": [
+        13,
+        [
+          0,
+          "ffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+        ],
+        [
+          "https://drep.example.com/metadata.json",
+          "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+        ]
+      ],
+      "diagnosticNotation": "[13, [0, h'1111...']]",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "certificate",
+        "drep-update",
+        "conway",
+        "governance"
+      ],
+      "cardanoRelevance": "Update DRep metadata/anchor",
+      "notes": "Type 13: DRep update (Conway)"
+    },
+    {
+      "id": "cert-committee-hot-auth",
+      "category": "certificates",
+      "description": "Constitutional committee hot key authorization (Conway)",
+      "inputHex": "830e8200581caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa8200581cbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "expectedOutput": [
+        14,
+        [
+          0,
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        ],
+        [
+          0,
+          "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        ]
+      ],
+      "diagnosticNotation": "[14, [0, h'4444...'], [0, h'5555...']]",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "cardano",
+        "certificate",
+        "committee",
+        "conway",
+        "governance"
+      ],
+      "cardanoRelevance": "Authorize committee hot key (Conway governance)",
+      "notes": "Type 14: Committee cold key authorizes hot key (Conway)"
+    },
+    {
+      "id": "cert-committee-resignation",
+      "category": "certificates",
+      "description": "Constitutional committee member resignation (Conway)",
+      "inputHex": "830f8200581cccccccccccccccccccccccccccccccccccccccccccccccccccccccccf6",
+      "expectedOutput": [
+        15,
+        [
+          0,
+          "cccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        ],
+        null
+      ],
+      "diagnosticNotation": "[15, [0, h'4444...']]",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "cardano",
+        "certificate",
+        "committee",
+        "resignation",
+        "conway"
+      ],
+      "cardanoRelevance": "Committee member resignation (Conway governance)",
+      "notes": "Type 15: Committee resignation (Conway)"
+    },
+    {
+      "id": "cert-stake-pool-params",
+      "category": "certificates",
+      "description": "Complete pool registration with full parameters",
+      "inputHex": "8a03581caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa5820bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb82011864581fe1e1cccccccccccccccccccccccccccccccccccccccccccccccccccccccccc1a3b9aca001b000000e8d4a5100081581c6666666666666666666666666666666666666666666666666666666681820170706f6f6c2e6578616d706c652e636f6d826f68747470733a2f2f706f6f6c2e696f58207777777777777777777777777777777777777777777777777777777777777777",
+      "expectedOutput": [
+        3,
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        [
+          1,
+          100
+        ],
+        "e1e1cccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        1000000000,
+        1000000000000,
+        [
+          "66666666666666666666666666666666666666666666666666666666"
+        ],
+        [
+          [
+            1,
+            "pool.example.com"
+          ]
+        ],
+        [
+          "https://pool.io",
+          "7777777777777777777777777777777777777777777777777777777777777777"
+        ]
+      ],
+      "diagnosticNotation": "[3, h'AA...', h'BB...', [1, 100], h'E1...', 1000000000, 1000000000000, [h'6666...'], [[1, h'68747470...'], h'7777...'], null]",
+      "shouldSucceed": true,
+      "complexity": "extreme",
+      "tags": [
+        "cardano",
+        "certificate",
+        "pool-registration",
+        "complete"
+      ],
+      "cardanoRelevance": "Full pool registration with relay and metadata",
+      "notes": "Includes pool operators, relay info, and metadata anchor"
+    },
+    {
+      "id": "cert-stake-reg-and-delegation",
+      "category": "certificates",
+      "description": "Stake registration followed by delegation (common pattern)",
+      "inputHex": "8282008200581c1111111111111111111111111111111111111111111111111111111183028200581c11111111111111111111111111111111111111111111111111111111581caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "expectedOutput": [
+        [
+          0,
+          [
+            0,
+            "11111111111111111111111111111111111111111111111111111111"
+          ]
+        ],
+        [
+          2,
+          [
+            0,
+            "11111111111111111111111111111111111111111111111111111111"
+          ],
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        ]
+      ],
+      "diagnosticNotation": "[[0, [0, h'E1C6...']], [2, [0, h'E1C6...'], h'AA...']]",
+      "shouldSucceed": true,
+      "complexity": "complex",
+      "tags": [
+        "cardano",
+        "certificate",
+        "stake-registration",
+        "delegation",
+        "combined"
+      ],
+      "cardanoRelevance": "Common pattern: register and delegate in single transaction",
+      "notes": "Array of certificates - register then delegate stake"
+    },
+    {
+      "id": "cert-multiple-pool-delegations",
+      "category": "certificates",
+      "description": "Multiple stake delegations (multi-account wallet)",
+      "inputHex": "8383028200581c11111111111111111111111111111111111111111111111111111111581caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa83028200581c22222222222222222222222222222222222222222222222222222222581cbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb83028200581c33333333333333333333333333333333333333333333333333333333581ccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "expectedOutput": [
+        [
+          2,
+          [
+            0,
+            "11111111111111111111111111111111111111111111111111111111"
+          ],
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        ],
+        [
+          2,
+          [
+            0,
+            "22222222222222222222222222222222222222222222222222222222"
+          ],
+          "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        ],
+        [
+          2,
+          [
+            0,
+            "33333333333333333333333333333333333333333333333333333333"
+          ],
+          "cccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        ]
+      ],
+      "diagnosticNotation": "[[2, [0, h'1111...'], h'AA...'], [2, [0, h'2222...'], h'BB...'], [2, [0, h'3333...'], h'CC...']]",
+      "shouldSucceed": true,
+      "complexity": "complex",
+      "tags": [
+        "cardano",
+        "certificate",
+        "delegation",
+        "multiple",
+        "multi-account"
+      ],
+      "cardanoRelevance": "Multi-account wallet delegating to different pools",
+      "notes": "Array of delegation certificates for different stake keys"
+    }
+  ]
+}

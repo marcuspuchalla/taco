@@ -1,0 +1,589 @@
+{
+  "category": "plutus-data",
+  "description": "Cardano Plutus Data Encoding Tests",
+  "version": "1.0",
+  "testCases": [
+    {
+      "id": "plutus-constructor-0-empty",
+      "category": "plutus-data",
+      "description": "Constructor 0 with no fields",
+      "inputHex": "d87980",
+      "expectedOutput": {
+        "constructor": 0,
+        "fields": []
+      },
+      "diagnosticNotation": "121([])",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "plutus",
+        "constructor",
+        "tag-121"
+      ],
+      "cardanoRelevance": "Plutus Data constructor alternative 0 (compact encoding)"
+    },
+    {
+      "id": "plutus-constructor-0-single-field",
+      "category": "plutus-data",
+      "description": "Constructor 0 with single integer field",
+      "inputHex": "d87981182a",
+      "expectedOutput": {
+        "constructor": 0,
+        "fields": [
+          42
+        ]
+      },
+      "diagnosticNotation": "121([42])",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "plutus",
+        "constructor",
+        "tag-121"
+      ]
+    },
+    {
+      "id": "plutus-constructor-0-multiple-fields",
+      "category": "plutus-data",
+      "description": "Constructor 0 with multiple fields: [1, 2, 3]",
+      "inputHex": "d87983010203",
+      "expectedOutput": {
+        "constructor": 0,
+        "fields": [
+          1,
+          2,
+          3
+        ]
+      },
+      "diagnosticNotation": "121([1, 2, 3])",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "plutus",
+        "constructor",
+        "tag-121"
+      ],
+      "cardanoRelevance": "Common pattern for simple Plutus datums"
+    },
+    {
+      "id": "plutus-constructor-1",
+      "category": "plutus-data",
+      "description": "Constructor 1 with fields",
+      "inputHex": "d87a810a",
+      "expectedOutput": {
+        "constructor": 1,
+        "fields": [
+          10
+        ]
+      },
+      "diagnosticNotation": "122([10])",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "plutus",
+        "constructor",
+        "tag-122"
+      ],
+      "cardanoRelevance": "Plutus Data constructor alternative 1"
+    },
+    {
+      "id": "plutus-constructor-2",
+      "category": "plutus-data",
+      "description": "Constructor 2 with fields",
+      "inputHex": "d87b8114",
+      "expectedOutput": {
+        "constructor": 2,
+        "fields": [
+          20
+        ]
+      },
+      "diagnosticNotation": "123([20])",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "plutus",
+        "constructor",
+        "tag-123"
+      ],
+      "cardanoRelevance": "Plutus Data constructor alternative 2"
+    },
+    {
+      "id": "plutus-constructor-3",
+      "category": "plutus-data",
+      "description": "Constructor 3 with fields",
+      "inputHex": "d87c81181e",
+      "expectedOutput": {
+        "constructor": 3,
+        "fields": [
+          30
+        ]
+      },
+      "diagnosticNotation": "124([30])",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "plutus",
+        "constructor",
+        "tag-124"
+      ],
+      "cardanoRelevance": "Plutus Data constructor alternative 3"
+    },
+    {
+      "id": "plutus-constructor-4",
+      "category": "plutus-data",
+      "description": "Constructor 4 with fields",
+      "inputHex": "d87d811828",
+      "expectedOutput": {
+        "constructor": 4,
+        "fields": [
+          40
+        ]
+      },
+      "diagnosticNotation": "125([40])",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "plutus",
+        "constructor",
+        "tag-125"
+      ],
+      "cardanoRelevance": "Plutus Data constructor alternative 4"
+    },
+    {
+      "id": "plutus-constructor-5",
+      "category": "plutus-data",
+      "description": "Constructor 5 with fields",
+      "inputHex": "d87e811832",
+      "expectedOutput": {
+        "constructor": 5,
+        "fields": [
+          50
+        ]
+      },
+      "diagnosticNotation": "126([50])",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "plutus",
+        "constructor",
+        "tag-126"
+      ],
+      "cardanoRelevance": "Plutus Data constructor alternative 5"
+    },
+    {
+      "id": "plutus-constructor-6",
+      "category": "plutus-data",
+      "description": "Constructor 6 with fields",
+      "inputHex": "d87f81183c",
+      "expectedOutput": {
+        "constructor": 6,
+        "fields": [
+          60
+        ]
+      },
+      "diagnosticNotation": "127([60])",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "plutus",
+        "constructor",
+        "tag-127"
+      ],
+      "cardanoRelevance": "Plutus Data constructor alternative 6"
+    },
+    {
+      "id": "plutus-constructor-7-general",
+      "category": "plutus-data",
+      "description": "Constructor 7 using general form (tag 102)",
+      "inputHex": "d8668207811864",
+      "expectedOutput": {
+        "constructor": 7,
+        "fields": [
+          100
+        ]
+      },
+      "diagnosticNotation": "102([7, [100]])",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "plutus",
+        "constructor",
+        "tag-102",
+        "general"
+      ],
+      "cardanoRelevance": "General constructor form for alternatives >= 7"
+    },
+    {
+      "id": "plutus-constructor-100-general",
+      "category": "plutus-data",
+      "description": "Constructor 100 using general form",
+      "inputHex": "d866821864820102",
+      "expectedOutput": {
+        "constructor": 100,
+        "fields": [
+          1,
+          2
+        ]
+      },
+      "diagnosticNotation": "102([100, [1, 2]])",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "plutus",
+        "constructor",
+        "tag-102",
+        "general"
+      ]
+    },
+    {
+      "id": "plutus-list-empty",
+      "category": "plutus-data",
+      "description": "Plutus Data list: []",
+      "inputHex": "80",
+      "expectedOutput": [],
+      "diagnosticNotation": "[]",
+      "shouldSucceed": true,
+      "complexity": "trivial",
+      "tags": [
+        "plutus",
+        "list"
+      ],
+      "cardanoRelevance": "Plutus Data list variant (one of 5 variants)"
+    },
+    {
+      "id": "plutus-list-integers",
+      "category": "plutus-data",
+      "description": "Plutus Data list of integers: [1, 2, 3, 4, 5]",
+      "inputHex": "850102030405",
+      "expectedOutput": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "diagnosticNotation": "[1, 2, 3, 4, 5]",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "plutus",
+        "list"
+      ]
+    },
+    {
+      "id": "plutus-list-nested",
+      "category": "plutus-data",
+      "description": "Plutus Data nested list: [[1, 2], [3, 4]]",
+      "inputHex": "82820102820304",
+      "expectedOutput": [
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "diagnosticNotation": "[[1, 2], [3, 4]]",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "plutus",
+        "list",
+        "nested"
+      ]
+    },
+    {
+      "id": "plutus-map-empty",
+      "category": "plutus-data",
+      "description": "Plutus Data map: {}",
+      "inputHex": "a0",
+      "expectedOutput": {},
+      "diagnosticNotation": "{}",
+      "shouldSucceed": true,
+      "complexity": "trivial",
+      "tags": [
+        "plutus",
+        "map"
+      ],
+      "cardanoRelevance": "Plutus Data map variant"
+    },
+    {
+      "id": "plutus-map-int-keys",
+      "category": "plutus-data",
+      "description": "Plutus Data map with integer keys: {0: 1, 1: 2}",
+      "inputHex": "a200010102",
+      "expectedOutput": {
+        "0": 1,
+        "1": 2
+      },
+      "diagnosticNotation": "{0: 1, 1: 2}",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "plutus",
+        "map"
+      ]
+    },
+    {
+      "id": "plutus-map-bytes-keys",
+      "category": "plutus-data",
+      "description": "Plutus Data map with byte string keys",
+      "inputHex": "a2420001186441ff18c8",
+      "expectedOutput": {
+        "0001": 100,
+        "ff": 200
+      },
+      "diagnosticNotation": "{h'0001': 100, h'FF': 200}",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "plutus",
+        "map",
+        "bytes-keys"
+      ],
+      "cardanoRelevance": "Byte string keys common in Plutus Data maps"
+    },
+    {
+      "id": "plutus-integer-small",
+      "category": "plutus-data",
+      "description": "Plutus Data integer: 42",
+      "inputHex": "182a",
+      "expectedOutput": 42,
+      "diagnosticNotation": "42",
+      "shouldSucceed": true,
+      "complexity": "trivial",
+      "tags": [
+        "plutus",
+        "integer"
+      ]
+    },
+    {
+      "id": "plutus-integer-bignum-positive",
+      "category": "plutus-data",
+      "description": "Plutus Data positive bignum: 2^64",
+      "inputHex": "c249010000000000000000",
+      "expectedOutput": "18446744073709551616",
+      "diagnosticNotation": "2(h'010000000000000000')",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "plutus",
+        "integer",
+        "bignum"
+      ],
+      "cardanoRelevance": "Plutus supports arbitrary-precision integers"
+    },
+    {
+      "id": "plutus-integer-bignum-negative",
+      "category": "plutus-data",
+      "description": "Plutus Data negative bignum: -2^64 - 1",
+      "inputHex": "c349010000000000000000",
+      "expectedOutput": "-18446744073709551617",
+      "diagnosticNotation": "3(h'010000000000000000')",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "plutus",
+        "integer",
+        "bignum",
+        "negative"
+      ]
+    },
+    {
+      "id": "plutus-bytes-empty",
+      "category": "plutus-data",
+      "description": "Plutus Data bounded bytes: empty",
+      "inputHex": "40",
+      "expectedOutput": "",
+      "diagnosticNotation": "h''",
+      "shouldSucceed": true,
+      "complexity": "trivial",
+      "tags": [
+        "plutus",
+        "bytes",
+        "bounded"
+      ],
+      "cardanoRelevance": "Plutus Data bytes must be 0-64 bytes"
+    },
+    {
+      "id": "plutus-bytes-32",
+      "category": "plutus-data",
+      "description": "Plutus Data bounded bytes: 32 bytes (hash)",
+      "inputHex": "5820abababababababababababababababababababababababababababababababab",
+      "expectedOutput": "abababababababababababababababababababababababababababababababab",
+      "diagnosticNotation": "h'ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB'",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "plutus",
+        "bytes",
+        "bounded",
+        "hash"
+      ],
+      "cardanoRelevance": "Transaction hashes, public key hashes in Plutus"
+    },
+    {
+      "id": "plutus-bytes-64-max",
+      "category": "plutus-data",
+      "description": "Plutus Data bounded bytes: 64 bytes (maximum)",
+      "inputHex": "5840ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "expectedOutput": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "diagnosticNotation": "h'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF...'",
+      "shouldSucceed": true,
+      "complexity": "simple",
+      "tags": [
+        "plutus",
+        "bytes",
+        "bounded",
+        "boundary"
+      ],
+      "cardanoRelevance": "Maximum byte string size in Plutus Data (CDDL constraint)"
+    },
+    {
+      "id": "plutus-bytes-over-64-invalid",
+      "category": "plutus-data",
+      "description": "Invalid: Plutus Data bytes exceeding 64 bytes",
+      "inputHex": "58410000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "expectedOutput": null,
+      "diagnosticNotation": "<invalid>",
+      "shouldSucceed": false,
+      "errorType": "invalid-tag-content",
+      "complexity": "moderate",
+      "tags": [
+        "plutus",
+        "bytes",
+        "bounded",
+        "negative-test"
+      ],
+      "cardanoRelevance": "Plutus Data CDDL constrains bytes to 0-64 length",
+      "notes": "Well-formed CBOR but invalid Plutus Data"
+    },
+    {
+      "id": "plutus-nested-constructor-in-list",
+      "category": "plutus-data",
+      "description": "Nested: List containing constructors",
+      "inputHex": "83d8798101d87a8102d87b8103",
+      "expectedOutput": [
+        {
+          "constructor": 0,
+          "fields": [
+            1
+          ]
+        },
+        {
+          "constructor": 1,
+          "fields": [
+            2
+          ]
+        },
+        {
+          "constructor": 2,
+          "fields": [
+            3
+          ]
+        }
+      ],
+      "diagnosticNotation": "[121([1]), 122([2]), 123([3])]",
+      "shouldSucceed": true,
+      "complexity": "complex",
+      "tags": [
+        "plutus",
+        "nested",
+        "constructor",
+        "list"
+      ],
+      "cardanoRelevance": "Common in validator redeemers with multiple actions"
+    },
+    {
+      "id": "plutus-nested-constructor-fields",
+      "category": "plutus-data",
+      "description": "Constructor with nested constructor fields",
+      "inputHex": "d87982d87a81182a1864",
+      "expectedOutput": {
+        "constructor": 0,
+        "fields": [
+          {
+            "constructor": 1,
+            "fields": [
+              42
+            ]
+          },
+          100
+        ]
+      },
+      "diagnosticNotation": "121([122([42]), 100])",
+      "shouldSucceed": true,
+      "complexity": "complex",
+      "tags": [
+        "plutus",
+        "nested",
+        "constructor"
+      ],
+      "cardanoRelevance": "Nested data structures in Plutus validators"
+    },
+    {
+      "id": "plutus-datum-vesting",
+      "category": "plutus-data",
+      "description": "Vesting contract datum: beneficiary + deadline",
+      "inputHex": "d87982581caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1a653afd80",
+      "expectedOutput": {
+        "constructor": 0,
+        "fields": [
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          1698364800
+        ]
+      },
+      "diagnosticNotation": "121([h'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', 1698364800])",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "plutus",
+        "datum",
+        "vesting",
+        "real-world"
+      ],
+      "cardanoRelevance": "Typical vesting contract datum structure"
+    },
+    {
+      "id": "plutus-redeemer-spend",
+      "category": "plutus-data",
+      "description": "Spend redeemer: signature provided",
+      "inputHex": "d879815840bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "expectedOutput": {
+        "constructor": 0,
+        "fields": [
+          "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        ]
+      },
+      "diagnosticNotation": "121([h'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB'])",
+      "shouldSucceed": true,
+      "complexity": "moderate",
+      "tags": [
+        "plutus",
+        "redeemer",
+        "spend",
+        "real-world"
+      ],
+      "cardanoRelevance": "Redeemer providing signature for spending"
+    },
+    {
+      "id": "plutus-cbor-in-cbor",
+      "category": "plutus-data",
+      "description": "Tag 24: Embedded Plutus Data",
+      "inputHex": "d81845d879820102",
+      "expectedOutput": "d879820102",
+      "diagnosticNotation": "24(h'D879820102')",
+      "shouldSucceed": true,
+      "complexity": "complex",
+      "tags": [
+        "plutus",
+        "cbor-in-cbor",
+        "tag-24"
+      ],
+      "cardanoRelevance": "Inline datum/redeemer encoding in transaction outputs",
+      "notes": "Inner CBOR should be decoded separately"
+    }
+  ]
+}
