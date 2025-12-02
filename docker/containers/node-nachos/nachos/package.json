@@ -20,7 +20,7 @@
     "typescript",
     "zero-dependencies"
   ],
-  "author": "Marcus Puchalla <marcus.puchalla@googlemail.com>",
+  "author": "Marcus Puchalla",
   "license": "GPL-3.0",
   "repository": {
     "type": "git",
