@@ -2,13 +2,10 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Copy the nachos library (will be mounted as volume or copied during build)
-COPY nachos /nachos
-
 # Copy package files
 COPY package.json ./
 
-# Install dependencies (nachos from local path)
+# Install dependencies from npm
 RUN npm install --production
 
 # Copy application

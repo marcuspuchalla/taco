@@ -4,6 +4,6 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@marcuspuchalla/nachos": "file:/nachos"
+    "@marcuspuchalla/nachos": "^0.1.0"
   }
 }
