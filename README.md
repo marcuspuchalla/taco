@@ -8,6 +8,8 @@
 
 > A comprehensive testing framework for validating CBOR encoder/decoder implementations
 
+> **Disclaimer:** The test framework may contain bugs that affect results. Libraries might perform better than shown here - any discrepancies are likely issues with my testing code, not the libraries themselves. If you spot issues, please [open a pull request](https://github.com/marcuspuchalla/taco/pulls). This project is under active development and I strive to treat every library fairly.
+
 [![CI](https://github.com/marcuspuchalla/taco/actions/workflows/ci.yml/badge.svg)](https://github.com/marcuspuchalla/taco/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Libraries](https://img.shields.io/badge/libraries-19-green.svg)](#libraries-tested)
