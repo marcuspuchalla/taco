@@ -10,7 +10,7 @@ import * as fs from 'fs';
 
 async function main() {
   console.log('═══════════════════════════════════════════════════════');
-  console.log('  CORE - @harmoniclabs/cbor');
+  console.log('  TACO - @harmoniclabs/cbor');
   console.log('═══════════════════════════════════════════════════════\n');
 
   const reportsDir = path.join(__dirname, '../reports');

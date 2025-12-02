@@ -830,5 +830,5 @@ try {
 ---
 
 **Version:** 1.0
-**Maintainer:** CORE Team
+**Maintainer:** TACO Team
 **License:** MIT

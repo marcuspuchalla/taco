@@ -10,7 +10,7 @@ import * as fs from 'fs';
 
 async function main() {
   console.log('═══════════════════════════════════════════════════════');
-  console.log('  CORE - cbor-sync');
+  console.log('  TACO - cbor-sync');
   console.log('═══════════════════════════════════════════════════════\n');
 
   const reportsDir = path.join(__dirname, '../reports');

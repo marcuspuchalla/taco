@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [1.0.0] - 2025-12-01
 
 ### Added
-- Initial release of CBOR Open Reference Evaluator (CORE)
+- Initial release of TACO's A CBOR Observer (TACO)
 - 358 test cases across core CBOR, Cardano, and edge cases
 - Docker-based testing infrastructure
 - Support for 18 CBOR libraries across 10 programming languages:

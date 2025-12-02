@@ -1,6 +1,6 @@
 /**
- * CORE Test Runner
- * Orchestrates tests across multiple CBOR library containers
+ * TACO Test Runner
+ * TACO's A CBOR Observer - Orchestrates tests across multiple CBOR library containers
  */
 
 import { readFile, readdir, writeFile, mkdir } from 'fs/promises';
@@ -380,7 +380,7 @@ function generateMarkdownReport(summary) {
   // Count languages
   const languages = new Set(summary.rankings.map(r => getLanguage(r.name)));
 
-  let md = `# CORE Test Results
+  let md = `# TACO Test Results
 
 > **⚠️ AUTO-GENERATED FILE - DO NOT EDIT**
 >
@@ -477,7 +477,7 @@ function generateReadmeTable(summary) {
  * Main entry point
  */
 async function main() {
-  console.log('CORE Test Runner');
+  console.log('TACO Test Runner');
   console.log('======================\n');
 
   // Wait for all containers

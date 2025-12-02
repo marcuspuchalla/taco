@@ -1,6 +1,6 @@
-# Contributing to CORE
+# Contributing to TACO
 
-Thank you for your interest in contributing to CORE (CBOR Open Reference Evaluator)!
+Thank you for your interest in contributing to TACO (TACO's A CBOR Observer)!
 
 ## Ways to Contribute
 

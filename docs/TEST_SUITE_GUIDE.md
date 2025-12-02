@@ -21,7 +21,7 @@
 
 ## Introduction
 
-CORE (CBOR Open Reference Evaluator) provides comprehensive test coverage for CBOR encoder/decoder implementations, with special emphasis on Cardano blockchain requirements. This guide explains how to use the test suite effectively.
+TACO (TACO's A CBOR Observer) provides comprehensive test coverage for CBOR encoder/decoder implementations, with special emphasis on Cardano blockchain requirements. This guide explains how to use the test suite effectively.
 
 ### Key Features
 
@@ -631,5 +631,5 @@ jobs:
 ---
 
 **Version:** 1.0
-**Maintainer:** CORE Team
+**Maintainer:** TACO Team
 **License:** MIT

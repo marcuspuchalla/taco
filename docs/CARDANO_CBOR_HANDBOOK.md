@@ -707,5 +707,5 @@ ex_units = [0, 0]
 ---
 
 **Version:** 1.0
-**Maintainer:** CORE Team
+**Maintainer:** TACO Team
 **License:** MIT

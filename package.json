@@ -1,7 +1,7 @@
 {
-  "name": "cbor-cardano-test-suite",
+  "name": "taco",
   "version": "1.0.0",
-  "description": "Comprehensive CBOR testing framework for Cardano ecosystem",
+  "description": "TACO - TACO's A CBOR Observer - Comprehensive CBOR testing framework",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -46,11 +46,11 @@
     "plutus",
     "rfc8949"
   ],
-  "author": "CORE Team",
+  "author": "Marcus Puchalla",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/your-org/cbor-cardano-test-suite.git"
+    "url": "git+https://github.com/marcuspuchalla/taco.git"
   },
   "devDependencies": {
     "@types/node": "^20.19.23",
@@ -69,9 +69,9 @@
     "test": "tests"
   },
   "bugs": {
-    "url": "https://github.com/your-org/cbor-cardano-test-suite/issues"
+    "url": "https://github.com/marcuspuchalla/taco/issues"
   },
-  "homepage": "https://github.com/your-org/cbor-cardano-test-suite#readme",
+  "homepage": "https://github.com/marcuspuchalla/taco#readme",
   "dependencies": {
     "@cdot/cbor": "^1.0.5",
     "@dcspark/cardano-multiplatform-lib-nodejs": "^6.2.0",

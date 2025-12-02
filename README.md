@@ -1,11 +1,19 @@
-# CORE - CBOR Open Reference Evaluator
+<p align="center">
+  <img src="assets/taco.jpg" alt="TACO Logo" height="242">
+</p>
 
-[![CI](https://github.com/marcuspuchalla/cbor-cardano-test-suite/actions/workflows/ci.yml/badge.svg)](https://github.com/marcuspuchalla/cbor-cardano-test-suite/actions/workflows/ci.yml)
+<h1 align="center">TACO</h1>
+
+<p align="center"><strong>TACO's A CBOR Observer</strong></p>
+
+> A comprehensive testing framework for validating CBOR encoder/decoder implementations
+
+[![CI](https://github.com/marcuspuchalla/taco/actions/workflows/ci.yml/badge.svg)](https://github.com/marcuspuchalla/taco/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Libraries](https://img.shields.io/badge/libraries-19-green.svg)](#libraries-tested)
 [![Languages](https://img.shields.io/badge/languages-10-orange.svg)](#libraries-tested)
 
-A comprehensive testing framework for validating CBOR encoder/decoder implementations, with test cases derived from the official RFC 8949 specification and real Cardano blockchain data.
+Test cases derived from the official RFC 8949 specification and real Cardano blockchain data.
 
 ## Why This Exists
 
@@ -15,7 +23,7 @@ I built a CBOR parser from scratch for educational purposes and needed a robust 
 2. **Library comparison** - Side-by-side results from 19 implementations across 10 languages
 3. **Edge case coverage** - Malformed input, canonical encoding, and boundary values
 
-> **Note:** The educational CBOR parser this suite was built to validate will be published soon.
+> **Note:** The educational CBOR parser this suite was built to validate is [NACHOS](https://github.com/marcuspuchalla/nachos) (Not Another CBOR Handling Object System).
 
 ## Quick Start
 
@@ -133,7 +141,7 @@ See existing containers in `docker/containers/` for reference implementations in
 ## Project Structure
 
 ```
-cbor-cardano-test-suite/
+taco/
 ├── docker/
 │   ├── containers/       # One folder per CBOR library
 │   ├── runner/           # Test orchestrator (Node.js)
@@ -148,6 +156,10 @@ cbor-cardano-test-suite/
 ## Requirements
 
 - **Docker** and **Docker Compose**
+
+## Related Projects
+
+- [NACHOS](https://github.com/marcuspuchalla/nachos) - Not Another CBOR Handling Object System (the CBOR library TACO was built to test)
 
 ## License
 

@@ -1,4 +1,4 @@
-# CORE - Docker Architecture
+# TACO - Docker Architecture
 
 This directory contains the Docker-based testing infrastructure for running CBOR library tests in isolated containers.
 

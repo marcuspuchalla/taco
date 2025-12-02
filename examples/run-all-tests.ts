@@ -21,7 +21,7 @@ import * as fs from 'fs';
 
 async function main() {
   console.log('═══════════════════════════════════════════════════════');
-  console.log('  CORE - Testing All Implementations');
+  console.log('  TACO - Testing All Implementations');
   console.log('  Total Libraries: 11 (6 original + 5 new CommonJS)');
   console.log('═══════════════════════════════════════════════════════\n');
 

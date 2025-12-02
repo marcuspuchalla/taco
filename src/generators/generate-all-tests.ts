@@ -1,5 +1,5 @@
 /**
- * Test Case Generator for CORE (CBOR Open Reference Evaluator)
+ * Test Case Generator for TACO (TACO's A CBOR Observer)
  * Generates comprehensive test cases for all CBOR types and Cardano-specific patterns
  */
 

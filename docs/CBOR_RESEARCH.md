@@ -3,7 +3,7 @@
 
 **Version:** 1.0
 **Date:** 2025-10-26
-**Author:** CORE Team
+**Author:** TACO Team
 
 ---
 
@@ -841,4 +841,4 @@ try {
 
 **Document Version**: 1.0
 **Last Updated**: 2025-10-26
-**Maintainer**: CORE Team
+**Maintainer**: TACO Team

@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# CORE - Docker Test Runner
+# TACO - Docker Test Runner
 # Usage: ./run-tests.sh [options]
 #
 # Options:
@@ -43,7 +43,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 echo "========================================"
-echo "  CORE - Docker Runner"
+echo "  TACO - Docker Runner"
 echo "========================================"
 echo ""
 
