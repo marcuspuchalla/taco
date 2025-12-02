@@ -1,5 +1,10 @@
-# Reports directory (generated)
-reports/
+# Reports directory (generated, except key files)
+reports/*.json
+
+# Keep these report files in git
+!reports/TEST_RESULTS.md
+!reports/README_TABLE.md
+!reports/summary.json
 
 # Docker build artifacts
 *.log

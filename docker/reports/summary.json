@@ -1,0 +1,311 @@
+{
+  "timestamp": "2025-12-02T16:52:53.197Z",
+  "containers": [
+    {
+      "name": "node-borc",
+      "total": 358,
+      "passed": 259,
+      "failed": 99,
+      "passRate": 72.35,
+      "duration": 918
+    },
+    {
+      "name": "node-cbor-x",
+      "total": 358,
+      "passed": 265,
+      "failed": 93,
+      "passRate": 74.02,
+      "duration": 745
+    },
+    {
+      "name": "node-cbor",
+      "total": 358,
+      "passed": 264,
+      "failed": 94,
+      "passRate": 73.74,
+      "duration": 826
+    },
+    {
+      "name": "node-cbor-js",
+      "total": 358,
+      "passed": 265,
+      "failed": 93,
+      "passRate": 74.02,
+      "duration": 572
+    },
+    {
+      "name": "node-cbor-redux",
+      "total": 358,
+      "passed": 252,
+      "failed": 106,
+      "passRate": 70.39,
+      "duration": 770
+    },
+    {
+      "name": "node-tiny-cbor",
+      "total": 358,
+      "passed": 44,
+      "failed": 314,
+      "passRate": 12.29,
+      "duration": 652
+    },
+    {
+      "name": "node-cbor-sync",
+      "total": 358,
+      "passed": 253,
+      "failed": 105,
+      "passRate": 70.67,
+      "duration": 585
+    },
+    {
+      "name": "node-cborg",
+      "total": 358,
+      "passed": 240,
+      "failed": 118,
+      "passRate": 67.04,
+      "duration": 536
+    },
+    {
+      "name": "node-dag-cbor",
+      "total": 358,
+      "passed": 217,
+      "failed": 141,
+      "passRate": 60.61,
+      "duration": 495
+    },
+    {
+      "name": "node-nachos",
+      "total": 358,
+      "passed": 260,
+      "failed": 98,
+      "passRate": 72.63,
+      "duration": 14618
+    },
+    {
+      "name": "python-cbor2",
+      "total": 358,
+      "passed": 286,
+      "failed": 72,
+      "passRate": 79.89,
+      "duration": 989
+    },
+    {
+      "name": "rust-ciborium",
+      "total": 358,
+      "passed": 268,
+      "failed": 90,
+      "passRate": 74.86,
+      "duration": 474
+    },
+    {
+      "name": "go-cbor",
+      "total": 358,
+      "passed": 255,
+      "failed": 103,
+      "passRate": 71.23,
+      "duration": 486
+    },
+    {
+      "name": "c-libcbor",
+      "total": 358,
+      "passed": 251,
+      "failed": 107,
+      "passRate": 70.11,
+      "duration": 793
+    },
+    {
+      "name": "java-cbor",
+      "total": 358,
+      "passed": 267,
+      "failed": 91,
+      "passRate": 74.58,
+      "duration": 8437
+    },
+    {
+      "name": "csharp-cbor",
+      "total": 358,
+      "passed": 265,
+      "failed": 93,
+      "passRate": 74.02,
+      "duration": 679
+    },
+    {
+      "name": "php-cbor",
+      "total": 358,
+      "passed": 209,
+      "failed": 149,
+      "passRate": 58.38,
+      "duration": 818
+    },
+    {
+      "name": "ruby-cbor",
+      "total": 358,
+      "passed": 262,
+      "failed": 96,
+      "passRate": 73.18,
+      "duration": 910
+    },
+    {
+      "name": "perl-cbor",
+      "total": 358,
+      "passed": 168,
+      "failed": 190,
+      "passRate": 46.93,
+      "duration": 1168
+    }
+  ],
+  "rankings": [
+    {
+      "name": "python-cbor2",
+      "total": 358,
+      "passed": 286,
+      "failed": 72,
+      "passRate": 79.89,
+      "duration": 989
+    },
+    {
+      "name": "rust-ciborium",
+      "total": 358,
+      "passed": 268,
+      "failed": 90,
+      "passRate": 74.86,
+      "duration": 474
+    },
+    {
+      "name": "java-cbor",
+      "total": 358,
+      "passed": 267,
+      "failed": 91,
+      "passRate": 74.58,
+      "duration": 8437
+    },
+    {
+      "name": "node-cbor-x",
+      "total": 358,
+      "passed": 265,
+      "failed": 93,
+      "passRate": 74.02,
+      "duration": 745
+    },
+    {
+      "name": "node-cbor-js",
+      "total": 358,
+      "passed": 265,
+      "failed": 93,
+      "passRate": 74.02,
+      "duration": 572
+    },
+    {
+      "name": "csharp-cbor",
+      "total": 358,
+      "passed": 265,
+      "failed": 93,
+      "passRate": 74.02,
+      "duration": 679
+    },
+    {
+      "name": "node-cbor",
+      "total": 358,
+      "passed": 264,
+      "failed": 94,
+      "passRate": 73.74,
+      "duration": 826
+    },
+    {
+      "name": "ruby-cbor",
+      "total": 358,
+      "passed": 262,
+      "failed": 96,
+      "passRate": 73.18,
+      "duration": 910
+    },
+    {
+      "name": "node-nachos",
+      "total": 358,
+      "passed": 260,
+      "failed": 98,
+      "passRate": 72.63,
+      "duration": 14618
+    },
+    {
+      "name": "node-borc",
+      "total": 358,
+      "passed": 259,
+      "failed": 99,
+      "passRate": 72.35,
+      "duration": 918
+    },
+    {
+      "name": "go-cbor",
+      "total": 358,
+      "passed": 255,
+      "failed": 103,
+      "passRate": 71.23,
+      "duration": 486
+    },
+    {
+      "name": "node-cbor-sync",
+      "total": 358,
+      "passed": 253,
+      "failed": 105,
+      "passRate": 70.67,
+      "duration": 585
+    },
+    {
+      "name": "node-cbor-redux",
+      "total": 358,
+      "passed": 252,
+      "failed": 106,
+      "passRate": 70.39,
+      "duration": 770
+    },
+    {
+      "name": "c-libcbor",
+      "total": 358,
+      "passed": 251,
+      "failed": 107,
+      "passRate": 70.11,
+      "duration": 793
+    },
+    {
+      "name": "node-cborg",
+      "total": 358,
+      "passed": 240,
+      "failed": 118,
+      "passRate": 67.04,
+      "duration": 536
+    },
+    {
+      "name": "node-dag-cbor",
+      "total": 358,
+      "passed": 217,
+      "failed": 141,
+      "passRate": 60.61,
+      "duration": 495
+    },
+    {
+      "name": "php-cbor",
+      "total": 358,
+      "passed": 209,
+      "failed": 149,
+      "passRate": 58.38,
+      "duration": 818
+    },
+    {
+      "name": "perl-cbor",
+      "total": 358,
+      "passed": 168,
+      "failed": 190,
+      "passRate": 46.93,
+      "duration": 1168
+    },
+    {
+      "name": "node-tiny-cbor",
+      "total": 358,
+      "passed": 44,
+      "failed": 314,
+      "passRate": 12.29,
+      "duration": 652
+    }
+  ]
+}

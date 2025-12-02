@@ -11,7 +11,7 @@
 > **Disclaimer:** The test framework may contain bugs that affect results. Libraries might perform better than shown here - any discrepancies are likely issues with my testing code, not the libraries themselves. If you spot issues, please [open a pull request](https://github.com/marcuspuchalla/taco/pulls). This project is under active development and I strive to treat every library fairly.
 
 [![CI](https://github.com/marcuspuchalla/taco/actions/workflows/ci.yml/badge.svg)](https://github.com/marcuspuchalla/taco/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-blue.svg)](LICENSE)
 [![Libraries](https://img.shields.io/badge/libraries-19-green.svg)](#libraries-tested)
 [![Languages](https://img.shields.io/badge/languages-10-orange.svg)](#libraries-tested)
 
@@ -48,18 +48,18 @@ For detailed Docker setup, troubleshooting, and architecture documentation, see 
 <!-- AUTO-GENERATED-RESULTS-START -->
 | Rank | Library | Language | Pass Rate |
 |------|---------|----------|-----------|
-| 🥇 1 | python-cbor2 | Python | **79.33%** |
-| 🥈 2 | node-cbor-x | Node.js | **76.54%** |
-| 🥉 3 | rust-ciborium | Rust | **75.98%** |
-|  4 | java-cbor | Java | **75.42%** |
-|  5 | node-cbor-js | Node.js | **75.14%** |
-|  6 | node-borc | Node.js | **74.86%** |
-|  7 | node-cbor | Node.js | **74.86%** |
-|  8 | csharp-cbor | C# | **74.86%** |
-|  9 | ruby-cbor | Ruby | **74.02%** |
-|  10 | go-cbor | Go | **73.74%** |
+| 🥇 1 | python-cbor2 | Python | **79.89%** |
+| 🥈 2 | rust-ciborium | Rust | **74.86%** |
+| 🥉 3 | java-cbor | Java | **74.58%** |
+|  4 | node-cbor-x | Node.js | **74.02%** |
+|  5 | node-cbor-js | Node.js | **74.02%** |
+|  6 | csharp-cbor | C# | **74.02%** |
+|  7 | node-cbor | Node.js | **73.74%** |
+|  8 | ruby-cbor | Ruby | **73.18%** |
+|  9 | node-nachos | Node.js | **72.63%** |
+|  10 | node-borc | Node.js | **72.35%** |
 
-*Full results with 19 libraries are generated in `docker/reports/TEST_RESULTS.md` after running the test suite*
+*See [docker/reports/TEST_RESULTS.md](docker/reports/TEST_RESULTS.md) for full results (19 libraries tested)*
 <!-- AUTO-GENERATED-RESULTS-END -->
 
 ### Libraries Tested
@@ -167,4 +167,4 @@ taco/
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) for details.
+GPL-3.0 License - see [LICENSE](LICENSE) for details.
