@@ -1,7 +1,7 @@
 {
   "name": "taco",
   "version": "1.0.0",
-  "description": "TACO - TACO's A CBOR Observer - Comprehensive CBOR testing framework",
+  "description": "TACO's A CBOR Observer - Comprehensive CBOR testing framework",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
