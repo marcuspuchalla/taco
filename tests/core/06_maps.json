@@ -39,7 +39,7 @@
       "id": "map-simple-text-keys",
       "category": "maps",
       "description": "Text keys: {\"a\": 1, \"b\": 2}",
-      "inputHex": "a2616101616202",
+      "inputHex": "a26161016162 02",
       "expectedOutput": {
         "a": 1,
         "b": 2
@@ -75,7 +75,7 @@
       "id": "map-mixed-key-types",
       "category": "maps",
       "description": "Mixed key types: {1: \"a\", \"b\": 2}",
-      "inputHex": "a2016161616202",
+      "inputHex": "a201616161620 2",
       "expectedOutput": {
         "1": "a",
         "b": 2
@@ -92,7 +92,7 @@
       "id": "map-nested",
       "category": "maps",
       "description": "Nested map: {\"a\": {\"b\": 1}}",
-      "inputHex": "a16161a1616201",
+      "inputHex": "a16161a161620 1",
       "expectedOutput": {
         "a": {
           "b": 1
@@ -149,7 +149,7 @@
       "id": "map-canonical-sorted",
       "category": "maps",
       "description": "Canonically sorted keys: {\"aa\": 1, \"b\": 2}",
-      "inputHex": "a26162026261610101",
+      "inputHex": "a2616201626161 01",
       "expectedOutput": {
         "b": 2,
         "aa": 1
@@ -167,7 +167,7 @@
       "id": "map-non-canonical-unsorted",
       "category": "maps",
       "description": "Non-canonical: Unsorted keys",
-      "inputHex": "a262616101616202",
+      "inputHex": "a2626161016162 02",
       "expectedOutput": {
         "aa": 1,
         "b": 2
@@ -222,7 +222,7 @@
       "id": "map-truncated-odd-elements",
       "category": "maps",
       "description": "Malformed: Odd number of elements (key without value)",
-      "inputHex": "a16161",
+      "inputHex": "a1616 1",
       "expectedOutput": null,
       "diagnosticNotation": "<malformed>",
       "shouldSucceed": false,

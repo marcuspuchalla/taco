@@ -200,7 +200,7 @@
       "id": "bytes-nested-indefinite",
       "category": "byte-strings",
       "description": "Invalid: Nested indefinite byte strings",
-      "inputHex": "5f5f4101ff420203ff",
+      "inputHex": "5f5f4101ff42020 3ff",
       "expectedOutput": null,
       "diagnosticNotation": "<invalid>",
       "shouldSucceed": false,

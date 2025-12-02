@@ -98,7 +98,7 @@
       "id": "array-nested-2d",
       "category": "arrays",
       "description": "Nested 2D: [[1, 2], [3, 4]]",
-      "inputHex": "82820102820304",
+      "inputHex": "828201028203 04",
       "expectedOutput": [
         [
           1,
@@ -121,7 +121,7 @@
       "id": "array-nested-3d",
       "category": "arrays",
       "description": "Nested 3D: [[[1]]]",
-      "inputHex": "8181818101",
+      "inputHex": "818181 01",
       "expectedOutput": [
         [
           [

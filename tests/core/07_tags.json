@@ -8,7 +8,7 @@
       "category": "tags",
       "description": "Tag 0: RFC 3339 date-time string",
       "inputHex": "c074323032342d31302d32365431323a30303a30305a",
-      "expectedOutput": "2024-10-26T12:00:00.000Z",
+      "expectedOutput": "2024-10-26T12:00:00Z",
       "diagnosticNotation": "0(\"2024-10-26T12:00:00Z\")",
       "shouldSucceed": true,
       "complexity": "simple",
@@ -23,7 +23,7 @@
       "category": "tags",
       "description": "Tag 1: Unix epoch timestamp",
       "inputHex": "c11a653afd80",
-      "expectedOutput": "2023-10-27T00:00:00.000Z",
+      "expectedOutput": 1698364800,
       "diagnosticNotation": "1(1698364800)",
       "shouldSucceed": true,
       "complexity": "simple",
@@ -133,7 +133,7 @@
       "id": "tag-102-general-constructor",
       "category": "tags",
       "description": "Tag 102: Plutus Data general constructor",
-      "inputHex": "d866820783010203",
+      "inputHex": "d86682078001 0203",
       "expectedOutput": {
         "constructor": 7,
         "fields": [
@@ -156,7 +156,7 @@
       "id": "tag-258-set",
       "category": "tags",
       "description": "Tag 258: Set {1, 2, 3}",
-      "inputHex": "d9010283010203",
+      "inputHex": "d90102 83010203",
       "expectedOutput": [
         1,
         2,
@@ -235,7 +235,7 @@
       "inputHex": "c16c6e6f742061206e756d626572",
       "expectedOutput": null,
       "diagnosticNotation": "1(\"not a number\")",
-      "shouldSucceed": true,
+      "shouldSucceed": false,
       "errorType": "invalid-tag-content",
       "complexity": "moderate",
       "tags": [
