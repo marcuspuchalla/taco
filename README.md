@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/taco.jpg" alt="TACO Logo" height="242">
+  <img src="assets/taco1.jpg" alt="TACO Logo" height="200">
 </p>
 
 <h1 align="center">TACO</h1>
@@ -113,6 +113,10 @@ tests/
   "shouldSucceed": true
 }
 ```
+
+<p align="center">
+  <img src="assets/taco2.jpg" alt="TACO" height="180">
+</p>
 
 ## Adding Your Own Library
 
