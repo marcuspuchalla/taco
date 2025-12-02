@@ -1,0 +1,102 @@
+{
+  "name": "@marcuspuchalla/nachos",
+  "version": "0.1.0",
+  "description": "NACHOS - Not Another CBOR Handling Object System. RFC 8949 CBOR encoder/decoder with full source map support for interactive debugging. Zero dependencies, TypeScript, works in Node.js and browsers.",
+  "keywords": [
+    "nachos",
+    "cbor",
+    "codec",
+    "encoder",
+    "decoder",
+    "rfc8949",
+    "serialization",
+    "deserialization",
+    "cardano",
+    "blockchain",
+    "plutus",
+    "binary",
+    "parser",
+    "source-map",
+    "typescript",
+    "zero-dependencies"
+  ],
+  "author": "Marcus Puchalla <marcus.puchalla@googlemail.com>",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marcuspuchalla/nachos.git"
+  },
+  "bugs": {
+    "url": "https://github.com/marcuspuchalla/nachos/issues"
+  },
+  "homepage": "https://github.com/marcuspuchalla/nachos#readme",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./parser": {
+      "import": {
+        "types": "./dist/parser/index.d.ts",
+        "default": "./dist/parser/index.js"
+      },
+      "require": {
+        "types": "./dist/parser/index.d.ts",
+        "default": "./dist/parser/index.cjs"
+      }
+    },
+    "./encoder": {
+      "import": {
+        "types": "./dist/encoder/index.d.ts",
+        "default": "./dist/encoder/index.js"
+      },
+      "require": {
+        "types": "./dist/encoder/index.d.ts",
+        "default": "./dist/encoder/index.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "build:watch": "tsup --watch",
+    "type-check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint src --ext .ts",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@vitest/coverage-v8": "^2.1.8",
+    "tsup": "^8.0.0",
+    "typescript": "~5.6.3",
+    "vitest": "^2.1.8"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  }
+}

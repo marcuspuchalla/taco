@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/marcuspuchalla/cbor-cardano-test-suite/actions/workflows/ci.yml/badge.svg)](https://github.com/marcuspuchalla/cbor-cardano-test-suite/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Libraries](https://img.shields.io/badge/libraries-18-green.svg)](#libraries-tested)
+[![Libraries](https://img.shields.io/badge/libraries-19-green.svg)](#libraries-tested)
 [![Languages](https://img.shields.io/badge/languages-10-orange.svg)](#libraries-tested)
 
 A comprehensive testing framework for validating CBOR encoder/decoder implementations, with test cases derived from the official RFC 8949 specification and real Cardano blockchain data.
@@ -12,7 +12,7 @@ A comprehensive testing framework for validating CBOR encoder/decoder implementa
 I built a CBOR parser from scratch for educational purposes and needed a robust way to validate it. This test suite provides:
 
 1. **Parser validation** - Comprehensive test cases to verify correctness
-2. **Library comparison** - Side-by-side results from 18 implementations across 10 languages
+2. **Library comparison** - Side-by-side results from 19 implementations across 10 languages
 3. **Edge case coverage** - Malformed input, canonical encoding, and boundary values
 
 > **Note:** The educational CBOR parser this suite was built to validate will be published soon.
@@ -49,16 +49,16 @@ For detailed Docker setup, troubleshooting, and architecture documentation, see 
 |  9 | ruby-cbor | Ruby | **74.02%** |
 |  10 | go-cbor | Go | **73.74%** |
 
-*Full results with 18 libraries are generated in `docker/reports/TEST_RESULTS.md` after running the test suite*
+*Full results with 19 libraries are generated in `docker/reports/TEST_RESULTS.md` after running the test suite*
 <!-- AUTO-GENERATED-RESULTS-END -->
 
 ### Libraries Tested
 
-The test suite currently validates **18 libraries across 10 programming languages**:
+The test suite currently validates **19 libraries across 10 programming languages**:
 
 | Language | Libraries | Notes |
 |----------|-----------|-------|
-| **Node.js** | borc, cbor-x, cbor, cbor-js, cbor-redux, tiny-cbor, cbor-sync, cborg, dag-cbor | cbor-x offers best performance |
+| **Node.js** | borc, cbor-x, cbor, cbor-js, cbor-redux, tiny-cbor, cbor-sync, cborg, dag-cbor, nachos | cbor-x offers best performance |
 | **Python** | [cbor2](https://github.com/agronholm/cbor2) | Most popular Python CBOR library (~220 stars) |
 | **Rust** | [ciborium](https://github.com/enarx/ciborium) | Active Serde-based implementation |
 | **Go** | [fxamacker/cbor](https://github.com/fxamacker/cbor) | Production-quality, used by Kubernetes |

@@ -111,6 +111,18 @@ services:
       retries: 10
       start_period: 10s
 
+  node-nachos:
+    build:
+      context: ./containers/node-nachos
+    networks:
+      - cbor-test-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:8080/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
   # node-cbor-decoder is commented out because it requires a local volume mount
   # to the unpublished cbor_decoder library. To test your own library locally,
   # uncomment this and update the volume path to point to your library.
@@ -298,6 +310,8 @@ services:
         condition: service_healthy
       node-dag-cbor:
         condition: service_healthy
+      node-nachos:
+        condition: service_healthy
       python-cbor2:
         condition: service_healthy
       rust-ciborium:
@@ -317,7 +331,7 @@ services:
       perl-cbor:
         condition: service_healthy
     environment:
-      - CONTAINERS=node-borc:8080,node-cbor-x:8080,node-cbor:8080,node-cbor-js:8080,node-cbor-redux:8080,node-tiny-cbor:8080,node-cbor-sync:8080,node-cborg:8080,node-dag-cbor:8080,python-cbor2:8080,rust-ciborium:8080,go-cbor:8080,c-libcbor:8080,java-cbor:8080,csharp-cbor:8080,php-cbor:8080,ruby-cbor:8080,perl-cbor:8080
+      - CONTAINERS=node-borc:8080,node-cbor-x:8080,node-cbor:8080,node-cbor-js:8080,node-cbor-redux:8080,node-tiny-cbor:8080,node-cbor-sync:8080,node-cborg:8080,node-dag-cbor:8080,node-nachos:8080,python-cbor2:8080,rust-ciborium:8080,go-cbor:8080,c-libcbor:8080,java-cbor:8080,csharp-cbor:8080,php-cbor:8080,ruby-cbor:8080,perl-cbor:8080
       - TEST_DIR=/tests
       - REPORT_DIR=/reports
       - TIMEOUT_MS=5000

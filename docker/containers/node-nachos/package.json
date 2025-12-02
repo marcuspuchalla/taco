@@ -1,0 +1,9 @@
+{
+  "name": "cbor-test-node-nachos",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@marcuspuchalla/nachos": "file:/nachos"
+  }
+}
