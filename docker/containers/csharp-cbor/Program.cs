@@ -12,6 +12,7 @@ class Server
     const int Port = 8080;
     const string LibraryName = "PeterO.Cbor";
     const string LibraryVersion = "4.5.5";
+    const long MaxBodySize = 10 * 1024 * 1024; // 10MB limit
 
     static void Main(string[] args)
     {
@@ -66,6 +67,12 @@ class Server
 
     static void HandleDecode(HttpListenerRequest request, HttpListenerResponse response)
     {
+        if (request.ContentLength64 > MaxBodySize)
+        {
+            SendResponse(response, 413,
+                JsonSerializer.Serialize(new { success = false, error = "Request body too large (max 10MB)" }));
+            return;
+        }
         using var reader = new StreamReader(request.InputStream, request.ContentEncoding);
         var body = reader.ReadToEnd();
 
@@ -110,6 +117,12 @@ class Server
 
     static void HandleEncode(HttpListenerRequest request, HttpListenerResponse response)
     {
+        if (request.ContentLength64 > MaxBodySize)
+        {
+            SendResponse(response, 413,
+                JsonSerializer.Serialize(new { success = false, error = "Request body too large (max 10MB)" }));
+            return;
+        }
         using var reader = new StreamReader(request.InputStream, request.ContentEncoding);
         var body = reader.ReadToEnd();
 

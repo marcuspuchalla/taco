@@ -16,6 +16,7 @@ public class Server {
     private static final int PORT = 8080;
     private static final String LIBRARY_NAME = "PeterO.Cbor";
     private static final String LIBRARY_VERSION = "4.5.5";
+    private static final long MAX_BODY_SIZE = 10 * 1024 * 1024; // 10MB limit
 
     public static void main(String[] args) throws IOException {
         HttpServer server = HttpServer.create(new InetSocketAddress(PORT), 0);
@@ -219,6 +220,10 @@ public class Server {
     }
 
     private static String readBody(HttpExchange exchange) throws IOException {
+        long contentLength = Long.parseLong(exchange.getRequestHeaders().getFirst("Content-Length"));
+        if (contentLength > MAX_BODY_SIZE) {
+            throw new IOException("Request body too large (max 10MB)");
+        }
         try (BufferedReader reader = new BufferedReader(
                 new InputStreamReader(exchange.getRequestBody(), StandardCharsets.UTF_8))) {
             StringBuilder sb = new StringBuilder();

@@ -94,6 +94,50 @@ Integers outside JavaScript's safe integer range (-2^53+1 to 2^53-1) are represe
 }
 ```
 
+## Tag Semantics and Comparison
+
+The Docker runner interprets common tags into semantic values when matching against expected outputs. This section documents the expected behavior for different tag classes.
+
+### Semantic Tags (Interpreted)
+
+These tags are interpreted to their semantic meaning during comparison:
+
+| Tag | Name | Interpretation |
+|-----|------|----------------|
+| 0 | Date/Time String | Interpreted as ISO 8601 date string |
+| 1 | Epoch Timestamp | Interpreted as Unix epoch (seconds) |
+| 2 | Positive Bignum | Converted to BigInt/large integer string |
+| 3 | Negative Bignum | Converted to negative BigInt/large integer string |
+| 24 | Encoded CBOR | Nested CBOR bytes, decoded recursively |
+| 55799 | Self-Describe CBOR | Unwrapped, tag ignored for comparison |
+
+### Cardano/Plutus Tags (Preserved)
+
+These tags are specific to Cardano Plutus Data encoding and are preserved as tagged values:
+
+| Tag | Name | Behavior |
+|-----|------|----------|
+| 121-127 | Plutus Constructor 0-6 | Preserved as `{__cbor_tag__: N, __cbor_value__: [...]}` |
+| 102 | Plutus Alternative Constructor | Preserved, contains `[constructor_id, fields]` |
+| 1280-1400 | Extended Constructors | Preserved for constructors 7+ |
+
+### Set Tags (Unwrapped)
+
+| Tag | Name | Behavior |
+|-----|------|----------|
+| 258 | Set | Unwrapped to array for comparison |
+
+### Unknown Tags
+
+Tags not listed above are unwrapped to their contained value during comparison. Libraries that preserve unknown tags will still pass tests as long as the unwrapped value matches.
+
+### Implementation Notes
+
+1. **Tag-preserving libraries** should use the `__cbor_tag__` marker in JSON output
+2. **Semantic interpretation** happens in the test runner, not containers
+3. **Round-trip encoding** should preserve Plutus tags exactly
+4. **Comparison order**: Tags are interpreted before deep equality check
+
 ### Undefined
 ```json
 {"__cbor_undefined__": true}

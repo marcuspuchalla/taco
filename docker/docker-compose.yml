@@ -1,9 +1,23 @@
+x-service-hardening: &service-hardening
+  security_opt:
+    - no-new-privileges:true
+  cap_drop:
+    - ALL
+  read_only: true
+  tmpfs:
+    - /tmp
+  mem_limit: 512m
+  memswap_limit: 512m
+  cpus: 1.0
+  pids_limit: 100
+
 services:
   # ===========================================
   # Node.js CBOR Library Containers
   # ===========================================
 
   node-borc:
+    <<: *service-hardening
     build:
       context: ./containers/node-borc
     networks:
@@ -16,6 +30,7 @@ services:
       start_period: 10s
 
   node-cbor-x:
+    <<: *service-hardening
     build:
       context: ./containers/node-cbor-x
     networks:
@@ -28,6 +43,7 @@ services:
       start_period: 10s
 
   node-cbor:
+    <<: *service-hardening
     build:
       context: ./containers/node-cbor
     networks:
@@ -40,6 +56,7 @@ services:
       start_period: 10s
 
   node-cbor-js:
+    <<: *service-hardening
     build:
       context: ./containers/node-cbor-js
     networks:
@@ -52,6 +69,7 @@ services:
       start_period: 10s
 
   node-cbor-redux:
+    <<: *service-hardening
     build:
       context: ./containers/node-cbor-redux
     networks:
@@ -64,6 +82,7 @@ services:
       start_period: 10s
 
   node-tiny-cbor:
+    <<: *service-hardening
     build:
       context: ./containers/node-tiny-cbor
     networks:
@@ -76,6 +95,7 @@ services:
       start_period: 10s
 
   node-cbor-sync:
+    <<: *service-hardening
     build:
       context: ./containers/node-cbor-sync
     networks:
@@ -88,6 +108,7 @@ services:
       start_period: 10s
 
   node-cborg:
+    <<: *service-hardening
     build:
       context: ./containers/node-cborg
     networks:
@@ -100,6 +121,7 @@ services:
       start_period: 10s
 
   node-dag-cbor:
+    <<: *service-hardening
     build:
       context: ./containers/node-dag-cbor
     networks:
@@ -112,6 +134,7 @@ services:
       start_period: 10s
 
   node-nachos:
+    <<: *service-hardening
     build:
       context: ./containers/node-nachos
     networks:
@@ -145,6 +168,7 @@ services:
   # ===========================================
 
   python-cbor2:
+    <<: *service-hardening
     build:
       context: ./containers/python-cbor2
     networks:
@@ -161,6 +185,7 @@ services:
   # ===========================================
 
   rust-ciborium:
+    <<: *service-hardening
     build:
       context: ./containers/rust-ciborium
     networks:
@@ -177,6 +202,7 @@ services:
   # ===========================================
 
   go-cbor:
+    <<: *service-hardening
     build:
       context: ./containers/go-cbor
     networks:
@@ -193,6 +219,7 @@ services:
   # ===========================================
 
   c-libcbor:
+    <<: *service-hardening
     build:
       context: ./containers/c-libcbor
     networks:
@@ -209,6 +236,7 @@ services:
   # ===========================================
 
   java-cbor:
+    <<: *service-hardening
     build:
       context: ./containers/java-cbor
     networks:
@@ -225,6 +253,7 @@ services:
   # ===========================================
 
   csharp-cbor:
+    <<: *service-hardening
     build:
       context: ./containers/csharp-cbor
     networks:
@@ -241,6 +270,7 @@ services:
   # ===========================================
 
   php-cbor:
+    <<: *service-hardening
     build:
       context: ./containers/php-cbor
     networks:
@@ -257,6 +287,7 @@ services:
   # ===========================================
 
   ruby-cbor:
+    <<: *service-hardening
     build:
       context: ./containers/ruby-cbor
     networks:
@@ -273,6 +304,7 @@ services:
   # ===========================================
 
   perl-cbor:
+    <<: *service-hardening
     build:
       context: ./containers/perl-cbor
     networks:
@@ -289,6 +321,7 @@ services:
   # ===========================================
 
   test-runner:
+    <<: *service-hardening
     build:
       context: ./runner
     depends_on:

@@ -14,6 +14,7 @@ use Encode qw(decode_utf8);
 my $PORT = 8080;
 my $LIBRARY_NAME = 'CBOR::XS';
 my $LIBRARY_VERSION = '1.87';
+my $MAX_BODY_SIZE = 10 * 1024 * 1024;  # 10MB limit
 
 sub to_json_safe {
     my ($value) = @_;
@@ -207,6 +208,9 @@ sub parse_request {
 
     my $body = '';
     if (my $len = $headers{'content-length'}) {
+        if ($len > $MAX_BODY_SIZE) {
+            return { method => $method, path => $path, body => '', error => 'Request body too large (max 10MB)' };
+        }
         read($client, $body, $len);
     }
 
@@ -251,6 +255,14 @@ while (my $client = $server->accept()) {
 
     my $result;
     my $status = 200;
+
+    if ($request->{error}) {
+        $result = { success => JSON::XS::false, error => $request->{error} };
+        $status = 413;
+        send_response($client, $status, $result);
+        close($client);
+        next;
+    }
 
     if ($request->{method} eq 'GET' && $request->{path} eq '/health') {
         $result = handle_health();

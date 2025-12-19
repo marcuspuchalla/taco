@@ -18,6 +18,7 @@ const (
 	PORT            = ":8080"
 	LIBRARY_NAME    = "fxamacker-cbor"
 	LIBRARY_VERSION = "2.7.0"
+	MAX_BODY_SIZE   = 10 * 1024 * 1024 // 10MB limit
 )
 
 // toJsonSafe converts Go values to JSON-safe representations
@@ -197,6 +198,14 @@ func decodeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Check content length
+	if r.ContentLength > MAX_BODY_SIZE {
+		w.WriteHeader(http.StatusRequestEntityTooLarge)
+		json.NewEncoder(w).Encode(DecodeResponse{Success: false, Error: "Request body too large (max 10MB)"})
+		return
+	}
+	r.Body = http.MaxBytesReader(w, r.Body, MAX_BODY_SIZE)
+
 	var req DecodeRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -241,6 +250,14 @@ func encodeHandler(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(EncodeResponse{Success: false, Error: "Method not allowed"})
 		return
 	}
+
+	// Check content length
+	if r.ContentLength > MAX_BODY_SIZE {
+		w.WriteHeader(http.StatusRequestEntityTooLarge)
+		json.NewEncoder(w).Encode(EncodeResponse{Success: false, Error: "Request body too large (max 10MB)"})
+		return
+	}
+	r.Body = http.MaxBytesReader(w, r.Body, MAX_BODY_SIZE)
 
 	var req EncodeRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {

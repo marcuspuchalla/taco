@@ -15,6 +15,7 @@
 
 #define PORT 8080
 #define BUFFER_SIZE 1048576
+#define MAX_BODY_SIZE (10 * 1024 * 1024)  // 10MB limit
 #define LIBRARY_NAME "libcbor"
 #define LIBRARY_VERSION "0.11.0"
 
@@ -303,6 +304,17 @@ void handle_client(int client) {
     // Parse method and path
     char method[16], path[256];
     sscanf(buffer, "%15s %255s", method, path);
+
+    // Check Content-Length for size limit
+    char *cl_header = strstr(buffer, "Content-Length:");
+    if (cl_header) {
+        long content_length = strtol(cl_header + 15, NULL, 10);
+        if (content_length > MAX_BODY_SIZE) {
+            send_response(client, 413, "{\"success\":false,\"error\":\"Request body too large (max 10MB)\"}");
+            close(client);
+            return;
+        }
+    }
 
     // Find body (after double CRLF)
     char *body = strstr(buffer, "\r\n\r\n");

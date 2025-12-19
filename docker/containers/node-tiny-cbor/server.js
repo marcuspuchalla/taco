@@ -8,6 +8,7 @@ const tinyCbor = require('@levischuck/tiny-cbor');
 const PORT = 8080;
 const LIBRARY_NAME = 'tiny-cbor';
 const LIBRARY_VERSION = '0.3.2';
+const MAX_BODY_SIZE = 10 * 1024 * 1024; // 10MB limit
 
 function toJsonSafe(value) {
   if (value === undefined) return { __cbor_undefined__: true };
@@ -107,7 +108,16 @@ function encodeValue(value) {
 function parseBody(req) {
   return new Promise((resolve, reject) => {
     let body = '';
-    req.on('data', chunk => body += chunk);
+    let size = 0;
+    req.on('data', chunk => {
+      size += chunk.length;
+      if (size > MAX_BODY_SIZE) {
+        req.destroy();
+        reject(new Error('Request body too large (max 10MB)'));
+        return;
+      }
+      body += chunk;
+    });
     req.on('end', () => {
       try { resolve(JSON.parse(body)); }
       catch (e) { reject(new Error('Invalid JSON')); }

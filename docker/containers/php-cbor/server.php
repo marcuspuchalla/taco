@@ -22,6 +22,7 @@ use CBOR\IndefiniteLengthMapObject;
 const PORT = 8080;
 const LIBRARY_NAME = 'spomky-labs/cbor-php';
 const LIBRARY_VERSION = '3.1.0';
+const MAX_BODY_SIZE = 10 * 1024 * 1024; // 10MB limit
 
 function toJsonSafe($item) {
     if ($item === null) return null;
@@ -178,7 +179,19 @@ while ($conn = stream_socket_accept($socket, -1)) {
     // Get content length and read body
     $body = '';
     if (preg_match('/Content-Length:\s*(\d+)/i', $request, $clMatches)) {
-        $body = fread($conn, (int)$clMatches[1]);
+        $contentLength = (int)$clMatches[1];
+        if ($contentLength > MAX_BODY_SIZE) {
+            $json = json_encode(['success' => false, 'error' => 'Request body too large (max 10MB)']);
+            $httpResponse = "HTTP/1.1 413 Payload Too Large\r\n";
+            $httpResponse .= "Content-Type: application/json\r\n";
+            $httpResponse .= "Content-Length: " . strlen($json) . "\r\n";
+            $httpResponse .= "Connection: close\r\n\r\n";
+            $httpResponse .= $json;
+            fwrite($conn, $httpResponse);
+            fclose($conn);
+            continue;
+        }
+        $body = fread($conn, $contentLength);
     }
 
     // Route request

@@ -11,6 +11,7 @@ const PORT: u16 = 8080;
 const LIBRARY_NAME: &str = "ciborium";
 const LIBRARY_VERSION: &str = "0.2.2";
 const LANGUAGE: &str = "rust";
+const MAX_BODY_SIZE: usize = 10 * 1024 * 1024; // 10MB limit
 
 /// Convert CBOR Value to JSON-safe format with type markers
 fn cbor_to_json(value: Value) -> JsonValue {
@@ -227,7 +228,13 @@ fn main() {
             // Decode endpoint
             (&Method::Post, "/decode") => {
                 let mut body = String::new();
-                request.as_reader().read_to_string(&mut body).unwrap_or(0);
+                let bytes_read = request.as_reader().take(MAX_BODY_SIZE as u64 + 1).read_to_string(&mut body).unwrap_or(0);
+
+                if bytes_read > MAX_BODY_SIZE {
+                    let result = json!({"success": false, "error": "Request body too large (max 10MB)"});
+                    let _ = request.respond(Response::from_string(result.to_string()).with_header(content_type).with_status_code(413));
+                    continue;
+                }
 
                 let result = match serde_json::from_str::<JsonValue>(&body) {
                     Ok(json) => {
@@ -246,7 +253,13 @@ fn main() {
             // Encode endpoint
             (&Method::Post, "/encode") => {
                 let mut body = String::new();
-                request.as_reader().read_to_string(&mut body).unwrap_or(0);
+                let bytes_read = request.as_reader().take(MAX_BODY_SIZE as u64 + 1).read_to_string(&mut body).unwrap_or(0);
+
+                if bytes_read > MAX_BODY_SIZE {
+                    let result = json!({"success": false, "error": "Request body too large (max 10MB)"});
+                    let _ = request.respond(Response::from_string(result.to_string()).with_header(content_type).with_status_code(413));
+                    continue;
+                }
 
                 let result = match serde_json::from_str::<JsonValue>(&body) {
                     Ok(json) => {

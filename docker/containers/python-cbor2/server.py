@@ -16,6 +16,7 @@ PORT = 8080
 LIBRARY_NAME = 'cbor2'
 LIBRARY_VERSION = '5.6.5'
 LANGUAGE = 'python'
+MAX_BODY_SIZE = 10 * 1024 * 1024  # 10MB limit
 
 
 def to_json_safe(value: Any) -> Any:
@@ -183,6 +184,9 @@ class CBORHandler(BaseHTTPRequestHandler):
         """Handle POST requests."""
         try:
             content_length = int(self.headers.get('Content-Length', 0))
+            if content_length > MAX_BODY_SIZE:
+                self.send_json(413, {'success': False, 'error': 'Request body too large (max 10MB)'})
+                return
             body = self.rfile.read(content_length).decode()
             data = json.loads(body)
 

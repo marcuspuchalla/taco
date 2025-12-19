@@ -127,6 +127,8 @@ async function loadTestCases(testDir) {
 function deepEqual(actual, expected) {
   if (actual === expected) return true;
 
+  if (compareWithTags(actual, expected)) return true;
+
   // Handle NaN
   if (typeof actual === 'number' && typeof expected === 'number') {
     if (Number.isNaN(actual) && Number.isNaN(expected)) return true;
@@ -162,6 +164,86 @@ function deepEqual(actual, expected) {
   return false;
 }
 
+function isTagObject(value) {
+  return value &&
+    typeof value === 'object' &&
+    '__cbor_tag__' in value &&
+    '__cbor_value__' in value;
+}
+
+function compareWithTags(actual, expected) {
+  if (isTagObject(actual)) {
+    const actualSemantic = interpretTagValue(actual);
+    if (actualSemantic !== null && deepEqual(actualSemantic, expected)) {
+      return true;
+    }
+  }
+
+  if (isTagObject(expected)) {
+    const expectedSemantic = interpretTagValue(expected);
+    if (expectedSemantic !== null && deepEqual(actual, expectedSemantic)) {
+      return true;
+    }
+  }
+
+  if (isTagObject(actual) && isTagObject(expected)) {
+    return actual.__cbor_tag__ === expected.__cbor_tag__ &&
+      deepEqual(actual.__cbor_value__, expected.__cbor_value__);
+  }
+
+  return false;
+}
+
+function interpretTagValue(tagged) {
+  const tag = tagged.__cbor_tag__;
+  const value = tagged.__cbor_value__;
+
+  switch (tag) {
+    case 0:
+    case 1:
+    case 258:
+    case 55799:
+      return value;
+    case 2:
+      return bytesToBigIntString(value);
+    case 3: {
+      const magnitude = bytesToBigIntString(value);
+      if (magnitude === null) return null;
+      return (-1n - BigInt(magnitude)).toString();
+    }
+    case 24:
+      return value;
+    case 102:
+      if (Array.isArray(value) && value.length >= 2) {
+        return {
+          constructor: value[0],
+          fields: value[1]
+        };
+      }
+      return null;
+    case 121:
+    case 122:
+    case 123:
+    case 124:
+    case 125:
+    case 126:
+    case 127:
+      return {
+        constructor: tag - 121,
+        fields: value
+      };
+    default:
+      return value;
+  }
+}
+
+function bytesToBigIntString(value) {
+  if (typeof value !== 'string') return null;
+  if (value.length === 0) return '0';
+  if (!/^[0-9a-fA-F]+$/.test(value)) return null;
+  return BigInt(`0x${value}`).toString();
+}
+
 /**
  * Normalize result for comparison
  */
@@ -170,7 +252,7 @@ function normalizeResult(result) {
 
   // Handle byte string markers
   if (typeof result === 'object' && '__cbor_bytes__' in result) {
-    return result.__cbor_bytes__;
+    return String(result.__cbor_bytes__).toLowerCase();
   }
 
   // Handle float markers
@@ -185,8 +267,8 @@ function normalizeResult(result) {
   // Handle tag markers
   if (typeof result === 'object' && '__cbor_tag__' in result) {
     return {
-      tag: result.__cbor_tag__,
-      value: normalizeResult(result.__cbor_value__)
+      __cbor_tag__: result.__cbor_tag__,
+      __cbor_value__: normalizeResult(result.__cbor_value__)
     };
   }
 
@@ -207,6 +289,11 @@ function normalizeResult(result) {
   return result;
 }
 
+function normalizeHexInput(hexString) {
+  if (!hexString) return '';
+  return hexString.replace(/\s+/g, '').toLowerCase();
+}
+
 /**
  * Run a single test against a container
  */
@@ -219,7 +306,7 @@ async function runTest(container, testCase) {
       container.port,
       'POST',
       '/decode',
-      { hex: testCase.inputHex }
+      { hex: normalizeHexInput(testCase.inputHex) }
     );
 
     const duration = Date.now() - startTime;
@@ -260,7 +347,7 @@ async function runTest(container, testCase) {
     const normalizedExpected = normalizeResult(testCase.expectedOutput);
     const passed = deepEqual(normalizedActual, normalizedExpected);
 
-    return {
+    const baseResult = {
       testId: testCase.id,
       passed,
       actualOutput: normalizedActual,
@@ -269,6 +356,41 @@ async function runTest(container, testCase) {
       ...(passed ? {} : { error: 'Output mismatch' })
     };
 
+    if (!passed) {
+      return baseResult;
+    }
+
+    const encodeResponse = await request(
+      container.host,
+      container.port,
+      'POST',
+      '/encode',
+      { value: response.result }
+    );
+
+    if (!encodeResponse.success || !encodeResponse.hex) {
+      return {
+        ...baseResult,
+        passed: false,
+        error: encodeResponse.error || 'Encode failed after successful decode'
+      };
+    }
+
+    const encodedHex = normalizeHexInput(encodeResponse.hex);
+    const inputHex = normalizeHexInput(testCase.inputHex);
+
+    if (testCase.errorType === 'non-canonical' && encodedHex === inputHex) {
+      return {
+        ...baseResult,
+        passed: false,
+        error: 'Non-canonical encoding preserved by encoder'
+      };
+    }
+
+    return {
+      ...baseResult,
+      roundTripHex: encodedHex
+    };
   } catch (error) {
     return {
       testId: testCase.id,

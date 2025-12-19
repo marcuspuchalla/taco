@@ -8,6 +8,7 @@ require 'cbor'
 PORT = 8080
 LIBRARY_NAME = 'cbor-ruby'
 LIBRARY_VERSION = '0.5.9.8'
+MAX_BODY_SIZE = 10 * 1024 * 1024 # 10MB limit
 
 def to_json_safe(value)
   case value
@@ -160,7 +161,11 @@ def parse_http_request(client)
 
   body = ''
   if headers['content-length']
-    body = client.read(headers['content-length'].to_i)
+    content_length = headers['content-length'].to_i
+    if content_length > MAX_BODY_SIZE
+      return { method: method, path: path, headers: headers, body: nil, error: 'Request body too large (max 10MB)' }
+    end
+    body = client.read(content_length)
   end
 
   { method: method, path: path, headers: headers, body: body }
@@ -185,6 +190,11 @@ loop do
   begin
     request = parse_http_request(client)
     next unless request
+
+    if request[:error]
+      send_response(client, 413, { success: false, error: request[:error] })
+      next
+    end
 
     case [request[:method], request[:path]]
     when ['GET', '/health']
