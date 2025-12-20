@@ -111,15 +111,14 @@ These tags are interpreted to their semantic meaning during comparison:
 | 24 | Encoded CBOR | Nested CBOR bytes, decoded recursively |
 | 55799 | Self-Describe CBOR | Unwrapped, tag ignored for comparison |
 
-### Cardano/Plutus Tags (Preserved)
+### Cardano/Plutus Tags (Interpreted)
 
-These tags are specific to Cardano Plutus Data encoding and are preserved as tagged values:
+These tags are specific to Cardano Plutus Data encoding and are interpreted during comparison:
 
-| Tag | Name | Behavior |
-|-----|------|----------|
-| 121-127 | Plutus Constructor 0-6 | Preserved as `{__cbor_tag__: N, __cbor_value__: [...]}` |
-| 102 | Plutus Alternative Constructor | Preserved, contains `[constructor_id, fields]` |
-| 1280-1400 | Extended Constructors | Preserved for constructors 7+ |
+| Tag | Name | Interpretation |
+|-----|------|----------------|
+| 121-127 | Plutus Constructor 0-6 | Interpreted as `{constructor: N-121, fields: [...]}` |
+| 102 | Plutus Alternative Constructor | Interpreted as `{constructor: <id>, fields: [...]}` from `[constructor_id, fields]` |
 
 ### Set Tags (Unwrapped)
 
@@ -135,7 +134,7 @@ Tags not listed above are unwrapped to their contained value during comparison. 
 
 1. **Tag-preserving libraries** should use the `__cbor_tag__` marker in JSON output
 2. **Semantic interpretation** happens in the test runner, not containers
-3. **Round-trip encoding** should preserve Plutus tags exactly
+3. **Round-trip encoding** should preserve Plutus constructor semantics
 4. **Comparison order**: Tags are interpreted before deep equality check
 
 ### Undefined

@@ -13,10 +13,11 @@ This plan tracks audit findings, why each item matters, how to address it, and w
 | Done | Enforce non-canonical input detection via encode check | Prevents canonical-violating encoders from passing canonical tests | If `errorType` is `non-canonical`, fail when re-encoded hex matches the non-canonical input | `docker/runner/runner.js` |
 | Done | Harden container runtime defaults | Reduces container privilege and filesystem attack surface | Apply `no-new-privileges`, drop caps, read-only rootfs, and tmpfs for `/tmp` | `docker/docker-compose.yml` |
 | Done | Add request size limits in container servers | Prevents memory exhaustion from oversized JSON or hex payloads | Enforce max body size in each HTTP server (reject >10MB) | `docker/containers/**/server.*` |
-| Open | Pin container dependencies to exact versions and add lockfiles | Improves reproducibility and reduces supply-chain drift | Add lockfiles (npm/pip/gem/cargo/go) or pin exact versions and verify on build | `docker/containers/**` |
+| Done | Pin container dependencies to exact versions and add lockfiles | Improves reproducibility and reduces supply-chain drift | Add lockfiles (npm/gem/cargo/go/composer) and pin versions in manifests where applicable | `docker/containers/**` |
 | Open | Extend canonical testing beyond encode check | Better detects canonical encoding and ordering behavior | Add canonical expected hex outputs or a canonical encoder path for comparison | `tests/edge_cases/canonical.json`, `docker/runner/runner.js` |
 | Open | Validate tests prior to execution | Prevents malformed tests from silently passing through | Run the validator and surface warnings/errors before execution | `src/test-runner/index.ts` |
-| Done | Document tag expectations for semantic vs preserved tags | Avoids confusion for implementers across languages | Expand protocol notes and document required behavior per tag class | `docker/PROTOCOL.md`, `docs/` |
+| Done | Align tag semantics across protocol, runner, and tests | Prevents fairness regressions and mismatched expectations | Declare Plutus tags interpreted during comparison and align protocol with runner/test expectations | `docker/PROTOCOL.md` |
+| Open | Decide Tag 24 comparison behavior | Avoids inconsistent handling of embedded CBOR | Either decode embedded CBOR for comparison or document that tag 24 stays hex; align tests/runner/protocol | `docker/runner/runner.js`, `tests/core/07_tags.json`, `docker/PROTOCOL.md` |
 | Done | Consider resource limits for CPU/memory | Reduces DoS risk and improves reproducibility | Add `mem_limit`/`cpus`/`pids_limit` where feasible | `docker/docker-compose.yml` |
 
 ## Notes
@@ -24,4 +25,5 @@ This plan tracks audit findings, why each item matters, how to address it, and w
 - Non-canonical inputs are now flagged when an encoder preserves non-canonical forms.
 - All container servers now enforce a 10MB max body size limit.
 - Docker containers now have resource limits: 512MB memory, 1 CPU, 100 PIDs max.
-- PROTOCOL.md now includes detailed documentation for tag semantics (semantic vs preserved vs unwrapped).
+- PROTOCOL.md now includes detailed documentation for tag semantics (semantic vs interpreted vs unwrapped) aligned with the runner behavior.
+- Pending decision: Tag 24 handling (recursive decode vs hex preservation) remains open for future audit alignment.

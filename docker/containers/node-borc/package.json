@@ -7,6 +7,6 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "borc": "^3.0.0"
+    "borc": "3.0.0"
   }
 }

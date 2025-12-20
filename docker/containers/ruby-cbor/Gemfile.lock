@@ -1,0 +1,13 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    cbor (0.5.9.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  cbor (= 0.5.9)
+
+BUNDLED WITH
+   1.17.2

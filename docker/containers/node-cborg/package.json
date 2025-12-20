@@ -4,6 +4,10 @@
   "type": "module",
   "description": "CBOR test container using cborg library",
   "main": "server.js",
-  "scripts": { "start": "node server.js" },
-  "dependencies": { "cborg": "^4.2.18" }
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cborg": "4.2.18"
+  }
 }

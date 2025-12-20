@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "CBOR test container using node-cbor library",
   "main": "server.js",
-  "scripts": { "start": "node server.js" },
-  "dependencies": { "cbor": "^10.0.11" }
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cbor": "10.0.11"
+  }
 }
