@@ -7,7 +7,7 @@ COPY Gemfile ./
 # trips Alpine GCC 14's now-fatal -Werror=incompatible-pointer-types. Map the
 # removed constants to rb_cInteger and demote the strict checks to warnings so
 # the extension compiles on a modern Ruby/Alpine toolchain.
-ENV CFLAGS="-Drb_cFixnum=rb_cInteger -Drb_cBignum=rb_cInteger -Wno-incompatible-pointer-types -Wno-implicit-function-declaration -Wno-int-conversion"
+ENV CFLAGS="-Drb_cFixnum=rb_cInteger -Drb_cBignum=rb_cInteger -fpermissive -Wno-error=incompatible-pointer-types -Wno-error=implicit-function-declaration -Wno-error=int-conversion"
 RUN bundle install
 COPY server.rb ./
 EXPOSE 8080
