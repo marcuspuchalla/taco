@@ -7,8 +7,8 @@
 |  5 | node-cbor-js | Node.js | **74.02%** |
 |  6 | csharp-cbor | C# | **74.02%** |
 |  7 | node-cbor | Node.js | **73.74%** |
-|  8 | ruby-cbor | Ruby | **73.18%** |
-|  9 | node-borc | Node.js | **72.35%** |
-|  10 | node-nachos | Node.js | **72.07%** |
+|  8 | node-nachos | Node.js | **73.74%** |
+|  9 | ruby-cbor | Ruby | **73.18%** |
+|  10 | node-borc | Node.js | **72.35%** |
 
 *See [TEST_RESULTS.md](TEST_RESULTS.md) for full results (19 libraries tested)*

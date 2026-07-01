@@ -8,7 +8,7 @@ import { decode, encode } from '@marcuspuchalla/nachos';
 
 const PORT = 8080;
 const LIBRARY_NAME = 'nachos';
-const LIBRARY_VERSION = '0.1.0';
+const LIBRARY_VERSION = '0.3.0';
 const LANGUAGE = 'nodejs';
 const MAX_BODY_SIZE = 10 * 1024 * 1024; // 10MB limit
 
